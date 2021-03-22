@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Anatomy e Books</title>
+    
+    <!-- Remove the line -->
+    <link rel="stylesheet" href="spdfEdu.css" type="text/css" media="all" />
+    <!-- Remove the line -->
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@500&family=Averia+Serif+Libre:wght@700&family=Chango&family=Oswald&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/ea2137c334.js" crossorigin="anonymous"></script>
+    
+  </head>
+  <body>
+    <h1 id="bookPageheader"
+        onclick="location.href='http://bit.ly/medBooks'"> 
+      spdfEdu </h1>
+    <div class="bookPageShare" id="shareButton1"
+     onclick="share1" >
+     <i class="fas fa-share"></i>
+     </div>
+     
+    <p id="bookPageBookName"> 
+    BD Chaurasia's Human Anatomy</p><br />
+    <div class="bookPageVolume">
+      <img class="bookPageCover" src="https://i.postimg.cc/m2L1GvYK/BD-Chaurasia-s-Vol1-spdf-Edu.jpg" />
+      <p class="bookPageVolNo">Vol 1</p>
+      <p class="bookPageVolName"> Upper Limb &amp; Thorax </p>
+      <a class="bookPageDownload" href="https://drive.google.com/uc?id=10iNHPwnbAgIiUklUjUKrd19Yq3on385C&export=download">CLICK HERE TO DOWNLOAD</a>
+    </div><br /><br /><br />
+    
+    <div class="bookPageVolume">
+      <img class="bookPageCover" src="https://i.postimg.cc/NfwN1khQ/BD-Chaurasia-s-Vol2-spdf-Edu.jpg" />
+      <p class="bookPageVolNo">Vol 2</p>
+      <p class="bookPageVolName"> Lower limb, Abdomen &amp; Pelvis </p>
+      <a class="bookPageDownload" href="https://drive.google.com/uc?id=1kuJ7mGLIMjaiYc4z8FkbRd3d130kAME8&export=download">CLICK HERE TO DOWNLOAD</a>
+    </div><br /><br /><br />
+    
+    <div class="bookPageVolume">
+      <img class="bookPageCover" src="https://i.postimg.cc/QMNwckTF/BD-Chaurasia-s-Vol3-spdf-Edu.jpg" />
+      <p class="bookPageVolNo">Vol 3</p>
+      <p class="bookPageVolName"> Head, Neck &amp; Brain </p>
+      <a class="bookPageDownload" href="https://drive.google.com/uc?id=1Q10BDP1bMsPJvh2WZPqPtx7yGBqxeJyD&export=download">CLICK HERE TO DOWNLOAD</a>
+    </div><br /><br /><br />
+    
+    <script>
+     shareButton1.addEventListener("click", () => share1())
+     function share1() {
+      if (navigator.share) {
+         navigator.share({
+            text: document.getElementById("bookName").textContent+"  "
+                  +window.location.href })}}
+    </script>
+    <div id="box">
+      <div class="bookPageBubble" onclick="window.history.back();">
+      medBooks
+      </div>
+      <div class="bookPageBubble">
+      Home
+      </div>
+      <div class="bookPageBubble">
+      Back
+      </div>
+    </div>
+  </body>
+</html>
