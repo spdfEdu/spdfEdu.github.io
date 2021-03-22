@@ -48,7 +48,7 @@
 .volNo{
         color: rgb(145,66,232);
       }
-.down{
+.download{
         display: block;
         color: red;
         background-color: white;
@@ -59,7 +59,7 @@
         cursor: pointer;
         transition: 1s;
       }
-.down:hover{
+.download:hover{
         background-color: red;
         color: white;
       }
