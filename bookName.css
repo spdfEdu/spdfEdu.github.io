@@ -1,3 +1,12 @@
+body{
+        background-color: 
+          rgb(245,251,209);
+        background-image: 
+         linear-gradient(to right, 
+         rgb(219,169,250),
+         rgb(247,247,180),
+         rgb(219,169,250));
+      }
 #head{
       font-size: 210%;
       background: rgba(85,85,85,0.533);
