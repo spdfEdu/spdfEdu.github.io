@@ -1,4 +1,95 @@
-body{
-text-align: right;
-color: yellow;
-}
+#head{
+      font-size: 210%;
+      background: rgba(85,85,85,0.533);
+      text-align: center;
+      font-family: Serif;
+      color: black;
+      text-shadow: 1px 1px 2px black;
+      padding: 30px;
+      border: 2px solid 
+         rgba(85,85,85,0.533);
+      border-radius: 5px;
+      box-shadow:
+        1px 1px 20px 10px 
+        rgb(17,20,20) inset;
+      cursor: pointer;
+      transition: 2s ease-out;
+      }
+#head:hover{
+        font-size: 215%;
+        box-shadow: 1px 1px 20px 5px 
+        rgb(17,20,20) inset;
+      }
+.vol{
+        text-align: center;
+        font-size: 140%;
+      }
+.cover{
+        display: block;
+        margin: auto;
+        width: 60%;
+        height: auto;
+      }
+.cover:hover{
+        opacity: 0.6;
+      }
+.volName{
+        text-align: center;
+        line-height: 0.5;
+      }
+#bookName{
+        text-align: center;
+        line-height: 1;
+        font-weight: bold;
+        font-size: 25px;
+        font-family: 'Oswald', 
+                sans-serif;
+      }
+.volNo{
+        color: rgb(145,66,232);
+      }
+.down{
+        display: block;
+        color: red;
+        background-color: white;
+        border: 1px solid red;
+        border-radius: 5px;
+        padding: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: 1s;
+      }
+.down:hover{
+        background-color: red;
+        color: white;
+      }
+.share{
+        height: 27px;
+        font-size: 23px;
+        display: block;
+        float: right;
+        text-decoration: none;
+        border: 1px solid black;
+        border-radius: 3px;
+        padding: 3px;
+        box-shadow: none;
+      }
+.share:hover{
+        border: 1px solid black;
+        box-shadow: 0.3px 0.3px 3px 0.5px
+        rgb(17,20,20) inset;
+      }
+.bubble{
+        margin: auto;
+        vertical-align: middle;
+        width: 30%;
+        height: 40px;
+        display: inline-block;
+        border: 1px solid red;
+        text-align: center;
+      }
+#PopularPosts1.widget.PopularPosts{
+        background-color: 
+        rgb(255,255,255);}
+.post h3 {display: none}
+.post-share-buttons-top{display:none}
