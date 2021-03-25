@@ -1,7 +1,7 @@
-body{
-        background-color: 
-          rgb(245,251,209);
-        background-image: 
+body {
+      background-color: 
+         rgb(245,251,209);
+      background-image: 
          linear-gradient(to right, 
          rgb(219,169,250),
          rgb(247,247,180),
@@ -9,27 +9,29 @@ body{
       }
 #head{
       font-size: 210%;
-      background: rgba(85,85,85,0.533);
+      letter-spacing: 1px;
+      background: #55555588;
       text-align: center;
-      font-family: Serif;
+      font-family: 'Mitr', serif;
       color: black;
-      text-shadow: 1px 1px 2px black;
+      text-shadow: 1px 1px 2px white;
       padding: 30px;
       border: 2px solid 
-         rgba(85,85,85,0.533);
-      border-radius: 5px;
+         #55555588;
+      border-radius: 6px;
       box-shadow:
         1px 1px 20px 10px 
         rgb(17,20,20) inset;
       cursor: pointer;
       transition: 2s ease-out;
+      user-select: none;
       }
 #head:hover{
         font-size: 215%;
         box-shadow: 1px 1px 20px 5px 
         rgb(17,20,20) inset;
       }
-.vol{
+.book{
         text-align: center;
         font-size: 140%;
       }
@@ -42,9 +44,11 @@ body{
 .cover:hover{
         opacity: 0.6;
       }
-.volName{
+.volName, .fullName{
+        font-family: 'Noto Sans JP',
+          sans-serif;
         text-align: center;
-        line-height: 0.5;
+        line-height: 1;
       }
 #bookName{
         text-align: center;
@@ -57,20 +61,29 @@ body{
 .volNo{
         color: rgb(145,66,232);
       }
+.edition{
+        font-family: sans-serif;
+        font-size: 19px;
+        color: rgb(145,66,232);
+      }
 .down{
-        display: block;
-        color: red;
-        background-color: white;
-        border: 1px solid red;
+        display: inline-block;
+        color: #ff0000;
+        background-color: #ffffff;
+        border: 1px solid #ff0000;
         border-radius: 5px;
-        padding: 5px;
+        padding: 3px 20px;
         text-decoration: none;
         cursor: pointer;
         transition: 1s;
       }
 .down:hover{
-        background-color: red;
-        color: white;
+        background-color: #ff0000;
+        color: #ffffff;
+      }
+hr{
+        text-align: center;
+        width: 90%;
       }
 .share{
         height: 27px;
@@ -78,27 +91,81 @@ body{
         display: block;
         float: right;
         text-decoration: none;
-        border: 1px solid black;
+        border: 1px solid #000000;
         border-radius: 3px;
         padding: 3px;
         box-shadow: none;
       }
 .share:hover{
-        border: 1px solid black;
+        border: 1px solid #000000;
         box-shadow: 0.3px 0.3px 3px 0.5px
         rgb(17,20,20) inset;
       }
 .bubble{
-        margin: auto;
-        vertical-align: middle;
-        width: 30%;
+        line-height: 3;
+        width: 13%;
         height: 40px;
         display: inline-block;
-        border: 1px solid red;
+        padding: 0px 10px;
+        border: 1px solid #8758f8;
+        border-radius: 60px;
         text-align: center;
+        background-color: #c4acfdd7;
+        font-weight: bold;
+        color: #ffffff;
+        user-select: none;
       }
-#PopularPosts1.widget.PopularPosts{
-        background-color: 
-        rgb(255,255,255);}
-.post h3 {display: none}
-.post-share-buttons-top{display:none}
+.bubble:hover {
+        color: #000000;
+        border: 1px solid #000000;
+      }
+.back, .med, .home{
+        font-size: 25px;
+}
+.medbub {
+  margin-left: 30px;
+}
+.homebub {
+  margin-left: 30px;
+}
+.backbub {
+  margin-left: 30px;
+}
+#moreBooksHeader {
+        font-weight: bold;
+        font-size: 20px;
+        font-family: 'Oswald', 
+                sans-serif;
+}
+.subjects{
+        display: block;
+        line-height: 1.5;
+        color: #000000;
+        font-size: 20px;
+        text-decoration: none;
+        font-family: 'Roboto', 
+          sans-serif;
+      }
+.subjects:hover {
+        text-decoration: underline;
+      }
+#linkNotWorking {
+        font-family: 'Noto Sans JP',
+          sans-serif;
+}
+#copyright {
+        font-family: 'Noto Sans JP',
+          sans-serif;
+        line-height: 1.2;
+        text-align: center;
+    }
+#copyrightHead {
+      font-size: 150%;
+      color: #ff0000;
+    }
+    
+header.centered-top-container,
+.post h3,
+.post-share-buttons-top,
+div.post-bottom,
+footer#footer.footer.section{display:none}
