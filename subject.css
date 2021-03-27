@@ -24,7 +24,7 @@ body {
       cursor: pointer;
       transition: 2s ease-out;
       }
-#subName {
+#Name {
         text-align: center;
         line-height: 1;
         letter-spacing: 3px;
