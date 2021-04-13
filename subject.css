@@ -41,15 +41,11 @@ html, body {
     }
 .bookName {
       height: 90px;
-      line-height: 2;
-      font-size: 27px;
-      font-weight: 500;
-      font-family: serif, 
+      line-height: 1;
+      font-size: 25px;
+      font-family: 'Rubik', 
         Times New Roman;
       padding-top: 5px;
-    }
-.bookName::first-letter {
-      font-size: 40px;
     }
 .box-bookpage {
       padding: 4px;
