@@ -102,7 +102,6 @@ hr{
 .bubble {
       flex: 1;
       margin: 10px;
-      line-height: 3;
       width: 10%;
       height: 40px;
       border: 1px solid #c8c8c8;
@@ -116,9 +115,17 @@ hr{
       box-shadow: 1px 1px 7px 1px #55555588;
       }
 .back, .med, .home {
+      padding: 7px;
       font-size: 25px;
+      display: block;
+      margin: auto;
+}
+#moreBooks {
+        text-align: left;
+        font-size: 20px;
 }
 #moreBooksHeader {
+        text-align: left;
         font-weight: bold;
         font-size: 20px;
         font-family: 'Oswald', 
@@ -126,6 +133,7 @@ hr{
 }
 .subjects{
         display: block;
+        text-align: left;
         line-height: 1.5;
         color: #000000;
         font-size: 20px;
@@ -137,6 +145,8 @@ hr{
         text-decoration: underline;
       }
 #linkNotWorking {
+        text-align: left;
+        font-size: 16px;
         font-family: 'Noto Sans JP',
           sans-serif;
 }
@@ -145,6 +155,7 @@ hr{
           sans-serif;
         line-height: 1.2;
         text-align: center;
+        font-size: 16px;
     }
 #copyrightHead {
       font-size: 150%;
