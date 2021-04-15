@@ -63,8 +63,13 @@ html, body {
       color: #b14a5f;
     }
 .bookPage:hover {
-      color: #b14a5f;
-      
+      color: #b14a5f;    
+    }
+.details-bookPage {
+      font-size: 20px;
+      line-height: 1.2;
+      color: #000;
+      font-family: 'Roboto', sans-serif;
     }
 .cover {
 	    width: 65px;
