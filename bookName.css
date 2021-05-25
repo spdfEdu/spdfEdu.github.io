@@ -124,7 +124,7 @@ hr{
         text-align: left;
         font-size: 20px;
 }
-#moreBooksHeader {
+#moreBooksHeader, #head-CommentBox {
         text-align: left;
         font-weight: bold;
         font-size: 20px;
