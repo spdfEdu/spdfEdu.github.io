@@ -33,7 +33,7 @@ html, body {
      display: inline-block;
      font-family: 'Roboto', sans-serif;
 }
-.indexes a.index-link {
+.indexes a.index-link:link {
      text-decoration: none;
      color: #426af4;
 }
