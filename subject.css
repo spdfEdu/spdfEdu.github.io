@@ -127,7 +127,7 @@ html, body {
 .back, .med, .home {
       font-size: 25px;
 }
-#moreBooksHeader {
+#moreBooksHeader, #head-CommentBox {
       font-weight: bold;
       font-size: 20px;
       font-family: 'Oswald', 
