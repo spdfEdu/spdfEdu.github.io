@@ -33,7 +33,7 @@ html, body {
      display: inline-block;
      font-family: 'Roboto', sans-serif;
 }
-.indexes a.index-link:link {
+a.index-link {
      text-decoration: none;
      color: #426af4;
 }
@@ -148,7 +148,7 @@ a.index-link:hover {
       font-family: 'Oswald', 
                 sans-serif;
 }
-.subjects {
+a.subjects {
       display: block;
       line-height: 1.5;
       color: #000000;
@@ -157,7 +157,7 @@ a.index-link:hover {
       font-family: 'Roboto', 
           sans-serif;
       }
-.subjects:hover {
+a.subjects:hover {
       text-decoration: underline;
       }
 #linkNotWorking {
