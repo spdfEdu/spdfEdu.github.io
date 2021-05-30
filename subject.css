@@ -33,11 +33,11 @@ html, body {
      display: inline-block;
      font-family: 'Roboto', sans-serif;
 }
-.index-link {
+a.index-link {
      text-decoration: none;
      color: #426af4;
 }
-.index-link:hover {
+a.index-link:hover {
      text-decoration: underline;
      color: #000;
 }
