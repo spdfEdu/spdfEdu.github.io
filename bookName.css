@@ -26,6 +26,22 @@ html, body {
       margin: 5px;
       z-index: 4;
 }
+#index-head {
+     font-weight: bold;
+}
+.indexes, #index-head {
+     display: inline-block;
+     font-family: 'Roboto', sans-serif;
+}
+a.index-link {
+     text-decoration-line: none;
+     color: #426af4;
+     text-decoration-color: #426af4;
+}
+a.index-link:hover {
+     text-decoration-line: underline;
+     color: #000;
+}
 .book{
         text-align: center;
         font-size: 140%;
@@ -138,6 +154,7 @@ hr{
         color: #000000;
         font-size: 20px;
         text-decoration: none;
+        text-decoration-color: #000000;
         font-family: 'Roboto', 
           sans-serif;
       }
