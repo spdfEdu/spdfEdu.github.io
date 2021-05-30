@@ -26,6 +26,21 @@ html, body {
       margin: 5px;
       z-index: 4;
 }
+#index-head {
+     font-weight: bold;
+}
+.indexes, #index-head {
+     display: inline-block;
+     font-family: 'Roboto', sans-serif;
+}
+.index-link {
+     text-decoration: none;
+     color: #426af4;
+}
+.index-link:hover {
+     text-decoration: underline;
+     color: #000;
+}
 #Name {
       text-align: center;
       line-height: 1;
