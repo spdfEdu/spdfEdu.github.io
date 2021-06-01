@@ -53,8 +53,11 @@ a.index-link:hover {
         height: auto;
       }
 .cover:hover{
-        opacity: 0.6;
+        opacity: .6;
       }
+.border {
+       border: .7px solid #000;
+}
 .volName, .fullName{
         font-family: 'Noto Sans JP',
           sans-serif;
