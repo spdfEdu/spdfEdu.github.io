@@ -92,6 +92,14 @@ a.index-link:hover {
         background-color: #ff0000;
         color: #ffffff;
       }
+.down.buy {
+       border: 1px solid #008000;
+       color: #008000;
+    }
+.down.buy:hover {
+       background-color: #008000;
+       color: #fff;
+    }
 hr{
         text-align: center;
         width: 90%;
