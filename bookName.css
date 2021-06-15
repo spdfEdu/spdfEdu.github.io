@@ -21,6 +21,7 @@ html, body {
       height: 42px;
       box-shadow: 1px 1px 5px 1px #55555588;
       background-color: #fff;
+      user-select: none;
       }
 #page-main-body {
       margin: 5px;
@@ -158,19 +159,19 @@ hr{
         font-family: 'Oswald', 
                 sans-serif;
 }
-.subjects{
+.subjects:link, .subjects:visited {
         display: block;
         text-align: left;
         line-height: 1.5;
-        color: #000000;
+        color: #000000 !important;
         font-size: 20px;
         text-decoration: none;
-        text-decoration-color: #000000;
         font-family: 'Roboto', 
           sans-serif;
       }
 .subjects:hover {
         text-decoration: underline;
+        color: #000;
       }
 #linkNotWorking {
         text-align: left;
