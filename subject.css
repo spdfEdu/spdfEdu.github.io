@@ -21,6 +21,7 @@ html, body {
       height: 42px;
       box-shadow: 1px 1px 5px 1px #55555588;
       background-color: #fff;
+      user-select: none;
       }
 #page-main-body {
       margin: 5px;
@@ -35,7 +36,7 @@ html, body {
 }
 a.index-link {
      text-decoration-line: none;
-     color: #426af4;
+     color: #426af4 !important;
      text-decoration-color: #426af4;
 }
 a.index-link:hover {
@@ -76,7 +77,7 @@ a.index-link:hover {
       display: block;
       height: 85px;
       text-decoration: none;
-      color: #b14a5f;
+      color: #b14a5f !important;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
@@ -152,7 +153,7 @@ a.index-link:hover {
 a.subjects {
       display: block;
       line-height: 1.5;
-      color: #000000;
+      color: #000000 !important;
       font-size: 20px;
       text-decoration: none;
       font-family: 'Roboto', 
