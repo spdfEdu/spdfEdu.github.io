@@ -2,7 +2,7 @@
    function share() {
    if (navigator.share) {
        navigator.share({
-       text: document.getElementById("Name").textContent+"  "
+       text: document.getElementById("Name").textContent+" \n"
              +window.location.href })}
    else {
      window.open('https://wa.me/?text=*'+document.getElementById("Name").textContent+'*%0A'+window.location.href)}};
