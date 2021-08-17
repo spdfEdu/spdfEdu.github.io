@@ -57,7 +57,7 @@ else {
 }}
 
 //creating the share Box
-var sp = 'Main Website --> bit.ly/spdfEdu';
+var sp = '\nMain Website --> bit.ly/spdfEdu';
 var shareBox = document.createElement("div");
 insert.insertAdjacentHTML('afterend',
 `<br><div id="share-box">
@@ -175,7 +175,7 @@ fill="#000" stroke="none">
    if (navigator.share) {
        navigator.share({
        text: document.title+"\n"
-             +window.location.href+"\n\n"+sp})}
+             +window.location.href+"\n"+sp})}
    else {
      window.open('whatsapp://send?text=*'+document.title+'*%0A_'+window.location.href+'_%0A'+sp)}}
         
