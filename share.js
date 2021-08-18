@@ -91,7 +91,7 @@ fill="#000" stroke="none">
 <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm-1 4l6 6v10c0 1.1-.9 2-2 2H7.99C6.89 23 6 22.1 6 21l.01-14c0-1.1.89-2 1.99-2h7zm-1 7h5.5L14 6.5V12z"/></svg>
   </div></div>
        <div class="item">
-       <div class="button mail" onclick="location.href='mailto:?subject='+document.title+'&body=Content Url: '+window.location.href+ '%0A%0A'+sp;" href=''>
+       <div class="button mail" onclick="location.href='mailto:?subject='+document.title+'&body=Content Url: '+window.location.href+ '%0A%0AMain%20Website%20-->%20bit.ly/spdfEdu'" href=''>
        <svg class="shareButtonsSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
 <path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 44 12 C 44 9.800781 42.199219 8 40 8 L 8 8 C 5.800781 8 4 9.800781 4 12 L 4 36 C 4 38.199219 5.800781 40 8 40 L 40 40 C 42.199219 40 44 38.199219 44 36 Z M 40 12 L 24 21.980469 L 8 12 Z M 40 36 L 8 36 L 8 16 L 24 26 L 40 16 Z M 40 36 "/>
 </svg>
