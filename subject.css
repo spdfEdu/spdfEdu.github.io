@@ -101,6 +101,7 @@ a.index-link:hover {
 .cover {
       width: 65px;
       height: 80px;
+      font-size: 12px;
       float: left;
       display: inline-block;
       margin-right: 20px;
