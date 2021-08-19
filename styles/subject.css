@@ -186,3 +186,38 @@ a.subjects:hover {
 #DMCA:hover, #contact:hover {
       text-decoration: underline;
 }
+#boxFooter {
+      display: block;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+      background-color: #ececec;
+      padding-bottom: 10px;
+      text-align: center;
+      font-size: 17px;
+      font-family: 'Roboto',Sans-Serif;
+    }
+#boxFoot {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+.foot {
+      flex: 1;
+      padding: 10px 0;
+    }
+.foot:hover {
+      text-decoration: underline;
+      text-decoration-color: blue;
+      text-decoration-thickness: 2px;
+    }
+#copySpdfedu {
+      margin-top: 10px;
+    }
+.half-hr {
+      display: block;
+      margin: 10px auto;
+      padding-top: 10px;
+      width: 30%;
+      border-bottom: 1px solid #000;
+    }
