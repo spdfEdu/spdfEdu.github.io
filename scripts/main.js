@@ -184,7 +184,7 @@ copyBtn.addEventListener('click', function(event) {
   } catch(err) {  
     console.log('Oops, unable to copy') 
   }  
-  window.getSelection().removeAllRanges();  
+  window.getSelection().removeAllRanges(); 
 });
 
 //prepLadder Offer
