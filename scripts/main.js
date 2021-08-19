@@ -164,7 +164,7 @@ fill="#000" stroke="none">
    if (navigator.share) {
        navigator.share({
        text: document.title+"\n"
-             +window.location.href+"\n\n"+sp;})}
+             +window.location.href+"\n\n"+sp})}
    else {
      window.open('whatsapp://send?text=*'+document.title+'*%0A_'+window.location.href+'_%0A%0A'+sp)}}
         
