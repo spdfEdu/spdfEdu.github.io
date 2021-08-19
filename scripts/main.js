@@ -189,7 +189,6 @@ copyBtn.addEventListener('click', function(event) {
 });
 
 //prepLadder Offer
-var prep = document.createElement("div");
 {var prepInsert;
 if (!document.getElementById('PrepLadder')) {
 prepInsert = document.getElementById('box')}
