@@ -48,7 +48,6 @@ else {
 
 //creating the share Box
 var sp = 'Main Website --> bit.ly/spdfEdu';
-var shareBox = document.createElement("div");
 insert.insertAdjacentHTML('afterend',
 `<br><div id="share-box">
     <div id="head-share">
