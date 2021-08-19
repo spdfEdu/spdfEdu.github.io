@@ -27,6 +27,13 @@ immediately, concerned content will be taken down within 24 hours.</b><br><br></
 </div>`;
 document.body.append(child);
 
+//replacing error image
+var i;
+  for( i=0; i<22; i++)
+  {
+  document.getElementsByClassName("cover")[i].setAttribute("onerror","this.className ='book-cover'");
+  }
+  
 // shareBox
 //finding box, Name, comments
 {var insert;
