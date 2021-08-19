@@ -175,6 +175,7 @@ a.subjects:hover {
           sans-serif;
       line-height: 1.2;
       text-align: center;
+      font-size: 16px;
       background-color: #fff;
     }
 #copyrightHead {
@@ -199,6 +200,7 @@ a.subjects:hover {
       font-family: 'Roboto',Sans-Serif;
     }
 #boxFoot {
+      padding-top: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
