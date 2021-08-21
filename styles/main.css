@@ -18,11 +18,14 @@ html,body {
       font-family: 'Cabin Sketch', 
          sans-serif;
       color: #000;
-      padding-bottom: 2px;
+      /*padding-bottom: 2px;*/
       width: 100%;
       height: 46px;
       box-shadow: 0 5px 4px -4px #55555588;
       background-color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       }
 #page-main-body {
       margin: 5px;
