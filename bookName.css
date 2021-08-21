@@ -238,22 +238,3 @@ hr{
         font-family: 'Noto Sans JP',
           sans-serif;
 }
-#copyright {
-        font-family: 'Noto Sans JP',
-          sans-serif;
-        line-height: 1.2;
-        text-align: center;
-        font-size: 16px;
-    }
-#copyrightHead {
-      font-size: 150%;
-      color: #ff0000;
-    }
-#DMCA, #contact {
-      color: blue;
-      text-decoration: none;
-}
-#DMCA:hover, #contact:hover {
-      text-decoration: underline;
-      text-decoration-color: #000;
-}
