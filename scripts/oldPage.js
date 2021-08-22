@@ -173,6 +173,6 @@ copyBtn.addEventListener('click', function(event) {
     var successful = document.execCommand('copy');
   } catch(err) {  
     console.log('Oops, unable to copy') 
-  }  
+  }
   window.getSelection().removeAllRanges();
 });
