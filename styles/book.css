@@ -28,6 +28,7 @@
         text-align: center;
         font-size: 140%;
       }
+.hidden {display: none}
 .cover, .book-cover {
         display: block;
         margin: auto;
