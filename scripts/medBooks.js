@@ -27,7 +27,7 @@ immediately, concerned content will be taken down within 24 hours.</b><br><br></
 document.body.append(child);
 
 // shareBox
-var insert = document.getElementById('PrepLadder');
+var insert = document.getElementById('box');
 //creating the share Box
 var link = 'https://bit.ly/medBooks'
 var url = 'Main Website --> bit.ly/spdfEdu';
@@ -284,4 +284,3 @@ prepInsert.insertAdjacentHTML('afterend',`
 }
   </style>
 </div><br>`);
-
