@@ -1,3 +1,9 @@
+//ncert Logo
+var logoInsert = document.getElementsByClassNames("year")
+logoInsert.insertAdjacentHTML('afterend',
+`<img class="ncertLogo" alt="NCERT in Bengali" >
+`)
+
 //footer section
 var child = document.createElement("div");
 child.innerHTML =
