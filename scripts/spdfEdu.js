@@ -30,7 +30,7 @@ document.body.append(child);
 var insert = document.getElementById('box');
 //creating the share Box
 var link = 'bit.ly/spdfEdu'
-var url = 'Main Website --> https://bit.ly/spdfEdu';
+var url = '--> https://bit.ly/spdfEdu';
 insert.insertAdjacentHTML('afterend',
 `<br><div id="share-box">
     <div id="head-share">
