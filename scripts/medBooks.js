@@ -138,6 +138,7 @@ fill="#000" stroke="none">
 #copyTry {
   opacity: 0;
   position: absolute;
+  z-index: -5;
 }
  </style>
   </div>`);
