@@ -45,7 +45,7 @@ insert.insertAdjacentHTML('afterend',
 ₹6300 / 1 year (<strike>₹9000</strike>)
 </div></div><div class="proff"><div class="profH"> 2nd Proff</div><div class="cost">₹7800 / 1 year (<strike>₹10800</strike>)</div></div><div class="proff"><div class="profH">Complete Pack</div>
   <div class="cost"> ₹42,399 for (24 + 1 Month)</div><div class="cost">₹31,399 for (12 + 1 Month)</div></div>
-<div class="costMore"><b>6 months &amp; 9 months Packs also available<div id="costLink">To Avail / Know More<div class="knowMore">Click Here
+<div class="costMore"><b>6 months &amp; 9 months Packs also available<div id="costLink">To Avail / Know More <div class="knowMore"> Click Here
 </div></div></b></div></div></div>
 </div><br>
 <br><div id="share-box">
