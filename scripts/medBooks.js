@@ -32,7 +32,11 @@ var insert = document.getElementById('box');
 var link = 'https://bit.ly/medBooks'
 var url = 'Main Website --> bit.ly/spdfEdu';
 insert.insertAdjacentHTML('afterend',
-`<br><div id="share-box">
+`<br><div id="teleBox">
+  <div id="tele" onclick="location.href='https://t.me/spdfEdu'">
+   Join spdfEdu on Telegram &nbsp;&nbsp;
+  <i class="teleSvg"></i></div></div>
+  <br><div id="share-box">
     <div id="head-share">
       Do Share with your friends
     </div>
