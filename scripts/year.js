@@ -31,7 +31,7 @@ document.body.append(child);
 var insert = document.getElementById('box')
 
 //creating the share Box
-var xurl = window.location.href ;
+var xurl = window.location.href.split("?m=1")[0] ;
 var url = 'Main Website --> bit.ly/spdfEdu';
 insert.insertAdjacentHTML('afterend',
 `<br><div id="prepBox">
