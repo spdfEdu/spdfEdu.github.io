@@ -36,7 +36,9 @@
   border-top: 1px dotted #000;
   padding-top: 15px;
 }
-.yA {border-bottom: 1px dotted #000}
+.yA {border-bottom: 1px dotted #000;
+  font-family: Sans-Serif;
+}
 .yB {
   font-size: 18px;
   height: 30px;
