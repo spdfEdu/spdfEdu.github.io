@@ -31,6 +31,7 @@ document.body.append(child);
 var insert = document.getElementById('box')
 
 //creating the share Box
+var xurl = window.location.href ;
 var url = 'Main Website --> bit.ly/spdfEdu';
 insert.insertAdjacentHTML('afterend',
 `<br><div id="prepBox">
@@ -53,11 +54,11 @@ insert.insertAdjacentHTML('afterend',
       Do Share with your friends</div>
    <div id="box">
      <div class="item">
-  <div class="button wp" onclick="location.href='whatsapp://send?text=*'+document.title+'*%0A_'+window.location.href+'_%0A%0A'+url;" href=''>
+  <div class="button wp" onclick="location.href='whatsapp://send?text=*'+document.title+'*%0A_'+xurl+'_%0A%0A'+url;" href=''>
      <i id="wpSvg" class="sBs"></i>
   </div></div>
      <div class="item">
-  <div class="button sms" onclick="location.href='sms://?body='+document.title+'%0A'+window.location.href+'%0A%0A'+url" href=''>
+  <div class="button sms" onclick="location.href='sms://?body='+document.title+'%0A'+xurl+'%0A%0A'+url" href=''>
      <i id="smsSvg" class="sBs"></i>
   </div></div>
      <div class="item">
@@ -65,7 +66,7 @@ insert.insertAdjacentHTML('afterend',
      <i id="cpySvg" class="sBs"></i>
   </div></div>
      <div class="item">
-  <div class="button mail" onclick="location.href='mailto:?subject='+document.title+'&body=Content%20Url:%20'+window.location.href+'%0A%0A'+url;" href=''>
+  <div class="button mail" onclick="location.href='mailto:?subject='+document.title+'&body=Content%20Url:%20'+xurl+'%0A%0A'+url;" href=''>
      <i id="mailSvg" class="sBs"></i>
   </div></div>
      <div class="item">
@@ -81,13 +82,13 @@ insert.insertAdjacentHTML('afterend',
    if (navigator.share) {
        navigator.share({
        text: document.title+"\n"
-             +window.location.href+"\n\n"+url})}
+             +xurl+"\n\n"+url})}
    else {
-     window.open('whatsapp://send?text=*'+document.title+'*%0A_'+window.location.href+'_%0A%0A'+url)}}
+     window.open('whatsapp://send?text=*'+document.title+'*%0A_'+xurl+'_%0A%0A'+url)}}
 //copy Button function  
   var Text = document.createElement('div');
   Text.id = 'copyTry';
-  Text.innerHTML = document.title +'<br>' +window.location.href+'<br><br>'+url;
+  Text.innerHTML = document.title +'<br>' +xurl+'<br><br>'+url;
   document.getElementById('share-box').append(Text);
   var copyBtn = document.getElementById('copyButton');
 copyBtn.addEventListener('click', function(event) {  
