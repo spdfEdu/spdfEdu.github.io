@@ -1,3 +1,4 @@
+window.history.replaceState('', '',window.location.href.split("?m=1")[0]);
 //footer section
 var child = document.createElement("div");
 child.innerHTML =
