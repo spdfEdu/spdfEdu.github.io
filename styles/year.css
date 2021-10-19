@@ -33,7 +33,8 @@
       font-family: 'Noto Sans JP';
 }
 #head-CommentBox {
-  border-top: 1px dotted #000
+  border-top: 1px dotted #000;
+  padding-top: 15px;
 }
 .yA {border-bottom: 1px dotted #000}
 .yB {
