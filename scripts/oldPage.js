@@ -30,13 +30,26 @@ immediately, concerned content will be taken down within 24 hours.</b><br><br></
 document.body.append(child);
 
 // shareBox
-var insert = document.getElementById('comments');
-
-//creating the share Box
 var xurl = window.location.href.split("?m=1")[0];
 var url ='Main Website --> bit.ly/spdfEdu';
-insert.insertAdjacentHTML('afterend',
-`<br><div id="share-box">
+var srInsert = document.createElement("div");
+srInsert.innerHTML = 
+`<p>If the links are not working, please let us know in the comments section. We will readily update them ASAP.</p>
+<h3 id="moreBooksHeader">You may also See :</h3>
+      <div class="yB">
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/1st-Year.html">&#9673; 1st Year MBBS Materials</a>
+      </div>
+      <div class="yB">
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/2nd-Year.html">&#9673; 2nd Year MBBS Materials</a>
+      </div>
+      <div class="yB">
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/3rd-Year.html">&#9673; 3rd Year MBBS Materials</a>
+      </div>
+      <div class="yB">
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/Final-Year.html">&#9673; Final Year MBBS Materials</a>
+      </div>
+      <br><br>
+<div id="share-box">
     <div id="head-share">
       Do Share with your friends
     </div><div id="box">
@@ -127,8 +140,27 @@ insert.insertAdjacentHTML('afterend',
   position: absolute;
   z-index: -5;
 }
+.yLink{
+     font-family: 'Roboto', sans-serif;
+     text-decoration-line: none;
+     color: #426af4 !important;
+     text-decoration-color: #426af4;
+}
+.yLink:hover{
+     text-decoration-line: underline;
+     color: #000 !important;
+     -webkit-tap-highlight-color: transparent;
+}
+.yLink {
+  display: block;
+  font-size: 18px;
+  height: 30px;
+  margin-left: 10px;
+}
  </style>
-  </div>`);
+  </div><br><br>`
+var insert = document.getElementById("insert")
+insert.append(srInsert);
 
 //share function
    function share() {
