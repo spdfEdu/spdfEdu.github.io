@@ -1,4 +1,4 @@
- //header section
+//header section
 var header = document.createElement("div");
 header.innerHTML =
  `<div id="head-box">
@@ -30,14 +30,7 @@ immediately, concerned content will be taken down within 24 hours.</b><br><br></
 document.body.append(child);
 
 // shareBox
-//finding box, Name, comments
-{var insert;
-if (!document.getElementById('box')) {
-insert = document.getElementById('Name')
- if (!document.getElementById('Name') && !document.getElementById('box')) {
-insert = document.getElementById('comments')}}
-else {
- insert = document.getElementById('box')}}
+var insert = document.getElementById('comments');
 
 //creating the share Box
 var xurl = window.location.href.split("?m=1")[0];
