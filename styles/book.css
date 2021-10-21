@@ -5,45 +5,42 @@
      display: inline-block;
      font-family: 'Roboto', sans-serif;
 }
-.index-link {
+.index-link, .yLink, .subjects{
      text-decoration-line: none;
      color: #426af4 !important;
      text-decoration-color: #426af4;
 }
-.index-link:hover {
+.index-link:hover, .yLink:hover, .subjects:hover {
      text-decoration-line: underline;
      color: #000 !important;
      -webkit-tap-highlight-color: transparent;
 }
 #Name {
       text-align: center;
-        line-height: 1;
-        font-weight: bold;
-        font-size: 25px;
-        font-family: 'Oswald', 
-                sans-serif;
-        text-decoration: underline;
+      line-height: 1;
+      font-weight: bold;
+      font-size: 25px;
+      font-family: 'Oswald', sans-serif;
+      text-decoration: underline;
     }
 .book{
-        text-align: center;
-        font-size: 140%;
+      text-align: center;
+      font-size: 140%;
       }
 .hidden {display: none}
 .cover, .book-cover {
-        display: block;
-        margin: auto;
-        width: 60%;
-        height: auto;
+      display: block;
+      margin: auto;
+      width: 60%;
+      height: auto;
       }
 .cover:hover{
-        opacity: .6;
+      opacity: .6;
       }
 .book-cover {
   content:url("https://spdfedu.github.io/svg/medBooks-sm.svg");
 }
-.border {
-       border: .7px solid #000;
-}
+.border{border:.7px solid #000}
 .volName, .fullName{
         font-family: 'Noto Sans JP',
           sans-serif;
@@ -81,7 +78,7 @@
        background-color: #008000;
        color: #fff;
     }
-hr{
+hr {
         text-align: center;
         width: 90%;
       }
@@ -119,33 +116,19 @@ hr{
 .back, .med, .home {
       font-size: 25px;
 }
-#moreBooks {
-      text-align: left;
-      font-size: 20px;
+.yLink, .subjects {
+  display: block;
+  font-size: 18px;
+  height: 30px;
+  margin-left: 10px;
 }
 #moreBooksHeader, #head-CommentBox {
-        text-align: left;
         font-weight: bold;
         font-size: 20px;
         font-family: 'Oswald', 
                 sans-serif;
 }
-.subjects:link, .subjects:visited {
-        display: block;
-        text-align: left;
-        line-height: 1.5;
-        color: #000000 !important;
-        font-size: 20px;
-        text-decoration: none;
-        font-family: 'Roboto', 
-          sans-serif;
-      }
-.subjects:hover {
-        text-decoration: underline;
-        color: #000;
-      }
 #linkNotWorking {
-        text-align: left;
         font-size: 16px;
         font-family: 'Noto Sans JP',
           sans-serif;
