@@ -5,12 +5,13 @@
      display: inline-block;
      font-family: 'Roboto', sans-serif;
 }
-.index-link {
+.index-link, .yLink, .subjects{
+     font-family: 'Roboto', sans-serif;
      text-decoration-line: none;
      color: #426af4 !important;
      text-decoration-color: #426af4;
 }
-.index-link:hover {
+.index-link:hover, .yLink:hover, .subjects:hover {
      text-decoration-line: underline;
      color: #000 !important;
      -webkit-tap-highlight-color: transparent;
@@ -131,18 +132,12 @@
       font-family: 'Oswald', 
                 sans-serif;
 }
-a.subjects {
-      display: block;
-      line-height: 1.5;
-      color: #000000 !important;
-      font-size: 20px;
-      text-decoration: none;
-      font-family: 'Roboto', 
-          sans-serif;
-      }
-a.subjects:hover {
-      text-decoration: underline;
-      }
+.yLink, .subjects {
+  display: block;
+  font-size: 18px;
+  height: 30px;
+  margin-left: 10px;
+}
 #linkNotWorking {
       font-family: 'Noto Sans JP',
           sans-serif;
