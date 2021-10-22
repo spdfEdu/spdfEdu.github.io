@@ -28,16 +28,16 @@ var yrChild = document.createElement("div")
 yrChild.innerHTML = `
 <p id="moreBooksHeader">You may also See :</p>
       <div class="yB">
-<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/1st-Year.html">&#9673; 1st Year MBBS Materials</a>
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/1st-Year.html">&#9673; 1st Year MBBS Study Materials</a>
       </div>
       <div class="yB">
-<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/2nd-Year.html">&#9673; 2nd Year MBBS Materials</a>
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/2nd-Year.html">&#9673; 2nd Year MBBS Study Materials</a>
       </div>
       <div class="yB">
-<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/3rd-Year.html">&#9673; 3rd Year MBBS Materials</a>
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/3rd-Year.html">&#9673; 3rd Year MBBS Study Materials</a>
       </div>
       <div class="yB">
-<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/Final-Year.html">&#9673; Final Year MBBS Materials</a>
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/Final-Year.html">&#9673; Final Year MBBS Study Materials</a>
       </div>`;
 yrSection.append(yrChild);
 
