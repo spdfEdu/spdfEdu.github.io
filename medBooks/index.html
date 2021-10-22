@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Get all MBBS books PDF free. So download it and start reading." />
+  <title>medBooks | spdfEdu</title>
+  <!--link rel="stylesheet" href="https://spdfedu.github.io/styles/main.css" -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP|RocknRoll+One&display=swap" rel="stylesheet">
+  <style>
+#page-main-body {
+      margin: 5px;
+      z-index: 4;
+      }
+#name-cover {
+      display: inline-block;
+      width: 30px;
+      height: 40px;
+      flex: 1;
+      padding-top: 10px;
+}
+#Name {
+      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 40px;
+      padding-bottom: 30px;
+      
+}
+#name-text {
+      flex: 4;
+      display: inline-block;
+      text-align: center;
+      line-height: 1;
+      letter-spacing: 3px;
+      font-weight: bold;
+      font-size: 35px;
+      font-family: 'RocknRoll One', 
+               sans-serif;
+      color: #157e9b;
+      text-shadow: 6px 2px 10px 
+            #20bbe6;
+      text-decoration: underline;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      }
+#name-share {
+      flex: 1;
+      }
+.share {
+      float: right;
+      width: 25px;
+      border: 1px solid #000000;
+      height: 27px;
+      border-radius: 3px;
+      padding: 3px;
+}
+.share:hover {
+      border: 1px solid #000000;
+      box-shadow: 0.3px 0.3px 3px 0.5px
+        rgb(17,20,20) inset;
+      }
+#svgShare {
+      height: 26px;
+}
+#details-page {
+      font-size: 18px;
+      font-family: 'Noto Sans JP',
+          sans-serif;;
+}
+.summary {
+      font-size: 16px;
+      font-family: sans-serif;
+}
+#yearBox {
+  display: block;
+  margin: auto;
+  width: 90%;
+}
+.yrs {
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.yrLink {
+  padding: 10px 0;
+  width: 100%;
+  background-color: #d6fad64f;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border: 0.5px solid #cbcccd;
+  text-align: center;
+  font-size: 28px;
+  font-family: 'Cabin Sketch',Serif;
+  box-shadow:
+        1px 1px 10px  #cbcccd;
+}
+.yrLink:hover {
+  border: 0.5px solid #45dbf8;
+  box-shadow:
+        1px 1px 10px  #45dbf8;
+}
+.subject {
+      display: block;
+      margin: auto;
+      text-align: center;
+      height: 50px;
+      }
+a.sub {
+      font-size: 28px;
+      font-family: 'Cabin Sketch',Serif;
+      border: 0.5px solid #cbcccd;
+      border-radius: 5px;
+      line-height: 1;
+      text-decoration: none;
+      color: #000000;
+      box-shadow:
+        1px 1px 10px #cbcccd;
+      padding: 0 10px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      }
+a.sub:hover {
+      border: 0.5px solid #45dbf8;
+      box-shadow:
+        1px 1px 10px 0 #45dbf8;
+      }
+.av {
+      background-color: #d6fad64f;
+}
+#book-shelf {
+      display: block;
+      margin: auto;
+      border: .5px solid #000;
+      padding: 3px;
+      width: 100%
+}
+td.book-arrange {
+      display: inline-block;
+      margin-left: 3px;
+      width: 22%;
+      border: 1px solid #e2e2e2;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: .5s;
+      padding: 2px;
+      }
+td.book-arrange:hover {
+      border: 1px solid #a1a1a1;
+      }
+.cover {
+      height: auto;
+      width: 96%;
+      display: block;
+      margin: auto;
+      }
+.cover:hover {
+      opacity: .9;
+      }
+#head-Books, #head-CommentBox {
+      text-align: left;
+      font-weight: bold;
+      font-size: 20px;
+      font-family: 'Noto Sans JP';
+}
+#head-CommentBox {
+  border-top: 1px dotted #000;
+  padding-top: 15px;
+  }
+.box-Books {
+      border: 1px solid #c5c5c5;
+      display: flex;
+      padding: 5px;
+      font-size: 18px;
+      border-top-left-radius: 20px;
+      user-select: none;
+      font-family: Sans-Serif;
+}
+.box-Books:hover {
+      box-shadow: 1px 1px 7px 1px #55555588;
+}
+.cover-Books {
+      flex: 1;
+      width: 100px;
+      height: auto;
+}
+.details-Books {
+      flex: 2;
+      margin-left: 15px;
+      font-size: 16px;
+}
+.head-box-Books {
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.5;
+}
+#teleBox {
+  display: block;
+  margin: auto;
+  width: 80%;
+  border-radius: 40px;
+  border: 2px solid #0088cc;
+  background-color: rgb(201,254,255);
+  animation: myborder 1s linear infinite alternate;
+}
+@keyframes myborder {
+  0%   {box-shadow: 3px 3px 7px 1px
+    rgb(255,225,0) }
+  12.5%  {box-shadow: 3px 3px 7px 1px
+    rgb(255,200,0) }
+  25%  {box-shadow: 3px 3px 7px 1px
+    rgb(255,150,0) }
+  37.5% {box-shadow: 3px 3px 7px 1px
+    rgb(255,125,0) }
+  50% {box-shadow: 3px 3px 7px 1px
+    rgb(255,100,0) }
+  62.5% {box-shadow: 3px 3px 7px 1px
+    rgb(255,75,0) }
+  75% {box-shadow: 3px 3px 7px 1px
+    rgb(255,50,0) }
+  87.5% {box-shadow: 3px 3px 7px 1px
+    rgb(255,25,0) }
+  100%   {box-shadow: 3px 3px 7px 1px
+    rgb(255,0,0) }
+}
+#tele {
+  font-weight: bold;
+  color: #0088cc;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tsb {
+  height: 30px;
+}
+#teleBox:hover {
+  background-color: rgb(201,252,255);
+  animation: none;
+  border: 2px solid rgb(0,101,151);
+  box-shadow: 3px 3px 7px 1px
+    rgb(195,201,202);
+}
+  </style>
+
+</head>
+<body>
+  
+  <div id="head-box">
+    <div id="head"
+    onclick="location.href='http://bit.ly/spdfEdu'"> 
+      <span style="color:red">spdf</span><span style="color:blue">Edu</span></div>
+  </div><br>
+  
+  <div id="page-main-body">
+
+    <div id="Name"> 
+  <svg id="name-cover" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 153 178">
+<g transform="translate(0,178) scale(.1,-.1)" fill="#000">
+<path d="M1048 1740 l-30 -30 -470 0 -470 0 -29 -29 -29 -29 0 -785 0 -785 26
+-31 26 -31 693 0 693 0 26 31 26 31 0 785 0 785 -29 29 c-20 20 -40 29 -61 29
+-18 0 -33 6 -37 15 -12 34 -58 45 -183 45 l-122 0 -30 -30z m252 -285 c0 -124
+-3 -225 -6 -225 -4 0 -24 10 -45 22 l-39 21 -50 -27 -50 -27 0 230 0 231 95 0
+95 0 0 -225z m-1040 76 c0 -66 4 -92 15 -101 12 -10 18 -10 30 0 11 9 15 35
+15 101 l0 89 365 0 365 0 0 -197 c0 -214 7 -245 49 -251 14 -2 44 6 67 18 l43
+21 40 -21 c52 -26 76 -25 95 2 13 19 16 58 16 225 l0 203 30 0 30 0 0 -755 0
+-755 -550 0 -550 0 -2 622 c-3 600 -4 623 -22 626 -10 2 -22 -2 -27 -10 -5 -7
+-9 -289 -9 -625 l0 -613 -75 0 -75 0 0 755 0 755 75 0 75 0 0 -89z"/>
+<path d="M164 1557 c-3 -9 -4 -28 -2 -44 2 -20 8 -28 23 -28 17 0 20 7 20 40
+0 30 -4 41 -18 43 -9 2 -20 -3 -23 -11z"/>
+<path d="M729 1134 c-7 -9 -15 -45 -17 -80 l-4 -64 -59 0 c-88 0 -99 -15 -99
+-133 0 -124 9 -137 96 -137 l64 0 0 -60 c0 -51 4 -65 25 -85 22 -23 32 -25
+118 -25 121 0 130 6 137 97 l5 68 65 3 c35 2 70 8 77 14 9 7 13 42 13 118 0
+131 -6 140 -98 140 l-62 0 0 63 c0 91 -9 97 -142 97 -85 0 -108 -3 -119 -16z
+m209 -116 l3 -77 77 -3 77 -3 3 -82 3 -83 -81 0 -80 0 0 -80 0 -80 -85 0 -85
+0 0 80 0 80 -80 0 -80 0 0 85 0 85 80 0 80 0 0 80 0 81 83 -3 82 -3 3 -77z"/>
+<path d="M165 588 c-3 -8 -4 -66 -3 -129 3 -106 4 -114 23 -114 19 0 20 7 20
+125 0 111 -2 125 -18 128 -9 2 -19 -3 -22 -10z"/>
+<path d="M665 344 c-12 -12 -13 -19 -4 -30 17 -21 361 -20 379 1 10 12 10 18
+0 30 -19 23 -352 22 -375 -1z"/>
+<path d="M164 277 c-3 -8 -4 -32 -2 -53 2 -31 7 -39 23 -39 17 0 20 7 20 50 0
+39 -4 50 -18 53 -9 2 -20 -3 -23 -11z"/>
+<path d="M776 251 c-3 -5 -3 -17 0 -26 5 -13 19 -15 78 -13 63 3 71 5 71 23 0
+18 -8 20 -72 23 -39 2 -74 -1 -77 -7z"/>
+</g>
+</svg>
+
+    <div id="name-text">
+      medBooks
+    </div>
+    <div id="name-share">
+       <div class="share"
+     onclick="share()" >
+<svg id="svgShare" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M503.691 189.836L327.687 37.851C312.281 24.546 288 35.347 288 56.015v80.053C127.371 137.907 0 170.1 0 322.326c0 61.441 39.581 122.309 83.333 154.132 13.653 9.931 33.111-2.533 28.077-18.631C66.066 312.814 132.917 274.316 288 272.085V360c0 20.7 24.3 31.453 39.687 18.164l176.004-152c11.071-9.562 11.086-26.753 0-36.328z"/>
+</svg></div></div>
+    </div>
+   
+    <div id="details-page">
+      All MBBS Books PDF are available here. <br>
+     You can Download it for free.
+    </div><br>
+  <table id="book-shelf">
+      <tr>
+        <td class="book-arrange">
+          <a class="book-link" href="https://spdfedu.blogspot.com/p/anatomy.html">
+          <img class="cover" src="https://spdfedu.github.io/medBooks/anatomy/sm/grays_4e-spdfEdu.jpg" alt="Anatomy Books [spdfEdu]"/>
+          </a>
+        </td>
+        <td class="book-arrange"> 
+        <a class="book-link" href="https://spdfedu.blogspot.com/p/physiology.html">
+        <img class="cover" src="https://spdfedu.github.io/medBooks/physio/sm/Guyton-14e.jpg" alt="Physiology Books [spdfEdu]"/>
+        </a>
+        </td>
+        <td class="book-arrange">
+          <a class="book-link" href="https://spdfedu.blogspot.com/p/biochemistry.html">
+          <img class="cover" src="https://spdfedu.github.io/medBooks/biochem/sm/Lippincott-7e.jpg" alt="Biochemistry Books [spdfEdu]" />
+          </a>
+        </td>
+        <td class="book-arrange"> 
+        <a class="book-link" href="https://spdfedu.blogspot.com/p/pathology.html">
+        <img class="cover" src="https://spdfedu.github.io/medBooks/pathology/sm/Robbins-Cotran.jpg" alt="Pathology Books [spdfEdu]"/>
+        </a>
+        </td>
+      </tr>
+    </table><br>
+    <h3><u>YEARWISE MBBS STUDY MATERIALS</u></h3>
+    <p class="summary">
+   Here <b>MBBS Study Materials</b> are arranged yearwise.<br>Click on the Year to get MBBS PDF Books, Question Papers, Charts, Slides, Video Lectures &amp;  Study Materials.</p>
+    <div id="yearBox">
+      <div class="yrs">
+        <div class="yrLink" onclick="location.href='https://spdfedu.blogspot.com/2021/10/1st-Year.html'">
+          1st Year
+        </div>
+      </div>
+      <div class="yrs">
+        <div class="yrLink" onclick="location.href='https://spdfedu.blogspot.com/2021/10/2nd-Year.html'">
+          2nd Year
+        </div>
+      </div>
+      <div class="yrs">
+        <div class="yrLink" onclick="location.href='https://spdfedu.blogspot.com/2021/10/3rd-Year.html'">
+          3rd Year
+        </div>
+      </div>
+      <div class="yrs">
+        <div class="yrLink" onclick="location.href='https://spdfedu.blogspot.com/2021/10/Final-Year.html'">
+          Final Year
+        </div>
+      </div>
+    </div><br>
+
+    <h3><u>SUBJECTWISE MBBS BOOKS</u></h3>
+    <p class="summary">
+ Here <b>Subjectwise MBBS Books PDF</b> of all subjects is arranged. <br> Download PDFs easily and start learning. </p>
+
+<div id="subjectShelf">
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/p/anatomy.html">
+      Anatomy
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/p/biochemistry.html">
+      Biochemistry
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/p/physiology.html">
+      Physiology
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/p/pharmacology.html">
+      Pharmacology
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/p/pathology.html">
+      Pathology
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/p/microbiology.html">
+    Microbiology
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/p/fmt.html">
+      FMT
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/cm.html">
+Community Medicine
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/eye.html">
+Opthalmology
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/ent.html">
+ENT
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/medicine.html">
+Medicine
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/surgery.html">
+Surgery
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/gynae.html">
+Gynecology &amp; Obstetrics
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/pediatrics.html">
+Paediatrics
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub" href="https://spdfedu.blogspot.com/2021/05/dermatology.html">
+      Dermatology
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/psychiatry.html">
+      Psychiatry
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/radiology.html">
+      Radiology
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub" href="https://spdfedu.blogspot.com/2021/05/anaesthesiology.html">
+      Anaesthesiology
+    </a>
+  </div>
+  <div class="subject">
+    <a class="sub av" href="https://spdfedu.blogspot.com/2021/05/orthopedics.html">
+      Orthopedics
+    </a>
+  </div><br>
+</div>
+  <hr>
+  <div id="moreBooks">
+    <div id="head-Books">
+      You may also view:
+    </div><br>
+   <div class="box-Books" onclick="location.href='https://bit.ly/ncert-bengali'">
+      <img class="cover-Books" src="https://spdfedu.github.io/image/ncert.png" alt="NCERT in Bengali [spdfEdu]" />
+      <div class="details-Books">
+        <div class="head-box-Books">
+        NCERT in Bengali
+      </div>
+        All NCERT Books PDF in Bengali are available here. <br />
+     From Class I to XII.
+      </div>
+    </div><br>
+    <div class="box-Books" onclick="location.href='https://bit.ly/tintinComics'">
+      <img class="cover-Books" src="https://spdfedu.github.io/image/a/tintin-spdfEdu.png" alt="Tintin [spdfEdu]" />
+      <div class="details-Books">
+        <div class="head-box-Books">
+        Tintin Comics Series
+      </div>
+        Get complete Tintin Comics series in both English and Bengali version.
+      </div>
+    </div>
+    
+  </div><hr>
+<div id="box"></div>
+<br />
+<div id="PrepLadder"></div>
+<div id="head-CommentBox">Comments:</div>
+    </div>
+<script src="https://spdfedu.github.io/scripts/medBooks.js"></script> 
+</body>
+</html>
