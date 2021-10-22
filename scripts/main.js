@@ -42,7 +42,7 @@ yrChild.innerHTML = `
 yrSection.append(yrChild);
 
 // shareBox
-var insert = document.getElementById('box')
+var insert = document.getElementById('box');
 var xurl = window.location.href.split("?m=1")[0];
 var url ='Main Website --> bit.ly/spdfEdu';
 insert.insertAdjacentHTML('afterend',
