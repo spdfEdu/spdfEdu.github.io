@@ -21,6 +21,8 @@ immediately, concerned content will be taken down within 24 hours.</b><br><br></
 </div>`;
 document.body.append(child);
 
+//year section
+document.getElementsByClassName("moreBooks")[0].id = "moreBooks";
 var yrSection = document.getElementById("moreBooks")
 var yrChild = document.createElement("div")
 yrChild.innerHTML = `
@@ -40,16 +42,7 @@ yrChild.innerHTML = `
 yrSection.append(yrChild);
 
 // shareBox
-//finding box, Name, comments
-{var insert;
-if (!document.getElementById('box')) {
-insert = document.getElementById('Name')
- if (!document.getElementById('Name') && !document.getElementById('box')) {
-insert = document.getElementById('comments')}}
-else {
- insert = document.getElementById('box')}}
-
-//creating the share Box
+var insert = document.getElementById('box')
 var xurl = window.location.href.split("?m=1")[0];
 var url ='Main Website --> bit.ly/spdfEdu';
 insert.insertAdjacentHTML('afterend',
