@@ -22,29 +22,26 @@ immediately, concerned content will be taken down within 24 hours.</b><br><br></
 document.body.append(child);
 
 //year section
-document.getElementsByClassName("moreBooks")[0].id = "moreBooks";
-var yrSection = document.getElementById("moreBooks")
+if (!document.getElementById("moreBooks")){
+  document.getElementsByClassName("moreBooks")[0].id = "moreBooks";}
+yrSection = document.getElementById("moreBooks")
 var yrChild = document.createElement("div")
 yrChild.innerHTML = `
 <p id="moreBooksHeader">You may also See :</p>
       <div class="yB">
-<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/1st-Year.html">&#9673; 1st Year MBBS Study Materials</a>
-      </div>
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/1st-Year.html">&#9673; 1st Year MBBS Study Materials</a></div>
       <div class="yB">
-<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/2nd-Year.html">&#9673; 2nd Year MBBS Study Materials</a>
-      </div>
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/2nd-Year.html">&#9673; 2nd Year MBBS Study Materials</a></div>
       <div class="yB">
-<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/3rd-Year.html">&#9673; 3rd Year MBBS Study Materials</a>
-      </div>
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/3rd-Year.html">&#9673; 3rd Year MBBS Study Materials</a></div>
       <div class="yB">
-<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/Final-Year.html">&#9673; Final Year MBBS Study Materials</a>
-      </div>`;
+<a class="yLink" href="https://spdfedu.blogspot.com/2021/10/Final-Year.html">&#9673; Final Year MBBS Study Materials</a></div>`;
 yrSection.append(yrChild);
 
 // shareBox
-var insert = document.getElementById('box');
-var xurl = window.location.href.split("?m=1")[0];
-var url ='Main Website --> bit.ly/spdfEdu';
+var insert = document.getElementById('box')
+var xurl = window.location.href.split("?m=1")[0]
+var url ='Main Website --> bit.ly/spdfEdu'
 insert.insertAdjacentHTML('afterend',
 `<br><div id="share-box">
     <div id="head-share">
@@ -165,7 +162,7 @@ copyBtn.addEventListener('click', function(event) {
     catch(err){console.log('Oops, unable to copy')}  
   window.getSelection().removeAllRanges();
 })
-;
+
 //replacing error image
 {var i;
 for( i=0; i<22; i++){
