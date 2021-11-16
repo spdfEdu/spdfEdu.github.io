@@ -71,7 +71,7 @@
 .cover, .book-cover {
       margin-bottom: 10px;
       width: 65px;
-      height: 80px;
+      height: 80px !important;
       font-size: 12px;
       float: left;
       display: inline-block;
