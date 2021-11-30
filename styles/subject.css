@@ -35,14 +35,21 @@
         Times New Roman;
       padding-top: 5px;
     }
-.box-bookpage {
+.box-bookpage, div.gsc-webResult.gsc-result {
       padding: 4px;
       border: 1px solid #c8c8c8;
       border-radius: 10px;
     }
-.box-bookpage:hover {
+div.gsc-webResult.gsc-result {
+      margin-bottom: 20px;
+}
+.gsc-adBlock, .gcsc-find-more-on-google-root {
+     display: none !important;
+     height: 0px;
+   }
+.box-bookpage:hover, div.gsc-webResult.gsc-result:hover {
      box-shadow: 1px 1px 7px 1px #55555588;
-    background-color: rgb(248,255,255);
+     background-color: rgb(248,255,255);
 }
 .bookPage {
       line-height: 0.9;
