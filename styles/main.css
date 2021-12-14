@@ -30,6 +30,7 @@ html,body {
 #page-main-body {
       margin: 5px;
       z-index: 4;
+      font-family: sans-serif;
 }
 #copyright {
         font-family: 'Noto Sans JP',
