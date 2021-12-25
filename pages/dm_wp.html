@@ -2,10 +2,11 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://spdfedu.github.io/styles/main.css">
-    <style type="text/css" media="all">
-      #box {
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	   <link rel="stylesheet" href="https://spdfedu.github.io/styles/main.css">
+    <title> Send Whatsapp Message</title>
+    <style>
+      #main-box {
         padding-top: 20px;
         text-align: center;
       }
@@ -35,24 +36,23 @@
         padding: 2px;
         padding: 6px;
         border-radius: 5px;
+        border: 1px solid black;
         box-shadow: 
         1px 1px 5px 1px black;
         transition: 0.1s ease-out;
       }
       #link:hover {
         color: #b14a5f;
-        box-shadow: none;
+        box-shadow: 1px 1px 5px 1px #fff;
         border: 1px solid black;
       }
       #copyright {
         display: none;
       }
     </style>
-    
-    <title> Send Whatsapp Message</title>
   </head>
 <body>
-  <div id="box">
+  <div id="main-box">
    <p id="intro">
      Send Message through your Whatsapp directly without saving the number.
    </p>
@@ -293,8 +293,7 @@
    </p>
 
    </div>
-  
-
-<script src="https://spdfedu.github.io/main.js"></script>
+  <div id="insert"></div>
+  <script src="https://spdfedu.github.io/scripts/hfs.js"></script>
   </body>
 </html>
