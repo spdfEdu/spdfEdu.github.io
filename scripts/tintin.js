@@ -30,7 +30,7 @@ immediately, concerned content will be taken down within 24 hours.</b><br><br></
 document.body.append(child);
 
 // shareBox
-var xurl = window.location.href.split("?m=1")[0];
+var xurl = 'https://bit.ly/tintinComics';
 var url ='Main Website --> bit.ly/spdfEdu';
 var hfs = document.createElement("div");
 hfs.innerHTML = 
@@ -144,7 +144,76 @@ hfs.innerHTML =
   margin-left: 10px;
 }
  </style>
-  </div><br><br>`
+  </div><br><br>
+    <h3>Tintin Comics Series</h3>
+    <h4>Serialwise according to publish year</h4>
+    
+  <p><a  href="https://bit.ly/tintinComics">bit.ly/tintinComics</a></p>
+  <p onclick="location.href='https://bit.ly/tintinComics'">
+  1.  In the Land of the Soviets
+(Soviet Deshe Tintin / সোভিয়েত দেশে টিনটিন)<br>
+2. Tintin in the Congo
+(Congoy tintin / কঙ্গোয় টিনটিন)<br>
+3. Tintin in America
+(Americay tintin / আমেরিকার টিনটিন)<br>
+4. Cigars of the Pharaoh
+(Pharaoh Er Churut / ফারাওয়ের চুরুট) <br>
+5. The Blue Lotus
+(Nilkamal / নীলকমল) <br>
+6. The Broken Ear
+(Kanbhanga Murti / কানভাঙা মূর্তি)<br>
+7. The Black Island
+(Krishna Dwiper Rahasya / কৃষ্ণদ্বীপের রহস্য)<br>
+8. King Ottokar's Sceptre
+(Otokarer Rajdanda / ওটোকারের রাজদণ্ড)<br>
+9. The Crab with the Golden Claws
+(Kankra Rahasya / কাঁকরা রহস্য)<br>
+10. The Shooting Star
+(Ascharya ulka / আশ্চর্য উল্কা)<br>
+11. The Secret of the Unicorn
+(Bombete jahaj / বোম্বেটে জাহাজ)<br>
+12. Red Rackham's Treasure
+(Lal Bombeter Guptadhon / লাল বোম্বেটের গুপ্তধন)<br>
+13. The Seven Crystal Balls
+(Momir Abhishap / মমির অভিশাপ)<br>
+14. Prisoners of the Sun
+(Surjadeber Bondi / সুর্যদেবের বন্দি)<br>
+15. Land of Black Gold
+(Kalo Sonar Deshe / কালো সোনার দেশে)<br>
+16. Destination Moon
+(Chandraloke aviyan / চন্দ্রালোকে অভিযান)<br>
+17. Explorers on the Moon
+(Chande tintin / চাঁদে টিনটিন)<br>
+18. The Calculus Affair
+(Calculuser kando / ক্যালকুলাসের কাণ্ড)<br>
+19. The Red Sea Sharks
+(Lohit Sagarer Hangar / লোহিত সাগরের হাঙর)<br>
+20. Tintin in Tibet
+(Tibbate Tintin / তিব্বতে টিনটিন)<br>
+21. The Castafiore Emerald
+(Panna Kothai / পান্না কোথায়)<br>
+22. Flight 714 to Sydney
+(Flight 714 / ফ্লাইট 714)<br>
+23. Tintin and the Picaros
+(Biplabider dangale / বিপ্লবীদের দঙ্গলে)
+<br>
+24. Tintin and Alph-Art
+(Barnashilpo rahasya / বর্ণ শিল্প রহস্য)<br>
+25. Bhingroher Agantuk
+(ভিনগ্রহের আগন্তুক)<br>
+26. Hangor Hroder Bibhishika
+(হাঙর হ্রদের বিভীষিকা)<br>
+  </p>
+  <p style="text-align:left">All tintin comics available <br>
+  Download any Tintin Comics PDF free 
+ <br>Download Tintin Comics in English
+<br>Download Tintin Comics in Bangla <br>
+English Version Tintin Books <br>
+Bangla (Bengali) Version Tintin Books <br>
+বাংলায় টিনটিন <br>
+All tintin comics available
+  <br>High Quality Pdf free download</p>
+  `
 var insert = document.getElementById("insert")
 insert.insertBefore(hfs, insert.firstChild);
 
