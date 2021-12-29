@@ -41,7 +41,7 @@
 }
 .yB {
   font-size: 18px;
-  height: 30px;
+  min-height: 30px;
   margin-left: 10px;
 }
 .yLink {display: block}
