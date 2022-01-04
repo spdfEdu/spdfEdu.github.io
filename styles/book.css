@@ -45,7 +45,7 @@
     .info {
       width: 80%;
       margin: auto;
-      border: 1px solid rgb(147,147,147);
+      border: 2px solid rgb(147,147,147);
       border-collapse: collapse;
     }
     .info-row {
@@ -54,6 +54,11 @@
     .info-label, .info-data {
       padding: 7px 0 6px 10px;
       text-align: left;
+    }
+    .info-data-ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
     }
     .info-row:nth-child(even) {background-color: #f2f2f2;}
     .info-row:hover {background-color: #dddddd;}
