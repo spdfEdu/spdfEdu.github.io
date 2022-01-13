@@ -200,6 +200,7 @@ content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style=
       border: 1px solid #c5c5c5;
       display: flex;
       padding: 5px;
+      margin: 15px 0;
       font-size: 18px;
       border-top-left-radius: 20px;
       user-select: none;
@@ -247,7 +248,7 @@ content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style=
         All NCERT Books PDF in Bengali are available here. <br />
      From Class I to XII.
       </div>
-    </div><br>
+    </div>
     <div class="box-Books" onclick="location.href='https://bit.ly/medBooks'">
       <img class="cover-Books" src="https://spdfedu.github.io/image/medBooks-sm.png" alt="medBooks [spdfEdu]" />
       <div class="details-Books">
