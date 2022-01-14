@@ -240,7 +240,7 @@ content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style=
       You may also view:
     </h3><br>
    <div class="box-Books" onclick="location.href='https://bit.ly/ncert-bengali'">
-      <img class="cover-Books" src="https://spdfedu.github.io/image/ncert-bengali.jpg" alt="NCERT Books in Bengali | spdfEdu" />
+      <img class="cover-Books" src="https://spdfedu.github.io/image/cover/ncert-bengali-sm.webp" alt="NCERT Books in Bengali | spdfEdu" />
       <div class="details-Books">
         <div class="head-box-Books">
        NCERT in Bengali
