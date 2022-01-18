@@ -1,0 +1,257 @@
+const ttintin = [
+    {
+        "sl": 1,
+        "eTitle": "In the Land of the Soviets",
+        "beTitle": "Soviet Deshe Tintin",
+        "bTitle": "সোভিয়েত দেশে টিনটিন",
+        "fTitle": "Tintin au pays des Soviets",
+        "hTitle": "सोवियत संघ की भूमि में टिनटिन",
+        "year": 1930,
+        "link": "tintin-in-lands-of-soviets"
+    },
+    {
+        "sl": 2,
+        "eTitle": "Tintin in the Congo",
+        "beTitle": "Congoy tintin",
+        "bTitle": "কঙ্গোয় টিনটিন",
+        "fTitle": "Tintin au Congo",
+        "hTitle": "टिनटिन कांगो में",
+        "year": 1931,
+        "link": "tintin-in-congo"
+    },
+    {
+        "sl": 3,
+        "eTitle": "Tintin in America",
+        "beTitle": "Americay tintin",
+        "bTitle": "আমেরিকায় টিনটিন",
+        "fTitle": "Tintin en Amérique",
+        "hTitle": "टिनटिन अमेरिका में",
+        "year": 1932,
+        "link": "tintin-in-america"
+    },
+    {
+        "sl": 4,
+        "eTitle": "Cigars of the Pharaoh",
+        "beTitle": "Pharaoher Churut",
+        "bTitle": "ফারাওয়ের চুরুট",
+        "fTitle": "Les Cigares du pharaon",
+        "hTitle": "फराओ को सिगार",
+        "year": 1934,
+        "link": "cigars-of-pharaoh"
+    },
+    {
+        "sl": 5,
+        "eTitle": "The Blue Lotus",
+        "beTitle": "Nilkamal",
+        "bTitle": "নীলকমল",
+        "fTitle": "Le Lotus bleu",
+        "hTitle": "नीलकमल",
+        "year": 1936,
+        "link": "the-blue-lotus"
+    },
+    {
+        "sl": 6,
+        "eTitle": "The Broken Ear",
+        "beTitle": "Kanbhanga Murti",
+        "bTitle": "কানভাঙা মূর্তি",
+        "fTitle": "L'Oreille cassée",
+        "hTitle": "टूटा कान",
+        "year": 1937,
+        "link": "the-broken-ear"
+    },
+    {
+        "sl": 7,
+        "eTitle": "The Black Island",
+        "beTitle": "Krishnadiper Rahasya",
+        "bTitle": "কৃষ্ণাদীপের রহস্য",
+        "fTitle": "L'Île Noire",
+        "hTitle": "काला द्वीप",
+        "year": 1938,
+        "link": "the-black-island"
+    },
+    {
+        "sl": 8,
+        "eTitle": "King Ottokar's Sceptre",
+        "beTitle": "Otokarer Rajdanda",
+        "bTitle": "ওটোকারের রাজদণ্ড",
+        "fTitle": "Le Sceptre d'Ottokar",
+        "hTitle": "राजा ओटोकर का राजदंड",
+        "year": 1939,
+        "link": "king-ottokars-sceptre"
+    },
+    {
+        "sl": 9,
+        "eTitle": "The Crab with the Golden Claws",
+        "beTitle": "Kankra Rahasya",
+        "bTitle": "কাকড়া রহস্য",
+        "fTitle": "Le Crabe aux pinces d'or",
+        "hTitle": "केकड़ा के सुनहरे पंजे",
+        "year": 1941,
+        "link": "the-crab-with-the-golden-claws"
+    },
+    {
+        "sl": 10,
+        "eTitle": "The Shooting Star",
+        "beTitle": "Ascharya Ulka",
+        "bTitle": "আশ্চর্য উল্কা",
+        "fTitle": "L'Étoile mystérieuse",
+        "hTitle": "रहस्यमय उल्का",
+        "year": 1942,
+        "link": "the-shooting-star"
+    },
+    {
+        "sl": 11,
+        "eTitle": "The Secret of the Unicorn",
+        "beTitle": "Bombete Jahaj",
+        "bTitle": "বোম্বেটে জাহাজ",
+        "fTitle": "Le Secret de La Licorne",
+        "hTitle": "यूनिकॉर्न का रहस्य",
+        "year": 1943,
+        "link": "the-secret-of-unicorn"
+    },
+    {
+        "sl": 12,
+        "eTitle": "Red Rackham's Treasure",
+        "beTitle": "Lal Bombeter Guptadhon",
+        "bTitle": "লাল বোম্বেটের গুপ্তধন",
+        "fTitle": "Le Trésor de Rackham le Rouge",
+        "hTitle": "लाल राखम का खजाना",
+        "year": 1944,
+        "link": "red-rackhams-treasure"
+    },
+    {
+        "sl": 13,
+        "eTitle": "The Seven Crystal Balls",
+        "beTitle": "Momir Abhishap",
+        "bTitle": "মমির অভিশাপ",
+        "fTitle": "Les Sept Boules de cristal",
+        "hTitle": "सात क्रिस्टल बॉल्स",
+        "year": 1948,
+        "link": "the-seven-crystal-balls"
+    },
+    {
+        "sl": 14,
+        "eTitle": "Prisoners of the Sun",
+        "beTitle": "Surjadeber Bondi",
+        "bTitle": "সূর্যদেবের বন্দি",
+        "fTitle": "Le Temple du Soleil",
+        "hTitle": "सूर्य के कैदियों",
+        "year": 1949,
+        "link": "prisoners-of-sun"
+    },
+    {
+        "sl": 15,
+        "eTitle": "Land of Black Gold",
+        "beTitle": "Kalo Sonar Deshe",
+        "bTitle": "কালো সোনার দেশে",
+        "fTitle": "Tintin au pays de l'or noir",
+        "hTitle": "काले सोने की भूमि",
+        "year": 1950,
+        "link": "land-of-black-gold"
+    },
+    {
+        "sl": 16,
+        "eTitle": "Destination Moon",
+        "beTitle": "Chandraloke aviyan",
+        "bTitle": "চ্ন্দ্রলকে অভিযান",
+        "fTitle": "Objectif Lune",
+        "hTitle": "गंतव्य चंद्रमा",
+        "year": 1953,
+        "link": "destination-moon"
+    },
+    {
+        "sl": 17,
+        "eTitle": "Explorers on the Moon",
+        "beTitle": "Chande tintin",
+        "bTitle": "চাঁদে টিনটিন",
+        "fTitle": "On a marché sur la Lune",
+        "hTitle": "चंद्रमा पर खोजकर्ता",
+        "year": 1954,
+        "link": "explorers-on-moon"
+    },
+    {
+        "sl": 18,
+        "eTitle": "The Calculus Affair",
+        "beTitle": "Calculuser kando",
+        "bTitle": "ক্যালকুলাসের কাণ্ড",
+        "fTitle": "L'Affaire Tournesol",
+        "hTitle": "कैलक्यूलस चक्कर",
+        "year": 1956,
+        "link": "the-calculus-affair"
+    },
+    {
+        "sl": 19,
+        "eTitle": "The Red Sea Sharks",
+        "beTitle": "Lohit Sagarer Hangar",
+        "bTitle": "লোহিত সাগরের হাঙর",
+        "fTitle": "Coke en stock",
+        "hTitle": "लाल सागर की शार्क",
+        "year": 1958,
+        "link": "the-red-sea-sharks"
+    },
+    {
+        "sl": 20,
+        "eTitle": "Tintin in Tibet",
+        "beTitle": "Tibbate Tintin",
+        "bTitle": "তিব্বতে টিনটিন",
+        "fTitle": "Tintin au Tibet",
+        "hTitle": "तिब्बत में टिनटिन",
+        "year": 1960,
+        "link": "tintin-in-tibet"
+    },
+    {
+        "sl": 21,
+        "eTitle": "The Castafiore Emerald",
+        "beTitle": "Panna Kothai",
+        "bTitle": "পান্না কোথায়",
+        "fTitle": "Les Bijoux de la Castafiore",
+        "hTitle": "कैस्ताफिओरे पन्ना",
+        "year": 1963,
+        "link": "the-castafiore-emerald"
+    },
+    {
+        "sl": 22,
+        "eTitle": "Flight 714 to Sydney",
+        "beTitle": "Flight 714",
+        "bTitle": "ফ্লাইট ৭১৪ গন্তব্য সিডনি",
+        "fTitle": "Vol 714 pour Sydney",
+        "hTitle": "फ्लाइट ७१४",
+        "year": 1968,
+        "link": "flight-714-to-sydney"
+    },
+    {
+        "sl": 23,
+        "eTitle": "Tintin and the Picaros",
+        "beTitle": "Biplabider dangale",
+        "bTitle": "বিপ্লবীদের দঙ্গলে",
+        "fTitle": "Tintin et les Picaros",
+        "hTitle": "टिनटिन और पिकारोस",
+        "year": 1976,
+        "link": "tintin-and-picaros"
+    },
+    {
+        "sl": 24,
+        "eTitle": "Tintin and Alph-Art",
+        "beTitle": "Barnashilpo rahasya",
+        "bTitle": "বর্ণশিল্প রহস্য",
+        "fTitle": "Tintin et l'Alph-Art",
+        "hTitle": "टिनटिन और अल्फ-कला",
+        "year": 1986,
+        "link": "tintin-and-alph-art"
+    },
+    {
+        "sl": 25,
+        "eTitle": "Tintin and the Lake of Sharks",
+        "beTitle": "Hangor Hrader Bibhisika",
+        "bTitle": "হাঙর হ্রদের বিভীষিকা",
+        "year": 1973,
+        "link": "hangor-hroder-bibhishika"
+    },
+    {
+        "sl": 26,
+        "beTitle": "Bhingroher Agantuk",
+        "bTitle": "ভিনগ্রহের আগন্তুক",
+        "year": 2000,
+        "link": "bhingroher-aguntuk"
+    }
+]
