@@ -132,7 +132,7 @@ const ttintin = [
     {
         "sl": 14,
         "eTitle": "Prisoners of the Sun",
-        "beTitle": "Surjadeber Bondi",
+        "beTitle": "Surjadeber Bandi",
         "bTitle": "সূর্যদেবের বন্দি",
         "fTitle": "Le Temple du Soleil",
         "hTitle": "सूर्य के कैदियों",
@@ -182,7 +182,7 @@ const ttintin = [
     {
         "sl": 19,
         "eTitle": "The Red Sea Sharks",
-        "beTitle": "Lohit Sagarer Hangar",
+        "beTitle": "Lohit Sagarer Hangor",
         "bTitle": "লোহিত সাগরের হাঙর",
         "fTitle": "Coke en stock",
         "hTitle": "लाल सागर की शार्क",
@@ -249,7 +249,7 @@ const ttintin = [
     },
     {
         "sl": 26,
-        "beTitle": "Bhingroher Agantuk",
+        "beTitle": "Bhingroher Aguntuk",
         "bTitle": "ভিনগ্রহের আগন্তুক",
         "year": 2000,
         "link": "bhingroher-aguntuk"
