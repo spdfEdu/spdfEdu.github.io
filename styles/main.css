@@ -10,6 +10,7 @@ html,body {
       width: 100%;
       z-index: 25;
       background-color: #fff;
+      transition: top 0.9s;
       }
 #head {
       font-size: 40px;
