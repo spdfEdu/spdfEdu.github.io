@@ -58,7 +58,7 @@
       border-top-right-radius: 30px;
       border-bottom-right-radius: 30px;}
 .yLink:hover {
-      color: #000;
+      color: #000 !important;
 }
 #cdt {color: red}
 #box {display: flex}
