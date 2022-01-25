@@ -3,12 +3,12 @@
      display: inline-block;
      font-family: 'Roboto', sans-serif;
 }
-.index-link, .yLink {
+.index-link {
      text-decoration-line: none;
      color: #426af4 !important;
      text-decoration-color: #426af4;
 }
-.index-link:hover, .yLink:hover {
+.index-link:hover {
      text-decoration-line: underline;
      color: #000 !important;
      -webkit-tap-highlight-color: transparent;
@@ -47,7 +47,19 @@
   min-height: 30px;
   margin-left: 10px;
 }
-.yLink {display: block}
+.yLink {display: block;
+      width: 90%;
+      background-color: #00afff;
+      color: #fff !important;
+      font-weight: bold;
+      padding: 5px;
+      margin: 3px;
+      border-radius: 5px;
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;}
+.yLink:hover {
+      color: #000;
+}
 #cdt {color: red}
 #box {display: flex}
 .bubble {
