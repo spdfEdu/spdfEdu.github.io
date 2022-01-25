@@ -1,4 +1,5 @@
-const ttintin = [
+const ttintin = 
+[
     {
         "sl": 1,
         "eTitle": "In the Land of the Soviets",
@@ -6,28 +7,43 @@ const ttintin = [
         "bTitle": "সোভিয়েত দেশে টিনটিন",
         "fTitle": "Tintin au pays des Soviets",
         "hTitle": "सोवियत संघ की भूमि में टिनटिन",
+        "aTitle": "تان تان قي ارض السوفييت",
         "year": 1930,
-        "link": "tintin-in-lands-of-soviets"
+        "link": "tintin-in-lands-of-soviets",
+        "eSize": 38.98,
+        "bSize": 6.91,
+        "fSize": 11.83,
+        "aSize": 50.43
     },
     {
         "sl": 2,
         "eTitle": "Tintin in the Congo",
-        "beTitle": "Congoy tintin",
+        "beTitle": "Congoy Tintin",
         "bTitle": "কঙ্গোয় টিনটিন",
         "fTitle": "Tintin au Congo",
         "hTitle": "टिनटिन कांगो में",
+        "aTitle": "تان تان في الكونغو",
         "year": 1931,
-        "link": "tintin-in-congo"
+        "link": "tintin-in-congo",
+        "eSize": 24.52,
+        "bSize": 76.43,
+        "fSize": 29.62,
+        "aSize": 14.86
     },
     {
         "sl": 3,
         "eTitle": "Tintin in America",
-        "beTitle": "Americay tintin",
+        "beTitle": "Americay Tintin",
         "bTitle": "আমেরিকায় টিনটিন",
         "fTitle": "Tintin en Amérique",
         "hTitle": "टिनटिन अमेरिका में",
+        "aTitle": "تان تان وعصابات شيكاجو",
         "year": 1932,
-        "link": "tintin-in-america"
+        "link": "tintin-in-america",
+        "eSize": 27.75,
+        "bSize": 62.92,
+        "fSize": 18.96,
+        "aSize": 41.36
     },
     {
         "sl": 4,
@@ -36,8 +52,13 @@ const ttintin = [
         "bTitle": "ফারাওয়ের চুরুট",
         "fTitle": "Les Cigares du pharaon",
         "hTitle": "फराओ को सिगार",
+        "aTitle": "تان تان وسجائر الفرعون",
         "year": 1934,
-        "link": "cigars-of-pharaoh"
+        "link": "cigars-of-pharaoh",
+        "eSize": 30.28,
+        "bSize": 92.17,
+        "fSize": 27.54,
+        "aSize": 28.65
     },
     {
         "sl": 5,
@@ -46,8 +67,13 @@ const ttintin = [
         "bTitle": "নীলকমল",
         "fTitle": "Le Lotus bleu",
         "hTitle": "नीलकमल",
+        "aTitle": "تان تان وزهرة اللوتس الزرقاء",
         "year": 1936,
-        "link": "the-blue-lotus"
+        "link": "the-blue-lotus",
+        "eSize": 28.47,
+        "bSize": 86.93,
+        "fSize": 25.69,
+        "aSize": 46.7
     },
     {
         "sl": 6,
@@ -56,8 +82,13 @@ const ttintin = [
         "bTitle": "কানভাঙা মূর্তি",
         "fTitle": "L'Oreille cassée",
         "hTitle": "टूटा कान",
+        "aTitle": "تان تان والأذن المكسورة",
         "year": 1937,
-        "link": "the-broken-ear"
+        "link": "the-broken-ear",
+        "eSize": 34.11,
+        "bSize": 67.89,
+        "fSize": 29.43,
+        "aSize": 29.98
     },
     {
         "sl": 7,
@@ -66,8 +97,13 @@ const ttintin = [
         "bTitle": "কৃষ্ণাদীপের রহস্য",
         "fTitle": "L'Île Noire",
         "hTitle": "काला द्वीप",
+        "aTitle": "تان تان في الجزيرة السوداء",
         "year": 1938,
-        "link": "the-black-island"
+        "link": "the-black-island",
+        "eSize": 23.68,
+        "bSize": 63.34,
+        "fSize": 24.44,
+        "aSize": 26.44
     },
     {
         "sl": 8,
@@ -76,8 +112,13 @@ const ttintin = [
         "bTitle": "ওটোকারের রাজদণ্ড",
         "fTitle": "Le Sceptre d'Ottokar",
         "hTitle": "राजा ओटोकर का राजदंड",
+        "aTitle": "تان تان وصولجان الملك أوتوكار",
         "year": 1939,
-        "link": "king-ottokars-sceptre"
+        "link": "king-ottokars-sceptre",
+        "eSize": 31.9,
+        "bSize": 89.54,
+        "fSize": 25.63,
+        "aSize": 47.65
     },
     {
         "sl": 9,
@@ -86,8 +127,13 @@ const ttintin = [
         "bTitle": "কাকড়া রহস্য",
         "fTitle": "Le Crabe aux pinces d'or",
         "hTitle": "केकड़ा के सुनहरे पंजे",
+        "aTitle": "تان تان والمخالب الذهبية",
         "year": 1941,
-        "link": "the-crab-with-the-golden-claws"
+        "link": "the-crab-with-the-golden-claws",
+        "eSize": 24.25,
+        "bSize": 62.85,
+        "fSize": 18.06,
+        "aSize": 20.99
     },
     {
         "sl": 10,
@@ -96,8 +142,13 @@ const ttintin = [
         "bTitle": "আশ্চর্য উল্কা",
         "fTitle": "L'Étoile mystérieuse",
         "hTitle": "रहस्यमय उल्का",
+        "aTitle": "تان تان والنجم الغامض",
         "year": 1942,
-        "link": "the-shooting-star"
+        "link": "the-shooting-star",
+        "eSize": 25.48,
+        "bSize": 100.33,
+        "fSize": 25.59,
+        "aSize": 21.73
     },
     {
         "sl": 11,
@@ -106,8 +157,13 @@ const ttintin = [
         "bTitle": "বোম্বেটে জাহাজ",
         "fTitle": "Le Secret de La Licorne",
         "hTitle": "यूनिकॉर्न का रहस्य",
+        "aTitle": "تان تان وسر الخرتيت",
         "year": 1943,
-        "link": "the-secret-of-unicorn"
+        "link": "the-secret-of-unicorn",
+        "eSize": 22.85,
+        "bSize": 59.33,
+        "fSize": 23.8,
+        "aSize": 21.4
     },
     {
         "sl": 12,
@@ -116,8 +172,13 @@ const ttintin = [
         "bTitle": "লাল বোম্বেটের গুপ্তধন",
         "fTitle": "Le Trésor de Rackham le Rouge",
         "hTitle": "लाल राखम का खजाना",
+        "aTitle": "تان تان وكنز القرصان الأحمر",
         "year": 1944,
-        "link": "red-rackhams-treasure"
+        "link": "red-rackhams-treasure",
+        "eSize": 36.22,
+        "bSize": 73.77,
+        "fSize": 31.36,
+        "aSize": 24.3
     },
     {
         "sl": 13,
@@ -126,8 +187,13 @@ const ttintin = [
         "bTitle": "মমির অভিশাপ",
         "fTitle": "Les Sept Boules de cristal",
         "hTitle": "सात क्रिस्टल बॉल्स",
+        "aTitle": "تان تان والكرات السبع البلورية",
         "year": 1948,
-        "link": "the-seven-crystal-balls"
+        "link": "the-seven-crystal-balls",
+        "eSize": 19.05,
+        "bSize": 63.91,
+        "fSize": 27.49,
+        "aSize": 21.42
     },
     {
         "sl": 14,
@@ -136,8 +202,13 @@ const ttintin = [
         "bTitle": "সূর্যদেবের বন্দি",
         "fTitle": "Le Temple du Soleil",
         "hTitle": "सूर्य के कैदियों",
+        "aTitle": "تان تان في معبد الشمس",
         "year": 1949,
-        "link": "prisoners-of-sun"
+        "link": "prisoners-of-sun",
+        "eSize": 23.17,
+        "bSize": 79.63,
+        "fSize": 28.25,
+        "aSize": 13.75
     },
     {
         "sl": 15,
@@ -146,8 +217,13 @@ const ttintin = [
         "bTitle": "কালো সোনার দেশে",
         "fTitle": "Tintin au pays de l'or noir",
         "hTitle": "काले सोने की भूमि",
+        "aTitle": "تان تان وأرض الذهب الأسود",
         "year": 1950,
-        "link": "land-of-black-gold"
+        "link": "land-of-black-gold",
+        "eSize": 42.47,
+        "bSize": 80.66,
+        "fSize": 29.35,
+        "aSize": 25.71
     },
     {
         "sl": 16,
@@ -156,8 +232,13 @@ const ttintin = [
         "bTitle": "চ্ন্দ্রলকে অভিযান",
         "fTitle": "Objectif Lune",
         "hTitle": "गंतव्य चंद्रमा",
+        "aTitle": "تان تان ورحلة إلى القمر",
         "year": 1953,
-        "link": "destination-moon"
+        "link": "destination-moon",
+        "eSize": 33.76,
+        "bSize": 55.79,
+        "fSize": 26.04,
+        "aSize": 32.33
     },
     {
         "sl": 17,
@@ -166,8 +247,13 @@ const ttintin = [
         "bTitle": "চাঁদে টিনটিন",
         "fTitle": "On a marché sur la Lune",
         "hTitle": "चंद्रमा पर खोजकर्ता",
+        "aTitle": "تان تان .. المستكشفين على سطح القمر",
         "year": 1954,
-        "link": "explorers-on-moon"
+        "link": "explorers-on-moon",
+        "eSize": 21.28,
+        "bSize": 57.49,
+        "fSize": 25.6,
+        "aSize": 23.74
     },
     {
         "sl": 18,
@@ -176,18 +262,28 @@ const ttintin = [
         "bTitle": "ক্যালকুলাসের কাণ্ড",
         "fTitle": "L'Affaire Tournesol",
         "hTitle": "कैलक्यूलस चक्कर",
+        "aTitle": "تان تان والاختراع المدمر",
         "year": 1956,
-        "link": "the-calculus-affair"
+        "link": "the-calculus-affair",
+        "eSize": 26.26,
+        "bSize": 84.4,
+        "fSize": 32.69,
+        "aSize": 23.33
     },
     {
         "sl": 19,
         "eTitle": "The Red Sea Sharks",
-        "beTitle": "Lahit Sagarer Hangor",
+        "beTitle": "Lahit Sagarer Hangar",
         "bTitle": "লোহিত সাগরের হাঙর",
         "fTitle": "Coke en stock",
         "hTitle": "लाल सागर की शार्क",
+        "aTitle": "تان تان وقروش البحر الأحمر",
         "year": 1958,
-        "link": "the-red-sea-sharks"
+        "link": "the-red-sea-sharks",
+        "eSize": 36.32,
+        "bSize": 73,
+        "fSize": 25.1,
+        "aSize": 12.4
     },
     {
         "sl": 20,
@@ -196,8 +292,13 @@ const ttintin = [
         "bTitle": "তিব্বতে টিনটিন",
         "fTitle": "Tintin au Tibet",
         "hTitle": "तिब्बत में टिनटिन",
+        "aTitle": "تان تان في التبت",
         "year": 1960,
-        "link": "tintin-in-tibet"
+        "link": "tintin-in-tibet",
+        "eSize": 33.71,
+        "bSize": 72.43,
+        "fSize": 26.32,
+        "aSize": 56.11
     },
     {
         "sl": 21,
@@ -206,8 +307,13 @@ const ttintin = [
         "bTitle": "পান্না কোথায়",
         "fTitle": "Les Bijoux de la Castafiore",
         "hTitle": "कैस्ताफिओरे पन्ना",
+        "aTitle": "تان تان ومجوهرات بيانكا كاستافيور",
         "year": 1963,
-        "link": "the-castafiore-emerald"
+        "link": "the-castafiore-emerald",
+        "eSize": 43.5,
+        "bSize": 66.95,
+        "fSize": 27.59,
+        "aSize": 24.87
     },
     {
         "sl": 22,
@@ -216,8 +322,13 @@ const ttintin = [
         "bTitle": "ফ্লাইট ৭১৪ গন্তব্য সিডনি",
         "fTitle": "Vol 714 pour Sydney",
         "hTitle": "फ्लाइट ७१४",
+        "aTitle": "تان تان والرحلة 714 إلي سيدني",
         "year": 1968,
-        "link": "flight-714-to-sydney"
+        "link": "flight-714-to-sydney",
+        "eSize": 21.38,
+        "bSize": 57.59,
+        "fSize": 27.59,
+        "aSize": 13.91
     },
     {
         "sl": 23,
@@ -226,8 +337,13 @@ const ttintin = [
         "bTitle": "বিপ্লবীদের দঙ্গলে",
         "fTitle": "Tintin et les Picaros",
         "hTitle": "टिनटिन और पिकारोस",
+        "aTitle": "تان تان والبيكاروس",
         "year": 1976,
-        "link": "tintin-and-picaros"
+        "link": "tintin-and-picaros",
+        "eSize": 38.44,
+        "bSize": 93.25,
+        "fSize": 28.3,
+        "aSize": 24.37
     },
     {
         "sl": 24,
@@ -236,22 +352,32 @@ const ttintin = [
         "bTitle": "বর্ণশিল্প রহস্য",
         "fTitle": "Tintin et l'Alph-Art",
         "hTitle": "टिनटिन और अल्फ-कला",
+        "aTitle": "تان تان والفارت",
         "year": 1986,
-        "link": "tintin-and-alph-art"
+        "link": "tintin-and-alph-art",
+        "eSize": 23.1,
+        "bSize": 63.52,
+        "fSize": 17.19
     },
     {
         "sl": 25,
         "eTitle": "Tintin and the Lake of Sharks",
         "beTitle": "Hangor Hrader Bibhisika",
         "bTitle": "হাঙর হ্রদের বিভীষিকা",
+        "fTitle": "Tintin et le lac aux requins",
+        "aTitle": "تان تان وبحيرة القرش",
         "year": 1973,
-        "link": "hangor-hroder-bibhishika"
+        "link": "hangor-hroder-bibhishika",
+        "eSize": 16.59,
+        "bSize": 39.91,
+        "aSize": 48.5
     },
     {
         "sl": 26,
-        "beTitle": "Bhingroher Aguntuk",
+        "beTitle": "Bhingroher Agantuk",
         "bTitle": "ভিনগ্রহের আগন্তুক",
         "year": 2000,
-        "link": "bhingroher-aguntuk"
+        "link": "bhingroher-aguntuk",
+        "bSize": 31.71
     }
 ]
