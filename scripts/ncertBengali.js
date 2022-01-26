@@ -1,3 +1,15 @@
+var  prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("head-box").style.top = "0";
+  } else {
+    if (currentScrollPos > 150) {
+    document.getElementById("head-box").style.top = "-50px";
+    }
+  }
+ prevScrollpos = currentScrollPos;
+}
 //footer section
 var child = document.createElement("div");
 child.innerHTML =
