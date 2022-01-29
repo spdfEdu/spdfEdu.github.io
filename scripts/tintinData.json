@@ -273,7 +273,7 @@ const ttintin =
     {
         "sl": 19,
         "eTitle": "The Red Sea Sharks",
-        "beTitle": "Lahit Sagarer Hangar",
+        "beTitle": "Lahit Sagarer Hangor",
         "bTitle": "লোহিত সাগরের হাঙর",
         "fTitle": "Coke en stock",
         "hTitle": "लाल सागर की शार्क",
@@ -374,7 +374,7 @@ const ttintin =
     },
     {
         "sl": 26,
-        "beTitle": "Bhingroher Agantuk",
+        "beTitle": "Bhingroher Aguntuk",
         "bTitle": "ভিনগ্রহের আগন্তুক",
         "year": 2000,
         "link": "bhingroher-aguntuk",
