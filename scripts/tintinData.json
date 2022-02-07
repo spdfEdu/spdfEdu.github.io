@@ -11,7 +11,9 @@ const ttintin =
         "year": 1930,
         "link": "tintin-in-lands-of-soviets",
         "eSize": 38.98,
+        "elSize": 6.2,
         "bSize": 6.91,
+        "blSize": "6.91",
         "fSize": 11.83,
         "aSize": 50.43
     },
@@ -26,7 +28,9 @@ const ttintin =
         "year": 1931,
         "link": "tintin-in-congo",
         "eSize": 24.52,
+        "elSize": 3.3,
         "bSize": 76.43,
+        "blSize": 6.98,
         "fSize": 29.62,
         "aSize": 14.86
     },
@@ -41,7 +45,9 @@ const ttintin =
         "year": 1932,
         "link": "tintin-in-america",
         "eSize": 27.75,
+        "elSize": 3.7,
         "bSize": 62.92,
+        "blSize": 11.8,
         "fSize": 18.96,
         "aSize": 41.36
     },
@@ -56,7 +62,9 @@ const ttintin =
         "year": 1934,
         "link": "cigars-of-pharaoh",
         "eSize": 30.28,
+        "elSize": 7.5,
         "bSize": 92.17,
+        "blSize": 13.29,
         "fSize": 27.54,
         "aSize": 28.65
     },
@@ -71,7 +79,9 @@ const ttintin =
         "year": 1936,
         "link": "the-blue-lotus",
         "eSize": 28.47,
+        "elSize": 7.3,
         "bSize": 86.93,
+        "blSize": "--",
         "fSize": 25.69,
         "aSize": 46.7
     },
@@ -86,7 +96,9 @@ const ttintin =
         "year": 1937,
         "link": "the-broken-ear",
         "eSize": 34.11,
+        "elSize": 7.5,
         "bSize": 67.89,
+        "blSize": 14.28,
         "fSize": 29.43,
         "aSize": 29.98
     },
@@ -101,7 +113,9 @@ const ttintin =
         "year": 1938,
         "link": "the-black-island",
         "eSize": 23.68,
+        "elSize": 3.2,
         "bSize": 63.34,
+        "blSize": 8.96,
         "fSize": 24.44,
         "aSize": 26.44
     },
@@ -116,7 +130,9 @@ const ttintin =
         "year": 1939,
         "link": "king-ottokars-sceptre",
         "eSize": 31.9,
+        "elSize": 4.3,
         "bSize": 89.54,
+        "blSize": "--",
         "fSize": 25.63,
         "aSize": 47.65
     },
@@ -131,7 +147,9 @@ const ttintin =
         "year": 1941,
         "link": "the-crab-with-the-golden-claws",
         "eSize": 24.25,
+        "elSize": 6.5,
         "bSize": 62.85,
+        "blSize": "--",
         "fSize": 18.06,
         "aSize": 20.99
     },
@@ -146,7 +164,9 @@ const ttintin =
         "year": 1942,
         "link": "the-shooting-star",
         "eSize": 25.48,
+        "elSize": 3,
         "bSize": 100.33,
+        "blSize": 10.6,
         "fSize": 25.59,
         "aSize": 21.73
     },
@@ -161,7 +181,9 @@ const ttintin =
         "year": 1943,
         "link": "the-secret-of-unicorn",
         "eSize": 22.85,
+        "elSize": 6.9,
         "bSize": 59.33,
+        "blSize": 11.4,
         "fSize": 23.8,
         "aSize": 21.4
     },
@@ -176,7 +198,9 @@ const ttintin =
         "year": 1944,
         "link": "red-rackhams-treasure",
         "eSize": 36.22,
+        "elSize": 4.3,
         "bSize": 73.77,
+        "blSize": 11.8,
         "fSize": 31.36,
         "aSize": 24.3
     },
@@ -191,7 +215,9 @@ const ttintin =
         "year": 1948,
         "link": "the-seven-crystal-balls",
         "eSize": 19.05,
+        "elSize": 7.5,
         "bSize": 63.91,
+        "blSize": 12.5,
         "fSize": 27.49,
         "aSize": 21.42
     },
@@ -206,7 +232,9 @@ const ttintin =
         "year": 1949,
         "link": "prisoners-of-sun",
         "eSize": 23.17,
+        "elSize": 3.2,
         "bSize": 79.63,
+        "blSize": 10.1,
         "fSize": 28.25,
         "aSize": 13.75
     },
@@ -221,14 +249,16 @@ const ttintin =
         "year": 1950,
         "link": "land-of-black-gold",
         "eSize": 42.47,
+        "elSize": 4.8,
         "bSize": 80.66,
+        "blSize": 12.2,
         "fSize": 29.35,
         "aSize": 25.71
     },
     {
         "sl": 16,
         "eTitle": "Destination Moon",
-        "beTitle": "Chandraloke aviyan",
+        "beTitle": "Chandraloke Aviyan",
         "bTitle": "চ্ন্দ্রলকে অভিযান",
         "fTitle": "Objectif Lune",
         "hTitle": "गंतव्य चंद्रमा",
@@ -236,14 +266,16 @@ const ttintin =
         "year": 1953,
         "link": "destination-moon",
         "eSize": 33.76,
+        "elSize": 7.1,
         "bSize": 55.79,
+        "blSize": 14.6,
         "fSize": 26.04,
         "aSize": 32.33
     },
     {
         "sl": 17,
         "eTitle": "Explorers on the Moon",
-        "beTitle": "Chande tintin",
+        "beTitle": "Chande Tintin",
         "bTitle": "চাঁদে টিনটিন",
         "fTitle": "On a marché sur la Lune",
         "hTitle": "चंद्रमा पर खोजकर्ता",
@@ -251,14 +283,16 @@ const ttintin =
         "year": 1954,
         "link": "explorers-on-moon",
         "eSize": 21.28,
+        "elSize": 7,
         "bSize": 57.49,
+        "blSize": 14.1,
         "fSize": 25.6,
         "aSize": 23.74
     },
     {
         "sl": 18,
         "eTitle": "The Calculus Affair",
-        "beTitle": "Calculuser kando",
+        "beTitle": "Calculuser Kando",
         "bTitle": "ক্যালকুলাসের কাণ্ড",
         "fTitle": "L'Affaire Tournesol",
         "hTitle": "कैलक्यूलस चक्कर",
@@ -266,7 +300,9 @@ const ttintin =
         "year": 1956,
         "link": "the-calculus-affair",
         "eSize": 26.26,
+        "elSize": 3.2,
         "bSize": 84.4,
+        "blSize": 13.2,
         "fSize": 32.69,
         "aSize": 23.33
     },
@@ -281,7 +317,9 @@ const ttintin =
         "year": 1958,
         "link": "the-red-sea-sharks",
         "eSize": 36.32,
+        "elSize": 4.5,
         "bSize": 73,
+        "blSize": 17.2,
         "fSize": 25.1,
         "aSize": 12.4
     },
@@ -296,7 +334,9 @@ const ttintin =
         "year": 1960,
         "link": "tintin-in-tibet",
         "eSize": 33.71,
+        "elSize": 4.6,
         "bSize": 72.43,
+        "blSize": 14.1,
         "fSize": 26.32,
         "aSize": 56.11
     },
@@ -311,7 +351,9 @@ const ttintin =
         "year": 1963,
         "link": "the-castafiore-emerald",
         "eSize": 43.5,
+        "elSize": 4.7,
         "bSize": 66.95,
+        "blSize": 7.8,
         "fSize": 27.59,
         "aSize": 24.87
     },
@@ -326,14 +368,16 @@ const ttintin =
         "year": 1968,
         "link": "flight-714-to-sydney",
         "eSize": 21.38,
+        "elSize": 2.8,
         "bSize": 57.59,
+        "blSize": 12.8,
         "fSize": 27.59,
         "aSize": 13.91
     },
     {
         "sl": 23,
         "eTitle": "Tintin and the Picaros",
-        "beTitle": "Biplabider dangale",
+        "beTitle": "Biplabider Dangale",
         "bTitle": "বিপ্লবীদের দঙ্গলে",
         "fTitle": "Tintin et les Picaros",
         "hTitle": "टिनटिन और पिकारोस",
@@ -341,14 +385,16 @@ const ttintin =
         "year": 1976,
         "link": "tintin-and-picaros",
         "eSize": 38.44,
+        "elSize": 4.3,
         "bSize": 93.25,
+        "blSize": 12.2,
         "fSize": 28.3,
         "aSize": 24.37
     },
     {
         "sl": 24,
         "eTitle": "Tintin and Alph-Art",
-        "beTitle": "Barnashilpo rahasya",
+        "beTitle": "Barnashilpo Rahasya",
         "bTitle": "বর্ণশিল্প রহস্য",
         "fTitle": "Tintin et l'Alph-Art",
         "hTitle": "टिनटिन और अल्फ-कला",
@@ -356,8 +402,11 @@ const ttintin =
         "year": 1986,
         "link": "tintin-and-alph-art",
         "eSize": 23.1,
+        "elSize": 2.5,
         "bSize": 63.52,
-        "fSize": 17.19
+        "blSize": 9.9,
+        "fSize": 17.19,
+        "aSize": "--"
     },
     {
         "sl": 25,
@@ -365,20 +414,24 @@ const ttintin =
         "beTitle": "Hangor Hrader Bibhisika",
         "bTitle": "হাঙর হ্রদের বিভীষিকা",
         "fTitle": "Tintin et le lac aux requins",
+        "hTitle": "टिनटिन",
         "aTitle": "تان تان وبحيرة القرش",
         "year": 1973,
         "link": "hangor-hroder-bibhishika",
         "eSize": 16.59,
+        "elSize": 16.59,
         "bSize": 39.91,
+        "blSize": "--",
+        "fSize": 8.5,
         "aSize": 48.5
     },
     {
         "sl": 26,
         "beTitle": "Bhingroher Aguntuk",
         "bTitle": "ভিনগ্রহের আগন্তুক",
-        "year": 2000,
+        "year": 2016,
         "link": "bhingroher-aguntuk",
-        "bSize": 31.71
+        "bSize": 31.71,
+        "blSize": "--"
     }
-];
-const git = "https://spdfedu.github.io/image/tintin/";
+]
