@@ -35,8 +35,8 @@ immediately, concerned content will be taken down within 24 hours.</b><br><br></
 document.body.append(child);
 }
 // shareBox
-var xurl = 'https://bit.ly/tintinComics';
-var url ='Main Website --> bit.ly/spdfEdu';
+var xurl = window.location.href.split("?m=1")[0]
+var url ='Main Website --> bit.ly/spdfEdu'
 var hfs = document.createElement("div");
 hfs.innerHTML =`
 <br><br>
