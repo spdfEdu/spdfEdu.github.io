@@ -1,3 +1,4 @@
+const git = "https://spdfedu.github.io/image/tintin/"
 //innerHTMLs & srcs & alts
 {
   document.title = `${ttintin[slNo].eTitle} | spdfEdu`
@@ -10,7 +11,9 @@
   ['#efname', `${ttintin[slNo].eTitle} in French`],
   ['#eaname', `${ttintin[slNo].eTitle} in Arabic`],
   ['#esize', `${ttintin[slNo].eSize} MB`],
+  ['#elsize', `${ttintin[slNo].elSize} MB`],
   ['#bsize', `${ttintin[slNo].bSize} MB`],
+  ['#blsize', `${ttintin[slNo].blSize} MB`],
   ['#fsize', `${ttintin[slNo].fSize} MB`],
   ['#asize', `${ttintin[slNo].aSize} MB`],
              ]
@@ -43,6 +46,15 @@ ttintin.forEach(ele => {
 <a href="/p/${ele.link}.html"><img loading="lazy" src="${[git]}/english/sm/${ele.eTitle.toLowerCase().split(' ').join('-')}.webp" alt="${ele.eTitle}"></a>`
   var insertSlide = document.getElementById("insertImgSlide")
   insertSlide.append(crtImgSld);
+
+ttintin.forEach(ele => {
+  var crtImgSld = document.createElement("div")
+  crtImgSld.className = "swiper-slide"
+  crtImgSld.innerHTML =`
+<a href="/p/${ele.link}.html#bangla"><img loading="lazy" src="${[git]}/bangla/sm/${ele.beTitle.toLowerCase().split(' ').join('-')}.webp" alt="${ele.beTitle}"></a>`
+  var insertSlide = document.getElementById("insertBImgSlide")
+  insertSlide.append(crtImgSld);
+})
 
  var bottomPortion = document.createElement("tr")
 bottomPortion.innerHTML =`
