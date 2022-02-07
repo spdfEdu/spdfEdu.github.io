@@ -113,3 +113,20 @@ copyBtn.addEventListener('click', function(event) {
     catch(err){console.log('Oops, unable to copy')}  
   window.getSelection().removeAllRanges();
 });
+var x;
+if (window.innerWidth > 500){x=6}
+else {x=4}
+var swiper = new Swiper('.mySwiper', {
+      slidesPerView:x,
+      spaceBetween:10,
+      loop:true,
+      autoplay:{
+        delay:1000,
+        disableOnInteraction:false,
+      },
+      pagination:{
+        el:'.swiper-pagination',
+        dynamicBullets:true,
+      },
+      centeredSlides:true,
+    });
