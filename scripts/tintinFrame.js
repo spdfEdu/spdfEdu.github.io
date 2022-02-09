@@ -46,21 +46,20 @@ ttintin.forEach(ele => {
 <a href="/2022/02/${ele.eTitle.toLowerCase().split(" ").join("-").replace("'","")}.html"><img loading="lazy" src="${[git]}/english/sm/${ele.eTitle.toLowerCase().split(' ').join('-')}.webp" alt="${ele.eTitle}"></a>`
   var insertSlide = document.getElementById("insertImgSlide")
   insertSlide.append(crtImgSld);
-
- var bottomPortion = document.createElement("tr")
+  
+    var crtBImgSld = document.createElement("div")
+  crtBImgSld.className = "swiper-slide"
+  crtBImgSld.innerHTML =`
+<a href="/2022/02/${ele.eTitle.toLowerCase().split(" ").join("-").replace("'","")}.html#bangla"><img loading="lazy" src="${[git]}/bangla/sm/${ele.beTitle.toLowerCase().split(' ').join('-')}.webp" alt="${ele.beTitle}"></a>`
+  var insertSlide = document.getElementById("insertBImgSlide")
+  insertSlide.append(crtBImgSld);
+  
+  var bottomPortion = document.createElement("tr")
 bottomPortion.innerHTML =`
 <td>${ele.sl}</td>
 <td>${ele.year}</td>
 <td onclick="location.href='/2022/02/${ele.eTitle.toLowerCase().split(" ").join("-").replace("'","")}.html'">${ele.eTitle}<br>${ele.bTitle}</td>`
 var insertTitl = document.getElementById("insertTitles")
 insertTitl.append(bottomPortion)
-})
-  ttintin.forEach(ele => {
-  var crtImgSld = document.createElement("div")
-  crtImgSld.className = "swiper-slide"
-  crtImgSld.innerHTML =`
-<a href="/2022/02/${ele.eTitle.toLowerCase().split(" ").join("-").replace("'","")}.html#bangla"><img loading="lazy" src="${[git]}/bangla/sm/${ele.beTitle.toLowerCase().split(' ').join('-')}.webp" alt="${ele.beTitle}"></a>`
-  var insertSlide = document.getElementById("insertBImgSlide")
-  insertSlide.append(crtImgSld);
 })
 }
