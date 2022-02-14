@@ -4,7 +4,7 @@
 .breadcrumb>li>a:hover{text-decoration:underline;}
 .breadcrumb>li+li:before{padding:0 5px;color:#ccc;content:"/\00a0"}
 
-#h1 {text-align:center;padding :30px ;line-height:null;font-size:30px;font-family:Times, serif;background-color:powderblue}
+#h1{text-align:center;padding :30px ;line-height:null;font-size:30px;font-family:Times, serif;background-color:powderblue}
 .box-tc{height:67vw}
 .title-cover{width:100%;height:66.66vw}
 .info-table{margin:20px auto;width:100%;border:1px solid #939393;border-collapse:collapse}
@@ -14,17 +14,9 @@
 .info-title{padding:5px}
 .info-label{width:40%;text-align:left;padding:5px}
 .info-data{width:60%;padding:5px 0 5px 10px}
-#thanks {
-    font-size:22px;
-    text-align:center}
-.link {
-    text-decoration-line:none;
-    color:#426af4 !important;
-    text-decoration-color:#426af4}
-.link:hover {
-    text-decoration-line:underline;
-    color:rgb(3,199,111) !important;
-    -webkit-tap-highlight-color:transparent}
+#thanks{font-size:22px;text-align:center}
+.link{text-decoration-line:none;color:#426af4 !important;text-decoration-color:#426af4}
+.link:hover{text-decoration-line:underline;color:rgb(3,199,111) !important;-webkit-tap-highlight-color:transparent}
 .book-li{margin:3px 0}
 .small{font-size:x-small;line-height:1;margin:0 10px}
 .box-book{display:block;margin:15px 0;border:1px solid #c8c8c8;border-radius:10px;min-height:90px !important}
