@@ -9,15 +9,17 @@
 .title{text-align:center;font-size:30px}
 
 /*Book Detail Table*/
-.book-detail,#insertTitles{margin:30px auto;border:1px solid #939393;border-collapse:collapse}
+.book-detail,#insertTitles{margin:30px auto;border:1px solid rgb(147,147,147);border-collapse:collapse}
 #insertTitles{text-align:center}
 .d-cover{width:96%;height:auto;display:block;margin:1em 3px}
-.info-row{border-bottom:1px solid #939393}
+.info-row{border-bottom:1px solid rgb(147,147,147)}
 .info-label{width:25%}
 .info-label,.info-data{padding:7px 0 6px 5px;text-align:left}
+.info-data>h4{padding:5px 0;margin:0}
+.t-info-label{padding:0 0 3px 20px;text-align:left}
+.t-info-data{padding:0 0 0 20px}
 .info-data-ul{list-style-type:none;margin:0;padding:0}
-span.info-label{display:inline-block;margin:0;padding:0;width:32%;margin-left:10%}
-span.info-label:after,.size-label:after{padding:0 5px;color:#909090;content:":\00a0"}
+.t-info-label:after,.size-label:after{padding:0 5px;color:#909090;content:":\00a0"}
 .info-row:nth-child(even){background-color:#f2f2f2}
 .info-row:hover{background-color:#dddddd}
 .link{text-decoration-line:none;color:#426af4 !important;text-decoration-color:#426af4}.link:hover{text-decoration-line:underline}
