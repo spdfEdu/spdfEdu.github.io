@@ -13,9 +13,9 @@
 .title-author{margin: 3px 0;font-size: 22px;font-weight: bold;color: #b14a5f !important}
 .name-detail{margin: 0; padding: 0;font-size: 18px;color: #575757}
 .book-info{margin: .3em 0;font-size: 14px;color: #008000}
-.ed-label::before,.sz-label::before {content: '\25C9'}
-.ed-label::after,.sz-label::after {content:':'}
-.edition-data,.size-data{margin-right: 1em}
+.ed-label::before,.sz-label::before,.info-label::before {content: '\25C9'}
+.ed-label::after,.sz-label::after,.info-label::after {content:':'}
+.edition-data,.size-data,.info-data{margin-right: 1em}
 .share{height: 27px;float: right;border: 1px solid #000000;border-radius: 3px;padding: 3px;display: flex;align-items: center;justify-content: center}
 .share:hover{box-shadow: 0.3px 0.3px 3px 0.5px #111414 inset}
 .linkNot{background-color:#f9bf51;margin:30px 0}
