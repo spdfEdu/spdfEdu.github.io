@@ -104,7 +104,8 @@ hr {
         width: 90%;
       }
 .share{
-        height: 27px !important;
+        height: 27px;
+        width:23px;
         font-size: 23px;
         float: right;
         border: 1px solid #000000;
