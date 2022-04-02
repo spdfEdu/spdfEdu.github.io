@@ -53,11 +53,14 @@ copyBtn.addEventListener('click', function(event) {
   window.getSelection().removeAllRanges();
 })
 let tatext = ""
+let tbltext = ""
 var cta = document.getElementsByClassName("title-author");
 for (i=0;i<cta.length;i++) {
   tatext += "<li>"+cta[i].textContent+ document.getElementsByClassName("name-detail")[i].textContent+ document.getElementsByClassName("edition-data")[i].textContent +" edition  pdf download direct link</li>";
+  tbltext += "<tr><td>"+ document.getElementsByClassName("name-detail")[i].textContent+"</td><td>"+cta[i].textContent +"</td><td>"+ document.getElementsByClassName("edition-data")[i].textContent +"</td></tr>";
 }
 document.getElementById("helpBrowser"). innerHTML = tatext;
+document.getElementById("bookTable"). innerHTML = tbltext;
 //replacing error image
 for( i=0; i<22; i++){
  document.getElementsByClassName("cover")[i].setAttribute("onerror","this.className ='book-cover'");}
