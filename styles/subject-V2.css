@@ -19,7 +19,7 @@
 .share{height: 27px;float: right;border: 1px solid #000000;border-radius: 3px;padding: 3px;display: flex;align-items: center;justify-content: center}
 .share:hover{box-shadow: 0.3px 0.3px 3px 0.5px #111414 inset}
 .linkNot{background-color:#f9bf51;margin:30px 0}
-.bklstb,td,th{border:1px solid #939393}
+.bklstb{border:1px solid #939393}
 .bklstb{margin:20px auto;width:100%;border-collapse:collapse}
 .bklstb>thead>tr:nth-child(odd){background-color:#f2f2f2}
 .bklstb>thead>tr>th{text-align:left; padding:10px 5px}
