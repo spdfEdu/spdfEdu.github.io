@@ -10,8 +10,8 @@
 .cover ,.book-cover{display: block;width: 67px;min-height: 82px;font-size: x-small;border-radius: 3px;box-shadow: 1px 2px 5px 2px #dcdcdc}
 .book-cover{content:url("https://spdfedu.github.io/svg/books-medical.svg")}
 .box-rt{flex: 4;margin-left: .5em}
-.title-author{margin: 3px 0;font-size: 22px;font-weight: bold;color: #b14a5f !important}
-.name-detail{margin: 0; padding: 0;font-size: 18px;color: #575757}
+.box-rt>h2{margin: 3px 0;font-size: 22px;font-weight: bold;color: #b14a5f !important}
+.name-detail,p.title-author{margin: 0; padding: 0;font-size: 18px;color: #575757}
 .book-info{margin: .3em 0;font-size: 14px;color: #008000}
 .ed-label::before,.sz-label::before,.info-label::before {content: '\25C9 '}
 .ed-label::after,.sz-label::after,.info-label::after {content:':'}
