@@ -298,7 +298,14 @@
 <div class="fb-comments" data-href="https://spdfedu.github.io/pages/dm_wp.html" data-width="90%" data-numposts="5"></div>
   <script src="https://spdfedu.github.io/scripts/hfs.js"></script>
   <script>
-var xurl="https://bit.ly/dm_wp"
+var xurl="https://bit.ly/dm_wp";
+var input = document.getElementById("whNumber");
+input.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   document.getElementById("link").click();
+  }
+});
 </script>
 </body>
 </html>
