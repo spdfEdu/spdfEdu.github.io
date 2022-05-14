@@ -28,7 +28,7 @@ html,body {
       justify-content: center;
       align-items: center;
       }
-#page-main-body {
+#page-main-body,#pmb{
       margin: 5px;
       z-index: 4;
       font-family: sans-serif;
