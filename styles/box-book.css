@@ -1,0 +1,15 @@
+.box-book,div.gsc-webResult.gsc-result{display: block;margin-bottom: 15px;border: 1px solid #c8c8c8;border-radius: 10px;min-height: 90px !important}
+.box-book:hover,div.gsc-webResult.gsc-result:hover{box-shadow: 1px 1px 7px 1px #aaaaaa;background-color: #f8ffff}
+.gsc-adBlock,.gcsc-find-more-on-google-root{display: none !important;height: 0px}
+.book-link{text-decoration: none;user-select: none;-webkit-tap-highlight-color: transparent}
+.box-flex{display: flex;width: 100%}
+.box-lt{width: 100%;flex: 1;margin: 5px;margin-right: 0;display: block}
+.cover ,.book-cover{display: block;width: 67px;min-height: 82px;font-size: x-small;border-radius: 3px;box-shadow: 1px 2px 5px 2px #dcdcdc}
+.book-cover{content:url("https://spdfedu.github.io/svg/books-medical.svg")}
+.box-rt{flex: 4;margin-left: .5em}
+.box-rt>h2{margin: 3px 0;font-size: 22px;font-weight: bold;color: #b14a5f !important}
+.name-detail,p.title-author{margin: 0; padding: 0;font-size: 18px;color: #575757}
+.book-info{margin: .3em 0;font-size: 14px;color: #008000}
+.ed-label::before,.sz-label::before,.info-label::before {content: '\25C9 '}
+.ed-label::after,.sz-label::after,.info-label::after {content:':'}
+.edition-data,.size-data,.info-data{margin-right: 1em}
