@@ -13,12 +13,12 @@
 .book-cover{content:url("https://spdfedu.github.io/svg/books-medical.svg")}
 .box-rt{flex:4;margin-left:.5em}
 .box-rt>h2{margin:3px 0;font-size:22px;font-weight:bold;color:#b14a5f !important}
-.name-detail,p.title-author{margin:0; padding:0;font-size:18px;color:#575757}
+.name-detail,p.title-author{margin:0;padding:0;font-size:18px;color:#575757}
 .book-info{margin:.3em 0;font-size:14px;color:#008000}
 .ed-label::before,.sz-label::before,.info-label::before{content:'\25C9 '}
 .ed-label::after,.sz-label::after,.info-label::after{content:':'}
 .edition-data,.size-data,.info-data{margin-right:1em}
-.desc{margin:.3em 3px;font-size:14px;color:#636060;max-height:2.8em;overflow:auto;-webkit-mask-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,1)),to(rgba(0,0,0,0)))}
+.desc{margin:.3em 3px;font-size:14px;line-height:1;color:#636060;max-height:2.8em;overflow:auto;-webkit-mask-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,1)),to(rgba(0,0,0,0)))}
 .share{height:27px;float:right;border:1px solid #000000;border-radius:3px;padding:3px;display:flex;align-items:center;justify-content:center}
 .share:hover{box-shadow:.3px .3px 3px .5px #111414 inset}
 .linkNot{background-color:#f9bf51;margin:30px 0}
