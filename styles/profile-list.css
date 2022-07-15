@@ -35,14 +35,14 @@ div {color: #000}
   z-index: 10;
   height: 31px;
   width: 100%;
-  padding: 2px 0;
+  padding: 5px 0;
   background-color: rgb(255,235,225);
   box-shadow: 0 5px 4px -4px #55555588
 }
 #head-main {
   font-size: 25px;
   font-weight: bold;
-  font-family: Serif;
+  font-family: Sans-Serif;
   text-align: center;
   display: flex;
   justify-content: center;
