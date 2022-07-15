@@ -1,10 +1,9 @@
 document.title = `2k${[yr]} Maniktala`
-var header = document.createElement("div");
-header.innerHTML =
+var upper = document.createElement("div");
+upper.innerHTML =
  `<h1 id="head-main">BATCH 20${[yr]}</h1>
   <p id="candidate">Total No of Students is ${all.length}</p>`
-document.body.insertBefore(header, document.body.firstChild);
-
+document.getElementById("upper").append(upper);
   //creating the structure
 var main = document.getElementById("mainContainer");
   all.forEach(ele => {
