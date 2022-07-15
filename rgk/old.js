@@ -15,7 +15,7 @@ var child = document.createElement("div");
     <div class="call"
      onclick="location.href='tel:+91${ele.Phone}'"
      href=''><i class="svg svgCall"></i></div>
-    <div class="wp" onclick="location.href='https://wa.me/91${ele.Phone}'"
+    <div class="wp" onclick="location.href='whatsapp://send?phone=91${ele.Phone}'"
      href=''><i class="svg svgWp"></i></div>
     <div class="share" onclick="share('${ele.Name}','${ele.Phone}')" >
      <i class="svg svgShare"></i></div>
@@ -31,6 +31,6 @@ var child = document.createElement("div");
        text: '*Batch 2k'+yr+'*\n'+a+'\n'+b+'\n--> bit.ly/maniktala',
        })}
    else {
-     window.open('https://wa.me/?text=*Batch'+yr+'*%0A'+a+'%0A'+b+'%0A'+c+'%0A--%3E%20bit.ly/maniktala')
+     window.open('whatsapp://send?text=*Batch 2k'+yr+'*%0A'+a+'%0A'+b+'%0A--%3E%20bit.ly/maniktala')
    }
  }
