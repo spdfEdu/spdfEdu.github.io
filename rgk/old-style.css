@@ -23,6 +23,7 @@
       font-family: Sans-Serif;
       text-align: center;
       }
+      #mainContainer{margin:5px}
       .item {
         width: 100%;
         min-height: 60px;
