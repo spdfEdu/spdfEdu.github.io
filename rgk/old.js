@@ -14,9 +14,9 @@ var child = document.createElement("div");
     <div class="naming">${ele.Name}</div>
     <div class="call"
      onclick="location.href='tel:+91${ele.Phone}'"
-     href=''><i class="svg svgCall"></i></div>
+     href='' style="visibility: ${(!ele.Phone)? 'hidden' : 'visible'}"><i class="svg svgCall"></i></div>
     <div class="wp" onclick="location.href='whatsapp://send?phone=91${ele.Phone}'"
-     href=''><i class="svg svgWp"></i></div>
+     href='' style="visibility: ${(!ele.Phone)? 'hidden' : 'visible'}"><i class="svg svgWp"></i></div>
     <div class="share" onclick="share('${ele.Name}','${ele.Phone}')" >
      <i class="svg svgShare"></i></div>
   </div>`
