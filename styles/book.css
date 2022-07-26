@@ -78,6 +78,7 @@
       }
 .down{
         display: inline-block;
+        margin:2px auto 15px auto;
         color: #ff0000;
         background-color: #ffffff;
         border: 1px solid #ff0000;
