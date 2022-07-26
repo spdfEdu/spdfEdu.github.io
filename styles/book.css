@@ -44,7 +44,7 @@
 .border{border:.7px solid #000}
     .info {
       width: 80%;
-      margin: auto;
+      margin:15px auto;
       border: 2px solid rgb(147,147,147);
       border-collapse: collapse;
     }
@@ -72,6 +72,7 @@
         color: rgb(145,66,232);
       }
 .edition{
+        margin: margin-bottom:2px}
         font-family: sans-serif;
         font-size: 19px;
         color: rgb(145,66,232);
