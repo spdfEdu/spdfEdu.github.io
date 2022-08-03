@@ -3,38 +3,18 @@ var header = document.createElement("div");
 header.innerHTML =
  `  <div id="head-box">
     <div id="head"
-    onclick="location.href='http://bit.ly/spdfEdu'"> 
+    onclick="location.href='/'"> 
       <span style="color:red">spdf</span><span style="color:blue">Edu</span></div>
   </div><br><br>`
  document.body.insertBefore(header, document.body.firstChild);
 
  //footer section
 var child = document.createElement("div");
-child.innerHTML =
- `<div id="boxFooter">
-<div id="copyright"><hr>
-<p id="copyrightHead">
-    <b> DMCA Disclaimer </b></p> We are not hosting any copyrighted contents on our servers, it’s a catalog of links that already found on the internet. Check out our 
-<div id="DMCA" onclick="location.href='https://spdfedu.blogspot.com/p/dcma.html'">DMCA Policy</div>.<b>If you feel that we have violated your copyrights, then please 
-<div id="contact" onclick="location.href='mailto:eduspdf@gmail.com?subject=spdfEdu%20Website%20Queries&body=Name%20%3A%20%0D%0AWebsite%20%3A%20%0D%0AEmail%20Id%20%3A%20%0D%0AContact%20No.%20%3A%20%0D%0A%0D%0AMessage%20%3A%20'">contact us</div>
-immediately, concerned content will be taken down within 24 hours.</b><br><br></div>
- 
-  <div id="boxFoot">
-  <div class="foot" onclick="location.href='mailto:eduspdf@gmail.com?subject=spdfEdu%20Website%20Queries&body=Name%20%3A%20%0D%0AWebsite%20%3A%20%0D%0AEmail%20Id%20%3A%20%0D%0AContact%20No.%20%3A%20%0D%0A%0D%0AMessage%20%3A%20'">
-    Contact Us 
-  </div> |
-  <div class="foot" onclick="location.href='https://spdfedu.blogspot.com/'">
-   Home
-  </div> |
-  <div class="foot" onclick="location.href='https://spdfedu.blogspot.com/p/dcma.html'">
-    DCMA Policy
-  </div>
-  </div>
-  <div id="copySpdfedu">
-    Copyright &#169; 2021 spdfEdu
-  </div>
-  <div class="half-hr"></div>
-</div>`;
+child.innerHTML =`
+<div id="boxFooter"><div id="copyright"><hr><p id="copyrightHead"><b> DMCA Disclaimer </b></p> We are not hosting any copyrighted contents on our servers, it’s a catalog of links that already found on the internet. Check out our <div id="DMCA" onclick="location.href='/p/dcma.html'">DMCA Policy</div>.<b>If you feel that we have violated your copyrights, then please <div id="contact" onclick="location.href='/p/contact-us.html'">contact us</div> immediately, concerned content will be taken down within 24 hours.</b><br><br></div><div id="boxFoot"><div class="foot" onclick="location.href='/p/contact-us.html'"> Contact Us 
+  </div> | <div class="foot" onclick="location.href='/'"> Home
+  </div> | <div class="foot" onclick="location.href='/p/dcma.html'"> DCMA Policy</div></div><div id="copySpdfedu"> Copyright &#169; 2021 spdfEdu</div>
+  <div class="half-hr"></div></div>`;
 document.body.append(child);
 
 // shareBox
@@ -43,10 +23,8 @@ document.body.append(child);
 if (!document.getElementById('box')) {
 insert = document.getElementById('Name')
  if (!document.getElementById('Name') && !document.getElementById('box')) {
-insert = document.getElementById('comments')
-}}
-else {
- insert = document.getElementById('box')
+insert = document.getElementById('comments')}}
+else {insert = document.getElementById('box')
 }}
 
 //creating the share Box
@@ -200,8 +178,7 @@ prepInsert = document.getElementById('box')}
 else {
  prepInsert = document.getElementById('PrepLadder')}}
 prepInsert.insertAdjacentHTML('afterend',`
-<br><div id="prepBox">
-  <div id="prep" onclick="location.href='whatsapp://send?phone=919883553053&text=%E2%9C%A8%20%E2%84%99%E2%84%9D%F0%9D%94%BC%E2%84%99%F0%9D%95%83%F0%9D%94%B8%F0%9D%94%BB%F0%9D%94%BB%F0%9D%94%BC%E2%84%9D%20%F0%9D%95%86%F0%9D%94%BD%F0%9D%94%BD%F0%9D%94%BC%E2%84%9D%20%E2%9C%A8%0A%0A*1st%20Year%20Offer*%0A(Anatomy,%20Physiology,%20Biochemistry)%0A%0A%F0%9D%9F%8F%F0%9D%90%AC%F0%9D%90%AD%20%F0%9D%90%8F%F0%9D%90%AB%F0%9D%90%A8%F0%9D%90%9F%20-%20*%E2%82%B95600*%20/%206%20month%0A*%E2%82%B96000*%20/%209%20month%0A*%E2%82%B96300*%20/%201year%20(%20MRP%20~%E2%82%B99000~%20)%0A%0A*2nd%20Year%20Offer*%0A(Pathology,%20Pharmacology,%20Microbiology)%0A%0A%F0%9D%9F%90%F0%9D%90%A7%F0%9D%90%9D%20%F0%9D%90%8F%F0%9D%90%AB%F0%9D%90%A8%F0%9D%90%9F%20-%20*%E2%82%B96900*%20/%206%20month%20%0A*%E2%82%B97300*%20/%209%20month%20%0A*%E2%82%B97800*/%201%20year%20(%20MRP%20~%E2%82%B910800~%20)%0A%0A*Complete%20PrepLadder%E2%80%99s%20Pack*%0AIncludes%20Clinical%20Essentials,%20Updated%20Video%20Lectures,%20Integrated%20QBank,%20Treasures,%20NEXT%20/%20FMGE%20orientation%20and%20much%20more.%20Have%20you%20enrolled%20yet?%20Enroll%20now%20to%20get%0A%E2%9C%85%20%E2%82%B916,500%20Off%0A%E2%9C%85%201%20Month%20Extra%20Validity%20on%20subscriptions%20of%2012%20months%20and%20above%F0%9F%95%BA%0A%0A*4months:%20%E2%82%B916,999*%0A*6%20Months:%2023,499*%0A*9%20Months:%2026,499*%0A*12%20%2b%201%20Month:%2031,399*%0A*18%20%2b%201%20Month:%2037,399*%0A*24%20%2b%201%20Month:%2042,399*%0A*36%20%2b%201%20Month:%2047,399*%0A*48%20%2b%201%20Month:%2052,399*%0A*60%20%2b%201%20month:%2057,399*%0A*72%20%2b%201%20Month:%2062,399*%0A%0A*CREDIT%20CARD%20EMI%20FACILITIES%20AVAILABLE*%0APayment%20will%20be%20done%20in%20app.&app_absent=0'">
+<br><div id="prepBox"><div id="prep" onclick="location.href='whatsapp://send?phone=919883553053&text=%E2%9C%A8%20%E2%84%99%E2%84%9D%F0%9D%94%BC%E2%84%99%F0%9D%95%83%F0%9D%94%B8%F0%9D%94%BB%F0%9D%94%BB%F0%9D%94%BC%E2%84%9D%20%F0%9D%95%86%F0%9D%94%BD%F0%9D%94%BD%F0%9D%94%BC%E2%84%9D%20%E2%9C%A8%0A%0A*1st%20Year%20Offer*%0A(Anatomy,%20Physiology,%20Biochemistry)%0A%0A%F0%9D%9F%8F%F0%9D%90%AC%F0%9D%90%AD%20%F0%9D%90%8F%F0%9D%90%AB%F0%9D%90%A8%F0%9D%90%9F%20-%20*%E2%82%B95600*%20/%206%20month%0A*%E2%82%B96000*%20/%209%20month%0A*%E2%82%B96300*%20/%201year%20(%20MRP%20~%E2%82%B99000~%20)%0A%0A*2nd%20Year%20Offer*%0A(Pathology,%20Pharmacology,%20Microbiology)%0A%0A%F0%9D%9F%90%F0%9D%90%A7%F0%9D%90%9D%20%F0%9D%90%8F%F0%9D%90%AB%F0%9D%90%A8%F0%9D%90%9F%20-%20*%E2%82%B96900*%20/%206%20month%20%0A*%E2%82%B97300*%20/%209%20month%20%0A*%E2%82%B97800*/%201%20year%20(%20MRP%20~%E2%82%B910800~%20)%0A%0A*Complete%20PrepLadder%E2%80%99s%20Pack*%0AIncludes%20Clinical%20Essentials,%20Updated%20Video%20Lectures,%20Integrated%20QBank,%20Treasures,%20NEXT%20/%20FMGE%20orientation%20and%20much%20more.%20Have%20you%20enrolled%20yet?%20Enroll%20now%20to%20get%0A%E2%9C%85%20%E2%82%B916,500%20Off%0A%E2%9C%85%201%20Month%20Extra%20Validity%20on%20subscriptions%20of%2012%20months%20and%20above%F0%9F%95%BA%0A%0A*4months:%20%E2%82%B916,999*%0A*6%20Months:%2023,499*%0A*9%20Months:%2026,499*%0A*12%20%2b%201%20Month:%2031,399*%0A*18%20%2b%201%20Month:%2037,399*%0A*24%20%2b%201%20Month:%2042,399*%0A*36%20%2b%201%20Month:%2047,399*%0A*48%20%2b%201%20Month:%2052,399*%0A*60%20%2b%201%20month:%2057,399*%0A*72%20%2b%201%20Month:%2062,399*%0A%0A*CREDIT%20CARD%20EMI%20FACILITIES%20AVAILABLE*%0APayment%20will%20be%20done%20in%20app.&app_absent=0'">
     <div id="prepImgBox">
       <img id="prepImg" src="https://spdfedu.github.io/image/prepladder.jpg" alt="PrepLadder"/>
     </div>
