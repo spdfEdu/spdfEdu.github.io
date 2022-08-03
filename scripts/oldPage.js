@@ -2,7 +2,7 @@
 var header = document.createElement("div");
 header.innerHTML =
  `<div id="head-box">
-  <div id="head" onclick="location.href='http://bit.ly/spdfEdu'"><span style="color:red">spdf</span><span style="color:blue">Edu</span></div>
+  <div id="head" onclick="location.href='/'"><span style="color:red">spdf</span><span style="color:blue">Edu</span></div>
   </div><br><br>`
 document.body.insertBefore(header, document.body.firstChild);
  
