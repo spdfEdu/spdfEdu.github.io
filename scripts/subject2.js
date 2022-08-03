@@ -35,6 +35,10 @@ for (i=0;i<all.length;i++) {
   alink.href = "/" + all[i].blk};
   if (all[i].olk) {
   alink.href =   all[i].olk};
+var isrc = document.getElementsByClassName("cover")[i];
+  if (all[i].ilk =="____") {
+    isrc.src = "https://drive.google.com/thumbnail?id=" + all[i].glk
+  };
 }
 
 var  prevScrollpos = window.pageYOffset;
