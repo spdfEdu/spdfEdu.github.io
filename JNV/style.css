@@ -26,41 +26,26 @@ html,body{
     }
 .tc>img{display:block;margin:20px auto}
 #mainContainer{margin:0}
-.container {
+.vessel {
     margin: 0
     }
-.item {
-    position: relative;
-    z-index: 8;
+.item,.item2 {
     font-weight: normal;
-    display: flex;
-    width: 100%;
-    height: 70px;
-    color: #000 !important;
-    text-decoration: none;
-   -webkit-tap-highlight-color:transparent;
-    border-bottom: .1px dotted #a1a1a1;
-    background-color: #fff;
-    }
-.activeitem {
-    position: fixed;
-    top: 0;
-    z-index: 20;
-    font-weight: bold;
     display: flex;
     align-items: center;
     width: 100%;
     height: 70px;
-    padding-left: 10px;
     color: #000 !important;
     text-decoration: none;
-    font-size: 40px;
    -webkit-tap-highlight-color:transparent;
     border-bottom: .1px dotted #a1a1a1;
     background-color: #fff;
+    }
+.item2 {
+    font-weight: bold;
     box-shadow: 0 5px 4px -4px #55555588;
     }
-.naming {
+.naming,.naming2 {
     flex: 3;
     height:70px;
     display: flex;
@@ -69,27 +54,30 @@ html,body{
     font-size: 19px;
     font-family: sans-serif;
     }
-.content{display:none}
-.back{display:none}
-.activeback{
-    display: block;
-    height: 50px;
-    width: 50px;
-    margin-right: 20px;
-    z-index: 30;
-    text-align: center;
-    background-color: #f1f1f1;
-    color: #000;
-    border-radius: 50%;
-}
+.content{display:none;}
 .active{
     position:fixed;
-    top:70px;
+    top:0;
     z-index: 18;
     display: block;
     height:100vh;
     width:100%;
     background-color: #ebfffb;
+}
+.naming2{
+    margin-left:10px;
+    }
+.back{
+    display: block;
+    height: 50px;
+    width: 50px;
+    margin-right: 20px;
+    text-align: center;
+    font-size: 40px;
+    font-weight:bold;
+    color: #000;
+    background-color: #f1f1f1;
+    border-radius: 50%;
 }
 .pp {
   flex: 1;
@@ -98,7 +86,6 @@ html,body{
   align-items: center;
   margin-left: 5px;
 }
-.vv{display:none}
 .coverPP{
     z-index: 9;
     height: 60px;
