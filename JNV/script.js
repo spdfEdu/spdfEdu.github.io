@@ -34,21 +34,24 @@ document.getElementById("upper").append(upper);
 var main = document.getElementById("mainContainer");
   all.forEach(ele => {
 var child = document.createElement("div");
-  child.className = "container";
+  child.className = "vessel";
   child.innerHTML =
  `<a class="item">
     <div class="pp">
       <img class="svgP svgPP">
-      <img class="coverPP" src="./Image/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP svgPP'" alt="" />
+      <img class="coverPP" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP svgPP'" alt="" />
     </div>
     <div class="naming">${ele.Name}</div>
-    <div class="back">&#8249;</div>
   </a>
 
   <div class="content ${ele.House}">
+  <a class="item2">
+    <div class="naming2">${ele.Name}</div>
+    <div class="back">&#8249;</div>
+  </a>
   <div class="head-cover">
   <img class="svgP">
-  <img class="cover" loading="lazy" src="./Image/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP'"></div>
+  <img class="cover" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP'"></div>
   
   <div class="details">
     <div class="contact">
@@ -118,34 +121,19 @@ Pin Code - ${ele.PinCode} <br>District - ${ele.District}</span>
    }
  }
 var coll = document.getElementsByClassName("item");
-var i;
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
-    this.classList.toggle("activeitem");
-    this.nextElementSibling.classList.toggle("active");
-    this.firstElementChild.classList.toggle("vv");
-    this.children[2].classList.toggle("activeback");
-    if (this.className === "item") {
-    window.history.back();
-   document.body.style.overflow = "scroll";
-    }
-    else {
+   this.nextElementSibling.className= "active";
    document.body.style.overflow = "hidden";
-   window.history.back();
-   window.history.pushState('', this.children[1].textContent, window.location.href+"/user/"+this.children[1].textContent)
-    }
   });
 };
-
-window.addEventListener('popstate', function (event) {
-  window.history.back();
-  window.history.back();
-	document.getElementsByClassName("activeitem")[0].classList.remove("activeitem");
-	document.getElementsByClassName("vv")[0].classList.remove("vv");
-	document.getElementsByClassName("active")[0].classList.remove("active");
-	document.getElementsByClassName("activeback")[0].classList.remove("activeback");
-	document.body.style.overflow = "scroll";
-});
+var coll2 = document.getElementsByClassName("item2");
+for (i = 0; i < coll2.length; i++) {
+  coll2[i].addEventListener("click", function() {
+   this.parentNode.className= "content";
+   document.body.style.overflow = "scroll";
+   });
+};
 
 for (i=y+7;i<=year;i++) {
 var batches = document.createElement("div");
