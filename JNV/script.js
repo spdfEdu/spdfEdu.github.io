@@ -34,7 +34,7 @@ var main = document.getElementById("mainContainer");
 var child = document.createElement("div");
   child.className = "vessel";
   child.innerHTML =
- `<a class="nameBox" id="${ele.Name}" href="#${ele.Name}">
+ `<a class="nameBox">
     <div class="pp">
       <img class="svgP svgPP">
       <img class="coverPP" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP svgPP'" alt="" />
@@ -130,7 +130,6 @@ for (i = 0; i < coll2.length; i++) {
   coll2[i].addEventListener("click", function() {
    this.parentNode.className= "contentBox";
    document.body.style.overflow = "scroll";
-    window.history.back();
    });
 }
 
