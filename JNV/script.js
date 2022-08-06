@@ -7,7 +7,7 @@ const nth = function(d) {
     case 3:  return "rd";
     default: return "th";
   }
-}
+};
 var year = new Date().getFullYear();
 let x = Number([addYear]);
 let y = Number([estb]);
@@ -15,7 +15,7 @@ var z = [x-y+1];
 var batch = z + nth(z);
 var xii =(x+7);
 
-document.title = `${[addYear]} JNV MSD`
+document.title = `${[addYear]} JNV MSD`;
 var upper = document.createElement("div");
 upper.innerHTML =
  `<h1 id="head-main">BATCH ${batch}</h1>
@@ -25,10 +25,8 @@ upper.innerHTML =
   <br><br>
   Data Collected on ${[date]}</p>
   <div id="imgContainer" class="tc">
-<img width=96% src="./Image/${[x+7]}.jpg" alt="Batch ${batch}"></div>`
+<img width=96% src="https://spdfedu.github.io/JNV/images/cover/${[x+7]}.jpg" alt="Batch ${batch}"></div>`
 document.getElementById("upper").append(upper);
-
-//const img = 'https://spdfedu.github.io/';
 
   //creating the structure
 var main = document.getElementById("mainContainer");
@@ -36,7 +34,7 @@ var main = document.getElementById("mainContainer");
 var child = document.createElement("div");
   child.className = "vessel";
   child.innerHTML =
- `<a class="item">
+ `<a class="nameBox" id="${ele.Name}" href="#${ele.Name}">
     <div class="pp">
       <img class="svgP svgPP">
       <img class="coverPP" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP svgPP'" alt="" />
@@ -44,14 +42,14 @@ var child = document.createElement("div");
     <div class="naming">${ele.Name}</div>
   </a>
 
-  <div class="content ${ele.House}">
-  <a class="item2">
+  <div class="contentBox ${ele.House}">
+  <a class="nameBox2">
     <div class="naming2">${ele.Name}</div>
     <div class="back">&#8249;</div>
   </a>
   <div class="head-cover">
   <img class="svgP">
-  <img class="cover" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP'"></div>
+  <img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP'"></div>
   
   <div class="details">
     <div class="contact">
@@ -105,7 +103,7 @@ Pin Code - ${ele.PinCode} <br>District - ${ele.District}</span>
 <span class="qes">Institution :</span><span class="ans">${ele.Institute}</span></p>
     
     </div>
-  </div>`
+  </div>`;
   main.append(child);
 });
 
@@ -117,34 +115,35 @@ Pin Code - ${ele.PinCode} <br>District - ${ele.District}</span>
        text: '*Batch '+batch+'*\n'+a+'\n'+b+'\n\n--> bit.ly/jnvmsd',
        })}
    else {
-     window.open('whatsapp://send?text=*Batch '+batch+'*%0A'+a+'%0A'+b+'%0A%0A--%3E%20bit.ly/jnvmsd')
+     window.open('whatsapp://send?text=*Batch '+batch+'*%0A'+a+'%0A'+b+'%0A%0A--%3E%20bit.ly/jnvmsd');
    }
  }
-var coll = document.getElementsByClassName("item");
+var coll = document.getElementsByClassName("nameBox");
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
    this.nextElementSibling.className= "active";
    document.body.style.overflow = "hidden";
   });
-};
-var coll2 = document.getElementsByClassName("item2");
+}
+var coll2 = document.getElementsByClassName("nameBox2");
 for (i = 0; i < coll2.length; i++) {
   coll2[i].addEventListener("click", function() {
-   this.parentNode.className= "content";
+   this.parentNode.className= "contentBox";
    document.body.style.overflow = "scroll";
+    window.history.back();
    });
-};
+}
 
 for (i=y+7;i<=year;i++) {
 var batches = document.createElement("div");
-batches.className="boxBatch"
+batches.className="boxBatch";
 batches.innerHTML = `
 <a class="batch" href="/${i}">
-      <img class="coverb" src="./Image/${i}.jpg" alt="Batch ${i}">
+      <img class="coverb" src="https://spdfedu.github.io/JNV/images/cover/${i}.jpg" alt="Batch ${i}">
       <div class="form-link">Batch 
       ${i-y-6}${nth(i-y-6)} (${i-7} - ${i}) 
       </div>
-    </a>`
+    </a>`;
 document.getElementById("other").append(batches);
 }
 
