@@ -121,7 +121,7 @@ content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBo
   height: 60px;
   border-radius: 42px;
 }
-.cover {
+.coverP {
     position: relative;
     z-index: 7;
     width: 80px;
