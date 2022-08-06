@@ -1,4 +1,4 @@
-html,body{
+    html,body{
     position:relative;
     margin: 0;
     font-family:sans-serif;
@@ -29,7 +29,7 @@ html,body{
 .vessel {
     margin: 0
     }
-.item,.item2 {
+.nameBox,.nameBox2 {
     font-weight: normal;
     display: flex;
     align-items: center;
@@ -41,7 +41,7 @@ html,body{
     border-bottom: .1px dotted #a1a1a1;
     background-color: #fff;
     }
-.item2 {
+.nameBox2 {
     font-weight: bold;
     box-shadow: 0 5px 4px -4px #55555588;
     }
@@ -54,7 +54,7 @@ html,body{
     font-size: 19px;
     font-family: sans-serif;
     }
-.content{display:none;}
+.contentBox{display:none;}
 .active{
     position:fixed;
     top:0;
@@ -68,11 +68,13 @@ html,body{
     margin-left:10px;
     }
 .back{
-    display: block;
+    display: flex;
     height: 50px;
     width: 50px;
     margin-right: 20px;
-    text-align: center;
+  align-items: center;
+  justify-content:center;
+  vertical-align:middle;
     font-size: 40px;
     font-weight:bold;
     color: #000;
@@ -80,7 +82,9 @@ html,body{
     border-radius: 50%;
 }
 .pp {
+  position: relative;
   flex: 1;
+  
   height:70px;
   display: flex;
   align-items: center;
