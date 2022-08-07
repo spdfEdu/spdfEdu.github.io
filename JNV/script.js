@@ -128,7 +128,7 @@ for (i = 0; i < coll.length; i++) {
 var coll2 = document.getElementsByClassName("nameBox2");
 for (i = 0; i < coll2.length; i++) {
   coll2[i].addEventListener("click", function() {
-   this.parentNode.className= "contentBox";
+   this.parentNode.classList.remove("active");
    document.body.style.overflow = "scroll";
    });
 }
