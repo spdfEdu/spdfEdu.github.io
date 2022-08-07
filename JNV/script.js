@@ -121,7 +121,7 @@ Pin Code - ${ele.PinCode} <br>District - ${ele.District}</span>
 var coll = document.getElementsByClassName("nameBox");
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
-   this.nextElementSibling.className= "active";
+   this.nextElementSibling.classList.add("active");
    document.body.style.overflow = "hidden";
   });
 }
