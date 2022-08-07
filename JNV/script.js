@@ -26,7 +26,7 @@ upper.innerHTML =
   Total No of Students is ${all.length}
   <br><br>
   Data Collected on ${[date]}</p>
-  <div id="imgContainer" class="tc">
+  <div class="tc">
 <img width=96% src="https://spdfedu.github.io/JNV/images/cover/${[x+7]}.jpg" alt="Batch ${batch}"></div>`
 document.getElementById("upper").append(upper);
 
