@@ -25,9 +25,7 @@ upper.innerHTML =
   Year of Xii Passout : ${xii} <br><br>
   Total No of Students is ${all.length}
   <br><br>
-  Data Collected on ${[date]}</p>
-  <div class="tc">
-<img width=96% src="https://spdfedu.github.io/JNV/images/cover/${[x+7]}.jpg" alt="Batch ${batch}"></div>`
+  Data Collected on ${[date]}</p>`;
 document.getElementById("upper").append(upper);
 
   //creating the structure
@@ -148,6 +146,6 @@ batches.innerHTML = `
 document.getElementById("other").append(batches);
 }
 
-document.getElementById("demo").innerHTML = "Current Passout Batch : " +year +
+document.getElementById("down").innerHTML = "<h2>Check Out Other Batches: </h2><p>Current Passout Batch : " +year +
 "<br> Established Year : " + [estb] +
-"<br> Total Batches : " +[year -[estb] -6];
+"<br> Total Batches : " +[year -[estb] -6]+"</p>";
