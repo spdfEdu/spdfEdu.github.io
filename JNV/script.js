@@ -16,7 +16,7 @@ var z = [x-y+1];
 var batch = z + nth(z);
 var xii =(x+7);
 
-document.title = `${[addYear]} JNV MSD`;
+document.title = `${[x+7]} JNV MSD`;
 window.history.replaceState('','',`/${x+7}`);
 var upper = document.createElement("div");
 upper.innerHTML =
