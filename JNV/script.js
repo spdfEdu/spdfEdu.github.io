@@ -51,7 +51,7 @@ var child = document.createElement("div");
   </a>
   <div class="head-cover">
   <img class="svgP">
-  <img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP'"></div>
+  <img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.parentNode.style.display='none'"></div>
   
   <div class="details">
     <div class="contact">
