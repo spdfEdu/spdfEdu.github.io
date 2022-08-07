@@ -49,7 +49,7 @@ var child = document.createElement("div");
   </a>
   <div class="head-cover">
   <img class="svgP">
-  <img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.parentNode.style.display='none'"></div>
+  <img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onclick="location.href='https://lh3.googleusercontent.com/d/${ele.ppl}'" onerror="this.parentNode.style.display='none'"></div>
   
   <div class="details">
     <div class="contact">
