@@ -9,6 +9,7 @@ const nth = function(d) {
   }
 };
 var year = new Date().getFullYear();
+const addYear = [all[0].Batch-7];
 let x = Number([addYear]);
 let y = Number([estb]);
 var z = [x-y+1];
@@ -16,6 +17,7 @@ var batch = z + nth(z);
 var xii =(x+7);
 
 document.title = `${[addYear]} JNV MSD`;
+window.history.replaceState('','',`/${x+7}`);
 var upper = document.createElement("div");
 upper.innerHTML =
  `<h1 id="head-main">BATCH ${batch}</h1>
