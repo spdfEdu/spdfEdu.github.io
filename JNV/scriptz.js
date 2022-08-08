@@ -49,7 +49,7 @@ var child = document.createElement("div");
   </a>
   <div class="head-cover">
   <img class="svgP">
-  <img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onclick="location.href='https://lh3.googleusercontent.com/d/${ele.ppl}'" onerror="this.parentNode.style.display='none'"></div>
+  <a href="https://lh3.googleusercontent.com/d/${ele.ppl}" target="_blank"><img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
   
   <div class="details">
     <div class="contact">
@@ -124,7 +124,7 @@ for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
    this.nextElementSibling.classList.add("active");
    document.body.style.overflow = "hidden";
-   window.history.pushState('', this.children[1].textContent, window.location.href+"/user/"+this.children[1].textContent)
+   window.history.pushState('', this.children[1].textContent, window.location.href+"/user/"+this.children[1].textContent.replace(/ /gi,'_'))
   });
 }
 var coll2 = document.getElementsByClassName("nameBox2");
@@ -137,11 +137,10 @@ for (i = 0; i < coll2.length; i++) {
 }
 
 window.addEventListener('popstate', function (event) {
-  if (! document.getElementsByClassName("active")[0]) { }
+  if (!document.getElementsByClassName("active")[0]) { }
   else {
-  document.getElementsByClassName("active")[0].classList.remove("active");
-   document.body.style.overflow = "scroll";
-  }
+   document.getElementsByClassName("active")[0].classList.remove("active");
+   document.body.style.overflow = "scroll";}
 });
 
 for (i=y+7;i<=year;i++) {
