@@ -137,8 +137,11 @@ for (i = 0; i < coll2.length; i++) {
 }
 
 window.addEventListener('popstate', function (event) {
+  if (! document.getElementsByClassName("active")[0]) { }
+  else {
   document.getElementsByClassName("active")[0].classList.remove("active");
    document.body.style.overflow = "scroll";
+  }
 });
 
 for (i=y+7;i<=year;i++) {
