@@ -54,44 +54,33 @@ var child = document.createElement("div");
   <div class="details">
     <div class="contact">
   <div class="gap"></div>
-  <div class="fb" style="visibility: ${(!ele.fb)? 'hidden' : 'visible'}" onclick="window.open('https://facebook.com/${ele.fb}','_blank')" href=''><i class="svg svgFb"></i>
-  </div>
+  <div class="share"></div>
   <div class="insta" style="visibility: ${(!ele.insta)? 'hidden' : 'visible'}" onclick="window.open('https://instagram.com/${ele.insta}','_blank')" href=''><i class="svg svgInsta"></i>
   </div>
-  <div class="share" onclick="share('${ele.Name}','${ele.Phone}')"><i class="svg svgShare"></i>
-  </div></div>
+  <div class="fb" style="visibility: ${(!ele.fb)? 'hidden' : 'visible'}" onclick="window.open('https://facebook.com/${ele.fb}','_blank')" href=''><i class="svg svgFb"></i>
+  </div>
+ </div>
   
-<div class="contact phn fst" style="visibility: ${(!ele.Phone)? 'hidden' : 'visible'}"><div class="phnHead">Phone No. : </div>
- <div class="phnNo">${ele.Phone}</div>
- <div class="ccall" onclick = "location.href='tel:${ele.Phone}'" href=''> 
-  <i class="svg svgCall"></i></div>
-  <div class="cwp" onclick="location.href='whatsapp://send?phone=${(Number(ele.Phone).toString().length<=10)? '91':''}${ele.Phone}'" href=''><i class="svg svgWp"></i></div></div>
-  
-<div class="contact phn" style="display: ${(!ele.Phone2)? 'none' : 'flex'}">
-    <div class="phnHead"></div>
-    <div class="phnNo2">${ele.Phone2}</div>
-    <div class="ccall" onclick = "location.href='tel:${ele.Phone2}'" href=''><i class="svg svgCall"></i></div>
-    <div class="cwp" onclick="location.href='whatsapp://send?phone=${(Number(ele.Phone2).toString().length<=10)? '91':''}${ele.Phone2}'" href=''><i class="svg svgWp"></i></div></div>
-    
+<p class="info fst" style="display: ${(!ele.Batch)?'none':'block'}">
+<span class="qes">Batch : </span>
+<span class="ans">${batch} (${ele.Batch-7} - ${ele.Batch})</span></p>
+
 <div class="contact" style="display: ${(!ele.EmailId)? 'none' : 'flex'}">
    <div class="mailHead">Mail&nbsp;:</div>
   <div class="emailid">${ele.EmailId}</div>
   <div class="mail" onclick="location.href='mailto:${ele.EmailId}'" href=''><i class="svg svgMail"></i></div>
-   </div><br>
+   </div>
 
 <p class="info" style="display: ${(!ele.House)?'none':'block'}">
 <span class="qes">House : </span>
 <span class="ans">${ele.House}</span></p>
 
+<p class="info" style="display: ${(!ele.District)?'none':'block'}">
+<span class="qes">District : </span><span class="ans">${ele.District}</span>
+</p>
 <p class="info" style="display: ${(!ele.BloodGroup)?'none':'block'}">
 <span class="qes">Blood Group : </span>
-<span class="ans">${ele.BloodGroup}</span></p>
-
-<p class="info" style="display: ${(!ele.Address)?'none':'block'}">
-<span class="qes">Address : </span><br>
-<span class="ans">${ele.Address}<br>
-Pin Code - ${ele.PinCode} <br>District - ${ele.District}</span>
-</p><br>
+<span class="ans">${ele.BloodGroup}</span></p><br>
 
 <p class="info" style="display: ${(!ele.CurrentStatus)?'none':'block'}">
 <span class="qes">Current Status :</span><span class="ans">${ele.CurrentStatus}</span></p>
@@ -118,7 +107,6 @@ Pin Code - ${ele.PinCode} <br>District - ${ele.District}</span>
      window.open('whatsapp://send?text=*Batch '+batch+'*%0A'+a+'%0A'+b+'%0A%0A--%3E%20bit.ly/jnvmsd');
    }
  }
-
 var coll = document.getElementsByClassName("nameBox");
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
@@ -137,9 +125,9 @@ for (i = 0; i < coll2.length; i++) {
 }
 
 window.addEventListener('popstate', function (event) {
-  if (!document.getElementsByClassName("active")[0]) { }
+  if (! document.getElementsByClassName("active")[0]) { }
   else {
-   document.getElementsByClassName("active")[0].classList.remove("active");
+  document.getElementsByClassName("active")[0].classList.remove("active");
    document.body.style.overflow = "scroll";}
 });
 
