@@ -66,7 +66,7 @@ var child = document.createElement("div");
 
 <div class="contact" style="display: ${(!ele.EmailId)? 'none' : 'flex'}">
    <div class="mailHead">Mail&nbsp;:</div>
-  <div class="emailid">${ele.EmailId}</div>
+  <div class="emailid">${ele.EmailId}[at]gmail.com</div>
   <div class="mail" onclick="location.href='mailto:${ele.EmailId}@gmail.com'" href=''><i class="svg svgMail"></i></div>
    </div>
 
