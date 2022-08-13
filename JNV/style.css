@@ -55,6 +55,7 @@ font-family:sans-serif
 .active{
 position:fixed;
 top:0;
+left:0;
 z-index:1018;
 display:block;
 height:100vh;
