@@ -83,12 +83,12 @@ srInsert.innerHTML =
 #box .item {
   flex: 1;
   text-align: center;
-  padding: 5px;
 }
 #share-box #box .item .button {
   border: 1px solid #e4e4e4;
   border-radius: 10px;
   height: 50px;
+  padding:0 5px !important;
   display: flex;
   justify-content: center;
   align-items: center;
