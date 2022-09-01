@@ -70,7 +70,7 @@ insert.insertAdjacentHTML('afterend',
      <i id="wpSvg" class="sBs"></i>
   </div></div>
      <div class="item">
-  <div class="button sms" onclick="location.href='sms://?body='+document.title+'%0A'+xurl+'%0A%0A'+url" href=''>
+  <div class="button sms" onclick="location.href='sms:?body='+document.title+'%0A'+xurl+'%0A%0A'+url" href=''>
      <i id="smsSvg" class="sBs"></i>
   </div></div>
      <div class="item">
