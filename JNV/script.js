@@ -43,6 +43,7 @@ var child = document.createElement("div");
   </a>
 
   <div class="contentBox ${ele.House}">
+  <div class="bscrool">
   <a class="nameBox2">
     <div class="naming2">${ele.Name}</div>
     <div class="back">&#8249;</div>
@@ -102,6 +103,7 @@ Pin Code - ${ele.PinCode} <br>District - ${ele.District}</span>
 <p class="info" style="display: ${(!ele.Institute)?'none':'block'}">
 <span class="qes">Institution :</span><span class="ans">${ele.Institute}</span></p>
     
+    </div>
     </div>
   </div>`;
   main.append(child);
