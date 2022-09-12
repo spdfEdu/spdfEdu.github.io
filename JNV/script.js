@@ -20,7 +20,7 @@ document.title = `${[x+7]} JNV MSD`;
 window.history.replaceState('','',`/${x+7}`);
 var upper = document.createElement("div");
 upper.innerHTML =
- `<h1 id="head-main">BATCH ${batch}</h1>
+ `<h1 id="head-main">&#60;/Batch-${batch}&#62;</h1>
   <p class="summary">
   Year of Xii Passout : ${xii} <br><br>
   Total No of Students is ${all.length}
