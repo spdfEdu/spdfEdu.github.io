@@ -5,20 +5,17 @@ font-family:sans-serif;
 }
 #head-main{
 width:96%;
-padding:30px 0;
 display:block;
 margin:auto;
+padding: 10px 0;
 text-align:center;
-background:#eafffecc;
-border:2px solid #55555588;
-border-radius:5px;
-text-shadow:1px 1px 2px black;
-box-shadow:1px 1px 20px 20px #111414 inset;
-cursor:pointer;
-transition:2s ease-out
+border-bottom:1px solid #dbdbdb;
+font-family: monospace;
+color: #03A062;
+box-shadow:0 5px 4px -4px #55555588;
+background-color: #000;
+border-radius: 5px;
 }
-#head-main:hover{
-box-shadow:1px 1px 20px 10px #111414 inset}
 .summary{
 text-align:center;
 padding-bottom:10px
