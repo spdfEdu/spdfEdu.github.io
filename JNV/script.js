@@ -124,7 +124,7 @@ bgInsert.innerHTML =`
    <option value="AB -ve">AB -ve</option>
 </select>
 <button onclick="document.getElementById('bgpl').innerHTML='';bgp.innerHTML=''">Clear</button>
- <div id="bgpl"></div><br>
+ <p id="bgpl"></p>
  <div id="bgp"></div><br><br>`;
 main.append(bgInsert);
 
