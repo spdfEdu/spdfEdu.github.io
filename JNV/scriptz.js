@@ -95,6 +95,99 @@ var child = document.createElement("div");
   main.append(child);
 });
 
+var bgInsert = document.createElement("div");
+bgInsert.className = "bgpc";
+bgInsert.innerHTML =`
+<select onchange="ckbg(event)">
+   <option disabled selected>Choose BloodGroup Type</option>
+   <option value="O +ve">O +ve</option>
+   <option value="A +ve">A +ve</option>
+   <option value="B +ve">B +ve</option>
+   <option value="AB +ve">AB +ve</option>
+   <option value="O -ve">O -ve</option>
+   <option value="A -ve">A -ve</option>
+   <option value="B -ve">B -ve</option>
+   <option value="AB -ve">AB -ve</option>
+</select>
+<button onclick="document.getElementById('bgpl').innerHTML='';bgp.innerHTML=''">Clear</button>
+ <div id="bgpl"></div><br>
+ <div id="bgp"></div><br><br>`;
+main.append(bgInsert);
+
+function ckbg(e) {
+var fall = all.filter(person => person.BloodGroup === e.target.value);
+document.getElementById("bgpl").innerHTML ="  &nbsp; &nbsp;" +fall.length +" '"+ e.target.value + "' Blood Groups out of " + all.length + " Alumnis";
+var bgp = document.getElementById('bgp')
+bgp.innerHTML='';
+  fall.forEach(ele => {
+var child = document.createElement("div");
+  child.className = "vessel";
+  child.innerHTML =
+ `<a class="nameBox" onclick="this.nextElementSibling.classList.add('active');window.history.pushState('', this.children[1].textContent, window.location.href+'/user/'+this.children[1].textContent.replace(/ /gi,'_'));">
+    <div class="pp">
+      <img class="svgP svgPP">
+      <img class="coverPP" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP svgPP'" alt="" />
+    </div>
+    <div class="naming">${ele.Name}</div>
+  </a>
+
+  <div class="contentBox ${ele.House}">
+  <div class="bscrool">
+  <a class="nameBox2" onclick="this.parentNode.parentNode.classList.remove('active');window.history.back();">
+    <div class="naming2">${ele.Name}</div>
+    <div class="back">&#8249;</div>
+  </a>
+  <div class="head-cover">
+  <img class="svgP">
+  <a href="https://lh3.googleusercontent.com/d/${ele.ppl}" target="_blank"><img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
+  
+  <div class="details">
+    <div class="contact">
+  <div class="gap"></div>
+  <div class="fb" style="visibility: ${(!ele.fb)? 'hidden' : 'visible'}" onclick="window.open('https://facebook.com/${ele.fb}','_blank')" href=''><i class="svg svgFb"></i>
+  </div>
+  <div class="insta" style="visibility: ${(!ele.insta)? 'hidden' : 'visible'}" onclick="window.open('https://instagram.com/${ele.insta}','_blank')" href=''><i class="svg svgInsta"></i>
+  </div>
+  </div>
+  
+<p class="info fst" style="display: ${(!ele.Batch)?'none':'block'}">
+<span class="qes">Batch : </span>
+<span class="ans">${batch} (${ele.Batch-7} - ${ele.Batch})</span></p>
+
+<div class="contact" style="display: ${(!ele.EmailId)? 'none' : 'flex'}">
+   <div class="mailHead">Mail&nbsp;:</div>
+  <div class="emailid">${ele.EmailId}[at]gmail.com</div>
+  <div class="mail" onclick="location.href='mailto:${ele.EmailId}@gmail.com'" href=''><i class="svg svgMail"></i></div>
+   </div>
+
+<p class="info" style="display: ${(!ele.House)?'none':'block'}">
+<span class="qes">House : </span>
+<span class="ans">${ele.House}</span></p>
+
+<p class="info" style="display: ${(!ele.BloodGroup)?'none':'block'}">
+<span class="qes">Blood Group : </span>
+<span class="ans">${ele.BloodGroup}</span></p>
+
+<p class="info" style="display: ${(!ele.District)?'none':'block'}">
+<span class="qes">District : </span><span class="ans">${ele.District}</span>
+</p><br>
+
+<p class="info" style="display: ${(!ele.CurrentStatus)?'none':'block'}">
+<span class="qes">Current Status :</span><span class="ans">${ele.CurrentStatus}</span></p>
+
+<p class="info" style="display: ${(!ele.HQD)?'none':'block'}">
+<span class="qes">Highest Qualification Degree :</span><br><span class="ans">${ele.HQD}</span></p>
+
+<p class="info" style="display: ${(!ele.Institute)?'none':'block'}">
+<span class="qes">Institution :</span><span class="ans">${ele.Institute}</span></p>
+    
+    </div>
+    </div>
+  </div>`;
+  bgp.append(child);
+});
+}
+
 //share function
  function share(a,b) {
  if (navigator.share) {
