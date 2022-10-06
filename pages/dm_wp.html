@@ -6,45 +6,72 @@
   	   <link rel="stylesheet" href="https://spdfedu.github.io/styles/main.css">
     <title> Send Whatsapp Message</title>
     <style>
-      #main-box {
-        padding-top: 20px;
-        text-align: center;
+      body {
+       font-family: Sans-Serif;
+       background-image:url(https://spdfedu.github.io/image/wp-background.png);
+       background-size:100%;
+       padding-top: 20px;
       }
-      
-      #code {
+      .bubble, .bubblert{
         display: block;
-        margin: auto;
-        padding: 10px;
-        width: 65%;
-        margin-top: 5px;
+        max-width:70%;
+        margin-left:5px;
+        margin:5px;
+        padding:10px;
+        color:#fff;
+        background-color:#273443;
+        border-radius:10px;
+      }
+      .bubblert {
+        margin:5px auto;
+        margin-right:5px;
+        background-color:#128C7E;
+        border:1px solid #128C7E;
+      }
+       .boxp {
+        display: flex;
+        align-items:center;
+        justify-content:center;
+        margin:10px 5px;
+      }
+      #code,#whNumber{
+        margin-right:5px;
+        border-radius:20px;
+        color:#fff;
+        background-color:#273443;
+        border:1px solid #273443;
+      }
+      #code {
+        padding:2px;
+        width:27%;
+        height:50px;
       }
       #whNumber {
-        display: block;
-        margin: auto;
-        padding: 10px;
-        width: 200px;
-        border: 1px solid #979797;
+        padding:10px;
+        width:60%;
+        height:26px;
+        font-size:16px;
+        caret-color:#15ab53;
       }
       #link {
-        display: block;
-        margin: auto;
-        width: 90%;
-        text-align: center;
-        font-size: 30px;
-        text-decoration: none;
-        color: #b14a5f;
-        padding: 2px;
-        padding: 6px;
-        border-radius: 5px;
-        border: 1px solid black;
-        box-shadow: 
-        1px 1px 5px 1px black;
-        transition: 0.1s ease-out;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:27px;
+        height:27px;
+        padding:10px;
+        background-color:#128c62;
+        transition:0.1s ease-out;
+        border:1px solid #128c62;
+        border-radius:55px;
       }
       #link:hover {
-        color: #b14a5f;
-        box-shadow: 1px 1px 5px 1px #fff;
-        border: 1px solid black;
+        border:1px solid #fff;
+      }
+      .send-button {
+        height:35px;
+        padding-left:7px;
+content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 535.5 535.5' fill='%23fff' %3E%3Cpolygon points='0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75' /%3E%3C/svg%3E")}
       }
       #copyright {
         display: none;
@@ -52,14 +79,22 @@
     </style>
   </head>
 <body>
-<div id="fb-root"></div>
+  <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v13.0&appId=551303189317136&autoLogAppEvents=1" nonce="oFqvtSnT"></script>
   <div id="main-box">
-   <h2>Send WhatsApp Message without saving Number</h2>
-  <p id="intro">You are at a print out shop, and have to send a PDF for printing through whasapp, Then this is the Best Option</p>
-   <br />
-   <label for="code">Country Code:</label>
-<select name="code" id="code">
+   <p class="bubble">
+     Send Message through your Whatsapp directly without saving the number
+   </p>
+     <p class="bubblert">
+    Select your country code &#9660;
+  </p>
+  <p class="bubblert">
+    Then enter your Phone Number and hit the send button
+  </p>
+  <p class="bubble">Enter your own number <br> to get a Special Chat Box
+   </p>
+<div class="boxp">
+   <select name="code" id="code">
   <option value="93">Afghanistan (+93)</option>
   <option value="355">Albania (+355)</option>
   <option data-countryCode="DZ" value="213">Algeria (+213)</option>
@@ -277,35 +312,35 @@
   <option data-countryCode="ZM" value="260">Zambia (+260)</option>
   <option data-countryCode="ZW" value="263">Zimbabwe (+263)</option>
 </select>
-
-   <br>
    <input 
-      type="tel" 
       id="whNumber"
+      type="tel" 
+      min="1000000000"
       maxlength="10"
       placeholder="Enter the number" />
-    <br />
-   <a 
-    id="link" onclick="this.href='https://api.whatsapp.com/send/?phone=%2B'+document.getElementById('code').value+ document.getElementById('whNumber').value;"
-    href=''> 
-    Open Whatsapp Chat
-   </a>
-   <p>Enter your own number <br> to get a Special Chat Box.
-   </p>
+   <div id="link" onclick="send()">
+    <i class="send-button"></i>
+    </div>
+</div>
 
    </div>
   <div id="insert"></div>
-<div class="fb-comments" data-href="https://spdfedu.github.io/pages/dm_wp.html" data-width="90%" data-numposts="5"></div>
-  <script src="https://spdfedu.github.io/scripts/hfs.js"></script>
-  <script>
-var xurl="https://bit.ly/dm_wp";
-var input = document.getElementById("whNumber");
-input.addEventListener("keyup", function(event) {
+  <div class="fb-comments" data-href="https://spdfedu.github.io/pages/dm_wp.html" data-width="90%" data-numposts="5"></div>
+<script>
+var xurl="https://bit.ly/dm_wp"
+
+function send() {
+    window.location.href='https://api.whatsapp.com/send/?phone=%2B'+document.getElementById('code').value
+    +document.getElementById('whNumber').value;
+  }
+
+document.getElementById("whNumber").addEventListener("keyup", function(event) {
   if (event.keyCode === 13) {
    event.preventDefault();
    document.getElementById("link").click();
   }
 });
 </script>
-</body>
+  <script src="https://spdfedu.github.io/scripts/hfs.js"></script>
+  </body>
 </html>
