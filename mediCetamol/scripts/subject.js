@@ -13,7 +13,7 @@ var link = ele.olk || "https://drive.google.com/open?id="+ele.glk,
   child.innerHTML =`
 <div class="box-flex">
   <div class="box-lt">
-    <a class="book-link" href="${link}"><img class="cover" loading="lazy" src="${isrc}" alt="${ele.bn} ${hName} ${sub} Pdf" onerror="this.className='book-cover'"/>
+    <a class="book-link" href="${link}"><img class="cover" loading="lazy" src="${isrc}" alt="${ele.bn} ${hName} ${sub} Pdf" onerror="this.src='https://spdfedu.github.io/mediCetamol/images/default-cover.webp'"/>
     </a>
   </div>
   <div class="box-rt">
