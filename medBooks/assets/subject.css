@@ -19,8 +19,8 @@ box-shadow:1px 1px 10px #45dbf8}
 .box-rt>h2{margin:0;font-size:22px;font-weight:bold;text-overflow:ellipsis;overflow-x:scroll !important;overflow-y:hidden;line-height:1.8;white-space:nowrap;font-family:'Sue Ellen Francisco',cursive;color:#78a75a}
 .box-rt>h2:hover{text-overflow:clip}
 .box-rt>h2>a{color:#78a75a !important}
-.name-detail,p.title-author{margin:0; padding:0;font-size:16px;color:#575757}
-.desc{margin:.3em 3px;font-size:14px;color:#636060;max-height:2.8em;overflow:auto;-webkit-mask-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,1)),to(rgba(0,0,0,0)))}
+.name-detail,p.title-author{margin:0; padding:0;font-size:16px;line-height:1;font-family:sans-serif;color:#575757}
+.desc{margin:.3em 3px;font-size:14px;line-height:1;font-family:sans-serif;color:#636060;max-height:2.8em;overflow:auto;-webkit-mask-image: -webkit-gradient(linear,left top,left bottom,from(rgba(0,0,0,1)),to(rgba(0,0,0,0)))}
 .book-info{margin:.3em 0;font-size:14px;color:#008000}
 .info-label::before{content:'\25C9 '}
 .info-label::after{content:':'}
