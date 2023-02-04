@@ -1,22 +1,25 @@
 all.forEach(ele => {
-var link = ele.olk || "https://drive.google.com/open?id="+ele.glk,
+var link = "https://drive.google.com/open?id="+ele.glk,
     hName = ele.h2 || ele.at,
     ed = ele.ed,
     sz = ele.sz + "MB",
-    isrc = ele.ilk,
+    isrc = `https://spdfedu.github.io/medBooks/${sub}/sm/${ele.ilk}`,
     atstyle = `style = "display: ${(!ele.at)? 'none' : 'block'}"`,
     edstyle = `style = "display: ${(!ed)? 'none' : 'inline-block'}"`,
     szstyle = `style = "display: ${(!ele.sz)? 'none' : 'inline-block'}"`,
     child = document.createElement("div"),
-    list = document.createElement("li");
-  
-  if (!ele.ds) {
-    ele.ds = ""
+    list = document.createElement("li"),
+    dstxt2 = `${hName} ${Sub} Book Pdf Download<br><br>`,
+    dstxt = ele.ds + "<br>" + dstxt2
+    ;
+  if (ele.olk) {
+    link = ele.olk
   }
-  if (isrc =="____" || !isrc ) {
+  if (!ele.ds) {
+    dstxt = dstxt2
+  }
+  if (ele.ilk =="____" || !ele.ilk ) {
     isrc = "https://lh3.googleusercontent.com/d/" + ele.glk +"=s220?authuser=2"}
-  else {
-    isrc = `https://spdfedu.github.io/medBooks/${sub}/sm/${isrc}`}
   
   child.className = "box-book";
   child.innerHTML =`
@@ -37,7 +40,7 @@ var link = ele.olk || "https://drive.google.com/open?id="+ele.glk,
     </p>
  </div>
 </div>
-<p class="desc">${ele.ds} <br>${hName} ${Sub} Book Pdf Download<br><br></p>
+<p class="desc">${dstxt}</p>
 `
   document.getElementById("bs").append(child);
   
