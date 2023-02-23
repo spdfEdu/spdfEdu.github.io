@@ -1,0 +1,35 @@
+/** Blog Theme **/
+html,body{position:relative;margin:0} 
+#content-wrapper,.row{padding:5px!important}
+a.header-image-wrapper{width:auto !important}
+div.copyright-area{visibility:hidden}
+h1.post-title,#head-box{display:none !important}
+#boxFooter{display:none !important}
+#share-box #box .item{padding:0 !important}
+#share-box #box .item .button{padding:0px 5px !important}
+.adfoot{position:fixed;left:0;bottom:0;width:100%;height:62px;background-color:#fff;z-index:1000}.clsbtn{display:none}
+div#ContactForm1.widget.ContactForm{display:none}
+div.blog-post.hentry.index-post{width:94%;margin:20px auto;padding:5px;border:.7px solid #c1c1c1;border-radius:5px}
+div.blog-post.hentry.index-post:hover{box-shadow:1px 1px 7px 1px #aaaaaa;}
+
+/** Table of Contents **/
+.mbtTOC{border:1px solid #e2e2e2;background-color:#fafafa;color:#484843;line-height:1em;margin:10px;padding:10px 20px 10px 10px;width:70%;font-family:sans-serif}
+.mbtTOC>ol{margin:0;padding:0}
+.mbtTOC>ol>li{padding:15px 0 0;margin:0 0 0 30px;font-size:15px}
+.mbtTOC a{color:#0080ff;text-decoration:none}
+.mbtTOC a:hover{text-decoration:underline}
+.mbtTOC>button{font-size:20px;position:relative;outline:none;cursor:pointer;border:none;color:#5c5c5c;background-color:#fafafa;padding:0 0 0 15px}
+.mbtTOC>button:after{content:'\2261';position:relative;left:10px;font-size:22px}
+
+/** Table **/
+.table{width:80%;margin:15px auto;border:2px solid #939393;border-collapse:collapse}
+.table>tbody>tr{height:40px;border:1px solid #939393}
+.table>tbody>tr:nth-child(even){background-color:#f2f2f2}
+.table>tbody>tr>th {padding-left:5px;text-align:left}
+
+/** Collapsible Hidden Found **/
+.coll-head{display:flex;width:100%;margin:15px 0 10px 0;padding:10px 0;align-items:center;border-bottom:.5px solid #bbbbbb}
+.coll-head:hover{cursor:pointer;transition:all 1s ease;background-color:#e8e8e8}
+.icon-svg{margin-right:10px;height:24px;transition:all .5s ease}
+.icon-svg{content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z'%3E%3C/path%3E%3C/svg%3E")}
+.collapsed .icon-svg{transform:rotate(180deg);-webkit-transform:rotate(180deg)}
