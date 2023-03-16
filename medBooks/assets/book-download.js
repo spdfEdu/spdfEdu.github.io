@@ -2,6 +2,7 @@ function download(id) {
   var dlink = downlink[id],
       ida = '#'+id+'>a';
   
+  window.location.href = '#'+id
   document.getElementById(id).insertAdjacentHTML("afterend",
 `<h4 id="downText">Please wait while your file is getting ready to download...</h4>
  <div class="wrap"><div class="spinner"><span id="cdt${id}">10</span></div></div>
@@ -22,9 +23,6 @@ function download(id) {
      document.querySelector(ida).style.background = "#38c808"
      document.querySelector(ida).style.color = "#fff"
      document.querySelector(ida).href = dlink;
-     window.location.href = dlink;
-     if(timeleft <= 0)
-      clearInterval(download);
       },10000);
       
   document.querySelector('#'+id).removeAttribute("onclick");
