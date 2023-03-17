@@ -1,4 +1,4 @@
-h2{padding-top:30px}
+#pmb>h2{padding-top:30px;border-bottom:.5px solid #e13535;}
 .down-box{display:block;margin-bottom:30px}
 .down>a {
   display: block;
