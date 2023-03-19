@@ -1,38 +1,3 @@
-var prevScrollpos = window.pageYOffset;
-window.onscroll = function() {
-var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos > currentScrollPos) {
-    document.getElementById("head-box").style.top = "0";
-  } else {
-    if (currentScrollPos > 120) {
-    document.getElementById("head-box").style.top = "-50px";
-    }
-  }
- prevScrollpos = currentScrollPos;
-}
-//footer section
-var child = document.createElement("div");
-child.innerHTML =
- `<div id="boxFooter">
-<div id="copyright"><hr>
-<p id="copyrightHead">
-    <b> DMCA Disclaimer </b></p> We are not hosting any copyrighted contents on our servers, it’s a catalog of links that already found on the internet. Check out our 
-<div id="DMCA" onclick="location.href='/p/dcma.html'">DMCA Policy</div>.<b>If you feel that we have violated your copyrights, then please 
-<div id="contact" onclick="location.href='/p/contact-us.html'">contact us</div>
-immediately, concerned content will be taken down within 24 hours.</b><br><br></div>
-  <div id="boxFoot">
-  <div class="foot" onclick="location.href='/p/contact-us.html'">
-    Contact Us </div> |
-  <div class="foot" onclick="location.href='/'">
-   Home </div> |
-  <div class="foot" onclick="location.href='/p/dcma.html'"> DCMA Policy
-  </div></div>
-  <div id="copySpdfedu">
-    Copyright &#169; 2021 spdfEdu
-  </div><div class="half-hr"></div>
-</div>`;
-document.body.append(child);
-
 //year section
 if (!document.getElementById("moreBooks")){
   document.getElementsByClassName("moreBooks")[0].id = "moreBooks";}
