@@ -1,3 +1,7 @@
+document.querySelectorAll('.down').forEach((dI) =>{
+dI.setAttribute('onclick','download(this.id)');
+});
+
 function download(id) {
   var dlink = downlink[id],
       ida = '#'+id+'>a';
