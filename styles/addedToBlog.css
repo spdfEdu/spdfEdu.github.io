@@ -3,7 +3,7 @@ html,body{position:relative;margin:0}
 #content-wrapper,.row{padding:5px!important}
 a.header-image-wrapper{width:auto !important}
 div.copyright-area{visibility:hidden}
-h1.post-title,#head-box{display:none !important}
+#head-box{display:none !important}
 #boxFooter{display:none !important}
 #share-box #box .item{padding:0 !important}
 #share-box #box .item .button{padding:0px 5px !important}
@@ -11,6 +11,7 @@ h1.post-title,#head-box{display:none !important}
 div#ContactForm1.widget.ContactForm{display:none}
 div.blog-post.hentry.index-post{width:94%;margin:20px auto;padding:5px;border:.7px solid #c1c1c1;border-radius:5px}
 div.blog-post.hentry.index-post:hover{box-shadow:1px 1px 7px 1px #aaaaaa;}
+.center{display:flex;margin:10px auto;justify-content:center;align-items:center}
 
 /** Table of Contents **/
 .mbtTOC{border:1px solid #e2e2e2;border-radius:10px;background-color:#fafafa;color:#484843;line-height:1em;margin:30px auto;padding:10px 20px 10px 10px;min-width:50%;max-width:75%;font-family:sans-serif}
