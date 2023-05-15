@@ -26,8 +26,9 @@ function download(id) {
      document.querySelector(ida).innerHTML = "Link Generated -- Click here"
      document.querySelector(ida).style.background = "#38c808"
      document.querySelector(ida).style.color = "#fff"
-     document.querySelector(ida).href = dlink;
-      },10000);
+     document.querySelector(ida).href = dlink
+     document.querySelector('#cdt'+id).innerHTML = "&#8679;";
+  },10000);
       
   document.querySelector('#'+id).removeAttribute("onclick");
       }
