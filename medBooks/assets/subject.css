@@ -7,7 +7,7 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
 #pmb{padding:5px}
 .breadcrumb{padding:8px 15px;margin-bottom:20px;list-style:none;background-color:#f5f5f5;border-radius:4px}.breadcrumb>li{display:inline-block}.breadcrumb>li>a{text-decoration:none;color:#337ab7}.breadcrumb>li>a:hover{text-decoration:underline}.breadcrumb>li+li:before{padding:0 5px;color:#ccc;content:"/\00a0"}.breadcrumb>.active{color:#777}
-
+.tc{margin:40px auto}
 .box-book,div.gsc-webResult.gsc-result{display:block;width:96%;padding:2%;margin-bottom:20px;border:.5px solid #c8c8c8;border-radius:10px;min-height:90px !important;box-shadow:1px 1px 10px 1px #aaaaaa}
 .box-book:hover,div.gsc-webResult.gsc-result:hover{border:.5px solid #45dbf8;
 box-shadow:1px 1px 10px #45dbf8}
