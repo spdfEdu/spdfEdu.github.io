@@ -209,7 +209,7 @@ var batches = document.createElement("div");
 batches.className="boxBatch";
 batches.innerHTML = `
 <a class="batch" href="/${i}">
-      <img class="coverb" src="https://spdfedu.github.io/JNV/images/cover/${i}.jpg" alt="Batch ${i}">
+      <img class="coverb" src="https://spdfedu.github.io/JNV/images/cover/${i}.jpg" alt="Batch ${i}" onerror="this.src='https://spdfedu.github.io/JNV/images/cover/Jnv_Murshidabad.jpg'">
       <div class="form-link">Batch 
       ${i-y-6}${nth(i-y-6)} (${i-7} - ${i}) 
       </div>
