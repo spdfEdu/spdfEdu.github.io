@@ -1,4 +1,4 @@
-const estb = [2003];
+const estb = 2003;
 const nth = function(d) {
   if (d > 3 && d < 21) return 'th';
   switch (d % 10) {
@@ -16,39 +16,56 @@ var z = [x-y+1];
 var batch = z + nth(z);
 var xii =(x+7);
 
-document.title = `${[x+7]} JNV MSD`;
-window.history.replaceState('','',`/${x+7}`);
+document.title = `${xii} JNV MSD`;
+window.history.replaceState('','',`/${xii}`);
 var upper = document.createElement("div");
 upper.innerHTML =
- `<h1 id="head-main">BATCH ${batch}</h1>
+ `<h1 id="head-main">&#60;/Batch-${batch}&#62;</h1>
   <p class="summary">
   Year of Xii Passout : ${xii} <br><br>
   Total No of Students is ${all.length}
-  </p>`;
+  <br><br>
+  Data Collected on ${date}</p>`;
 document.getElementById("upper").append(upper);
 
-  //creating the structure
-var main = document.getElementById("mainContainer");
-  all.forEach(ele => {
-var child = document.createElement("div");
+  //creating the profiles
+main = document.getElementById("mainContainer")
+vesselBox = document.createElement("div")
+vesselBox.id = "vessel-box"
+main.append(vesselBox)
+insertProfiles = document.getElementById("vessel-box");
+
+all.sort((a, b) => {
+  const nameA = a.Name.toUpperCase(); 
+  const nameB = b.Name.toUpperCase(); 
+  if (nameA < nameB) {return -1}
+  if (nameA > nameB) {return 1}
+  return 0;
+});
+
+all.forEach(createProfile);
+function createProfile(ele) {
+ child = document.createElement("div")
+ img = `${xii}/${ele.Name.replace(/ /gi,'_')}.jpg`
+ 
   child.className = "vessel";
   child.innerHTML =
- `<a class="nameBox">
+ `<a class="nameBox" onclick="doh(this)">
     <div class="pp">
       <img class="svgP svgPP">
-      <img class="coverPP" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP svgPP'" alt="" />
+      <img class="coverPP" src="https://spdfedu.github.io/JNV/images/${[xii]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP svgPP'" alt="" />
     </div>
     <div class="naming">${ele.Name}</div>
   </a>
 
   <div class="contentBox ${ele.House}">
-  <a class="nameBox2">
+  <a class="nameBox2" onclick="doh2(this)">
     <div class="naming2">${ele.Name}</div>
-    <div class="back">&#8249;</div>
+    <div class="back"><i class="svgBack"></i></div>
   </a>
   <div class="head-cover">
   <img class="svgP">
-  <a href="https://lh3.googleusercontent.com/d/${ele.ppl}" target="_blank"><img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
+  <a href="https://lh3.googleusercontent.com/d/${ele.ppl}" target="_blank"><img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[xii]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
   
   <div class="details">
     <div class="contact">
@@ -92,100 +109,68 @@ var child = document.createElement("div");
     
     </div>
   </div>`;
-  main.append(child);
-});
+  insertProfiles.append(child);
+}
 
-var bgInsert = document.createElement("div");
-bgInsert.className = "bgpc";
+// Creating the Filter
+sorting = {
+  BloodGroup : ['O +ve', 'A +ve','B +ve','AB +ve','O -ve','A -ve','B -ve','AB -ve'],
+  House : ['Aravali','Nilgiri','Shivalik','Udaigiri'],
+  CurrentStatus : ['Studying','Employee']
+}
+
+bgInsert = document.createElement("div")
+bgplText = `  &nbsp; &nbsp;There are total ${all.length} Registered Alumnis`
+bgInsert.className = "bgpc"
 bgInsert.innerHTML =`
-<select onchange="ckbg(event)">
-   <option disabled selected>Choose BloodGroup Type</option>
-   <option value="O +ve">O +ve</option>
-   <option value="A +ve">A +ve</option>
-   <option value="B +ve">B +ve</option>
-   <option value="AB +ve">AB +ve</option>
-   <option value="O -ve">O -ve</option>
-   <option value="A -ve">A -ve</option>
-   <option value="B -ve">B -ve</option>
-   <option value="AB -ve">AB -ve</option>
+<select onchange="find(event)" id="to-find">
+   <option disabled selected value="a">Filter</option>
+   <option value="BloodGroup">BloodGroup</option>
+   <option value="House">House</option>
+   <option value="CurrentStatus">CurrentStatus</option>
 </select>
-<button onclick="document.getElementById('bgpl').innerHTML='';bgp.innerHTML=''">Clear</button>
- <div id="bgpl"></div><br>
- <div id="bgp"></div><br><br>`;
-main.append(bgInsert);
+<button onclick="erase()">Clear</button>
+<select onchange="ckFind(event)" id="getFind">
+</select>
 
-function ckbg(e) {
-var fall = all.filter(person => person.BloodGroup === e.target.value);
-document.getElementById("bgpl").innerHTML ="  &nbsp; &nbsp;" +fall.length +" '"+ e.target.value + "' Blood Groups out of " + all.length + " Alumnis";
-var bgp = document.getElementById('bgp')
-bgp.innerHTML='';
-  fall.forEach(ele => {
-var child = document.createElement("div");
-  child.className = "vessel";
-  child.innerHTML =
- `<a class="nameBox" onclick="this.nextElementSibling.classList.add('active');window.history.pushState('', this.children[1].textContent, window.location.href+'/user/'+this.children[1].textContent.replace(/ /gi,'_'));">
-    <div class="pp">
-      <img class="svgP svgPP">
-      <img class="coverPP" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.className='svgP svgPP'" alt="" />
-    </div>
-    <div class="naming">${ele.Name}</div>
-  </a>
+ <p id="bgpl">${bgplText}</p>
+ <br><br>`;
+main.insertBefore(bgInsert, main.firstChild);
 
-  <div class="contentBox ${ele.House}">
-  <div class="bscrool">
-  <a class="nameBox2" onclick="this.parentNode.parentNode.classList.remove('active');window.history.back();">
-    <div class="naming2">${ele.Name}</div>
-    <div class="back">&#8249;</div>
-  </a>
-  <div class="head-cover">
-  <img class="svgP">
-  <a href="https://lh3.googleusercontent.com/d/${ele.ppl}" target="_blank"><img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${[x+7]}/${ele.Name.replace(/ /gi,'_')}.jpg" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
-  
-  <div class="details">
-    <div class="contact">
-  <div class="gap"></div>
-  <div class="fb" style="visibility: ${(!ele.fb)? 'hidden' : 'visible'}" onclick="window.open('https://facebook.com/${ele.fb}','_blank')" href=''><i class="svg svgFb"></i>
-  </div>
-  <div class="insta" style="visibility: ${(!ele.insta)? 'hidden' : 'visible'}" onclick="window.open('https://instagram.com/${ele.insta}','_blank')" href=''><i class="svg svgInsta"></i>
-  </div>
-  </div>
-  
-<p class="info fst" style="display: ${(!ele.Batch)?'none':'block'}">
-<span class="qes">Batch : </span>
-<span class="ans">${batch} (${ele.Batch-7} - ${ele.Batch})</span></p>
+getFind = document.querySelector('#getFind')
+bgpl = document.getElementById("bgpl")
 
-<div class="contact" style="display: ${(!ele.EmailId)? 'none' : 'flex'}">
-   <div class="mailHead">Mail&nbsp;:</div>
-  <div class="emailid">${ele.EmailId}[at]gmail.com</div>
-  <div class="mail" onclick="location.href='mailto:${ele.EmailId}@gmail.com'" href=''><i class="svg svgMail"></i></div>
-   </div>
+function find(e) {
+  var findvalue = e.target.value
+  getFind.style.display = "block"
+  getFind.innerHTML = `<option selected disabled value="${findvalue}">-- Select ${findvalue} --</option>`
+  console.log(findvalue)
+  findSort = sorting[findvalue]
+  console.log(findSort)
+  for (x in findSort) {
+      var sel = document.createElement('option')
+       sel.innerHTML = findSort[x]
+       sel.value = findSort[x]
+       getFind.appendChild(sel)
+    }
+  all.forEach(createProfile);
+  bgpl.innerHTML= bgplText
+}
 
-<p class="info" style="display: ${(!ele.House)?'none':'block'}">
-<span class="qes">House : </span>
-<span class="ans">${ele.House}</span></p>
+function ckFind(ev) {
+ var toFind = ev.target[0].value;
+  filter = all.filter(person => person[toFind] === ev.target.value)
+  bgpl.innerHTML ="  &nbsp; &nbsp;" +filter.length +" '"+ ev.target.value + "' "+ev.target[0].value+" out of " + all.length + " Alumnis"
+  insertProfiles.innerHTML=''
+  filter.forEach(createProfile);
+  }
 
-<p class="info" style="display: ${(!ele.BloodGroup)?'none':'block'}">
-<span class="qes">Blood Group : </span>
-<span class="ans">${ele.BloodGroup}</span></p>
-
-<p class="info" style="display: ${(!ele.District)?'none':'block'}">
-<span class="qes">District : </span><span class="ans">${ele.District}</span>
-</p><br>
-
-<p class="info" style="display: ${(!ele.CurrentStatus)?'none':'block'}">
-<span class="qes">Current Status :</span><span class="ans">${ele.CurrentStatus}</span></p>
-
-<p class="info" style="display: ${(!ele.HQD)?'none':'block'}">
-<span class="qes">Highest Qualification Degree :</span><br><span class="ans">${ele.HQD}</span></p>
-
-<p class="info" style="display: ${(!ele.Institute)?'none':'block'}">
-<span class="qes">Institution :</span><span class="ans">${ele.Institute}</span></p>
-    
-    </div>
-    </div>
-  </div>`;
-  bgp.append(child);
-});
+function erase() {
+  bgpl.innerHTML= bgplText
+  getFind.style.display= 'none'
+  insertProfiles.innerHTML=''
+  document.querySelector('.bgpc>select').value = "a"
+  all.forEach(createProfile);
 }
 
 //share function
@@ -199,21 +184,17 @@ var child = document.createElement("div");
      window.open('whatsapp://send?text=*Batch '+batch+'*%0A'+a+'%0A'+b+'%0A%0A--%3E%20bit.ly/jnvmsd');
    }
  }
-var coll = document.getElementsByClassName("nameBox");
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-   this.nextElementSibling.classList.add("active");
-   document.body.style.overflow = "hidden";
-   window.history.pushState('', this.children[1].textContent, window.location.href+"/user/"+this.children[1].textContent.replace(/ /gi,'_'))
-  });
-}
-var coll2 = document.getElementsByClassName("nameBox2");
-for (i = 0; i < coll2.length; i++) {
-  coll2[i].addEventListener("click", function() {
-   this.parentNode.classList.remove("active");
-   document.body.style.overflow = "scroll";
+ 
+ function doh(e) {
+   e.nextElementSibling.classList.add("active")
+   document.body.style.overflow = "hidden"
+   window.history.pushState('', e.children[1].textContent, window.location.href+"/user/"+e.children[1].textContent.replace(/ /gi,'_'));
+  }
+  
+ function doh2(e) {
+   e.parentNode.classList.remove("active")
+   document.body.style.overflow = "scroll"
    window.history.back();
-   });
 }
 
 window.addEventListener('popstate', function (event) {
