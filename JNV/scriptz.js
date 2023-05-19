@@ -25,7 +25,7 @@ upper.innerHTML =
   Year of Xii Passout : ${xii} <br><br>
   Total No of Students is ${all.length}
   <br><br>
-  Data Collected on ${date}</p>`;
+  </p>`;
 document.getElementById("upper").append(upper);
 
   //creating the profiles
