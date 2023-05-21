@@ -157,15 +157,14 @@ function find(e) {
   var findvalue = e.target.value
   getFind.style.display = "block"
   getFind.innerHTML = `<option selected disabled value="${findvalue}">-- Select ${findvalue} --</option>`
-  console.log(findvalue)
   findSort = sorting[findvalue]
-  console.log(findSort)
   for (x in findSort) {
       var sel = document.createElement('option')
        sel.innerHTML = findSort[x]
        sel.value = findSort[x]
        getFind.appendChild(sel)
     }
+  insertProfiles.innerHTML=''
   all.forEach(createProfile);
   bgpl.innerHTML= bgplText
 }
@@ -181,8 +180,8 @@ function ckFind(ev) {
 function erase() {
   bgpl.innerHTML= bgplText
   getFind.style.display= 'none'
-  insertProfiles.innerHTML=''
   document.querySelector('.bgpc>select').value = "a"
+  insertProfiles.innerHTML=''
   all.forEach(createProfile);
 }
 
