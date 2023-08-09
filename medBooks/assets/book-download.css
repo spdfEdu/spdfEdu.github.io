@@ -7,8 +7,7 @@
 }
 .down-box {
   display: block;
-  margin: 3px;
-  margin-bottom: 40px;
+  margin: 30px 3px 40px 3px;
   padding: 5px;
   background: rgb(250,247,250);
   border: 1px dotted rgb(43,7,43);
@@ -22,6 +21,11 @@
 }
 .down-box h4 {
   text-align: center
+}
+.down {
+  border: 1px solid #c5b9b9;
+  border-radius: 5px;
+  margin: 3px;
 }
 .down>a {
   display: block;
@@ -40,6 +44,21 @@
   color: #ff0059;
   background: #fff;
   border: 2px dotted #ff0059
+ }
+.down-info {
+      width: 90%;
+      display: flex;
+      position: relative;
+      top: 5px;
+      margin: auto;
+      justify-content: center;
+      align-items: center;
+      color: rgb(100,90,90);
+      font-size: 14px;
+}
+.down-info>span+span:before {
+      content:"\25C9";
+      padding:0 20px;
  }
 .wrap {
   text-align: center;
