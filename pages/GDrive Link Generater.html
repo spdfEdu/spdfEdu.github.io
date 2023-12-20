@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Google Drive Link Generater</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+    #pmb {
+      margin: 5px;
+      font-size: 16px;
+    }
+    .flex {
+      display: flex;
+    }
+    .lt-box {
+      flex: 4;
+      position: relative;
+    }
+    #gLink, #newLink {
+      width: 100%;
+      height: 4em;
+      padding: 12px;
+      border: 3px solid #0f5fab;
+      border-radius: 2em;
+    }
+    .btn {
+      text-align: center;
+      border: 2px solid rgb(0,184,255);
+      background-color: rgb(103,213,255);
+      transition-duration:0.4s;
+      padding: 10px;
+      border-radius: 20px;
+    }
+    .btn:hover {
+      border: 2px solid rgb(0,222,97);
+      background-color: #8cff96;
+    }
+    #func-btns {
+      display: none;
+      width: 90%;
+      margin: auto;
+    }
+    #thumbnail {
+      width: 100%;
+      height: 450px;
+      height: auto;
+    }
+    .center {
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+    }
+    .flex-btn {
+      flex: 1;
+      width: 100%;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .clrbtn {
+      display: none;
+      position: absolute;
+    border: none;
+    width: 23px;
+    height: 23px;
+    line-height: 22px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 50%;
+    top: 0;
+    bottom: 0;
+    right: 8px;
+    margin: auto;
+    color: red;
+    background: #ffcfcf;
+    cursor: pointer;
+    }
+    .svgcpy {
+      border-radius: 3px;
+      padding: 10px;
+    }
+    .red{background-color:#ffa9a9;border:2px solid #ff8e8e}
+    .eg {
+      margin: 40px 0;
+      padding-top: 30px;
+      border-top: .7px solid #787878;
+    }
+    .eg li {
+      word-wrap: break-word;
+      text-align: left;
+      padding: 5px;
+    }
+  </style>
+  </head>
+  <body>
+    <div id="pmb">
+    <h1>Google Drive Links Generator</h1>
+    <p>Generate Google Drive Download Link, Image Thumbnail Link, Preview Link Easily from any Google Drive Link</p>
+    <div id="post-toc"></div>
+    
+    <h2>Paste Google Drive Link</h2>
+    <p>Paste / Enter any of the above type of Google Drive Link here</p>
+    <p>Then Click on Continue or Press Enter Button</p>
+    
+    <div class="flex">
+      <div class="lt-box">
+       <input id="gLink" class="center" type="text" placeholder="Paste Google Drive File Link" oninput="gLinkChange()">
+       <div class="flex-btn clrbtn" onclick="clearTexts()">&times;</div>
+      </div>
+        <div class="flex-btn" onclick="check()">
+           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path opacity="0.2" d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" fill="#259f12"/><path d="M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#259f12" stroke-width="2" stroke-linejoin="round"/><path d="M11 15L13.7158 12.2842V12.2842C13.8728 12.1272 13.8728 11.8728 13.7158 11.7158V11.7158L11 9" stroke="#206715" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div> 
+   
+  <div id="func-btns">
+    <div class="btn center" onclick="download()">Generate Download Link</div>
+    
+    <div class="btn center" onclick="view()">Generate View Link</div>
+    
+    <div class="btn center" onclick="pic()">Generate Thumbnail &amp; Link</div>
+    
+    <div class="btn center" onclick="preview()">Generate Preview Link</div>
+   
+    <div class="btn center" onclick="fileId()">Get File Id</div>
+    
+  </div>
+    
+   
+   <h2>Generated Link</h2>
+   <p>Your Generated Google Drive Link will appear here below</p>
+    <img id="thumbnail" class="center">
+   <p>Click on the Copy Button to copy the Generated Link</p>
+  <div class="flex">
+    <div class="lt-box">
+    <input id="newLink" class="center" type="text" placeholder="New Generated Link" onclick="this.select()">
+    </div>
+    <div id="copy" class="flex-btn svgcpy">
+      <svg fill="#8c1aff" viewBox="-3.12 -3.12 30.24 30.24" xmlns="http://www.w3.org/2000/svg"><g><rect x="-3.12" y="-3.12" width="30.24" height="30.24" rx="15.12" fill="#f6ebff"></rect></g><g><path d="M16,20H8a3,3,0,0,1-3-3V7A1,1,0,0,0,3,7V17a5,5,0,0,0,5,5h8a1,1,0,0,0,0-2ZM21,8.94a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19l-.09,0L14.06,2H10A3,3,0,0,0,7,5V15a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V9S21,9,21,8.94ZM15,5.41,17.59,8H16a1,1,0,0,1-1-1ZM19,15a1,1,0,0,1-1,1H10a1,1,0,0,1-1-1V5a1,1,0,0,1,1-1h3V7a3,3,0,0,0,3,3h3Z"></path></g></svg>
+    </div>
+  </div>
+  <p id="out-text"></p>
+  <div class="btn center another" onclick="another()">Convert Another Link</div>
+  
+  <div class="eg">
+  <h3>Google Drive Links Examples :</h3>
+    <ul>
+      <li>https://www.googleapis.com/drive/v3/files/18n68p9lP8il0KFT5sIAdxqfWgqF39BZK?alt=media&key=AIzaSyAA9ERw-9LZVEohRYtCWka_TQc6oXmvcVU&supportsAllDrives=True</li>
+      <li>https://drive.google.com/file/d/18n68p9lP8il0KFT5sIAdxqfWgqF39BZK/view?usp=drivesdk</li>
+      <li>https://drive.google.com/uc?id=11MxK9jnMZs982JoU_Gg7udPnrJXn3xWf&amp;export=download</li>
+      <li>https://drive.google.com/open?id=11MxK9jnMZs982JoU_Gg7udPnrJXn3xWf</li>
+    </ul>
+  </div>
+    
+  <h2>FAQs</h2>
+  <div class="coll-sec">
+    <h3>How to Generate Google Drive Download link ?</h3>
+    <section>
+      <h4>Step by step procedure to create download link</h4>
+      <ol>
+        <li>Open <strong>Google Drive</strong> &amp; go to the file of which you want to create download link</li>
+        <li>Click on the <strong>[ &#8942; ] option</strong> of the  file</li>
+        <li>Go to <strong>Manage access</strong> option</li>
+        <li>Here in the <strong>General access</strong> click on the <strong>Restricted</strong> (Only people added can open with the link), Change Option</li>
+        <li>Then Change it to <strong>Anyone with the link</strong> option</li>
+        <li>Then go back and Click on <strong>Copy Link</strong> option</li>
+        <li>Now Paste the link here and Continue</li>
+      </ol>
+    </section>
+  </div>
+  <div class="coll-sec">
+    <h3>Generate Google Drive Download link from View Link?</h3>
+    <section>
+      <h4>Step by step procedure to create download link</h4>
+      <ol>
+        <li>Paste the link on the <a href="#Paste Google Drive Link">Input Area</a></li>
+        <li>Click on the Continue Button or Press the Enter Key to Continue</li>
+        <li>Some Bittons will appear</li>
+        <li>Click on the <strong>Generate Download Link</strong> Button</li>
+        <li>Your Download link will appear in the <a href="#Generated Link">Generated Link section</a></li>
+      </ol>
+    </section>
+  </div>
+  
+  </div>
+  
+    <script>
+    var gId,gdv;
+    doc = document;
+    outText= doc.getElementById("out-text");
+    anotherBtn = doc.querySelector('.another');
+    anotherBtn.style.display = "none"
+    function check() {
+      var gdv = gLink.value;
+      if (gdv=='') {
+        alert('Paste / Enter your Link to Continue')
+      }
+      if (gdv!='' && !gdv.includes("drive.google.com")) {
+        alert('Enter Valid Google Drive Link to Continue')
+      }
+      if (gdv.includes("drive.google.com")){
+        getFileId()
+      }
+    }
+    
+    function gLinkChange() {
+      if (gLink.value !='') {
+        doc.querySelector('.clrbtn').style.display = "flex"
+      }
+      if (gLink.value ==='') {
+        clearTexts()
+      }
+    }
+    
+    function getFileId() {
+      var gdv = gLink.value;
+      if (gdv.includes("file/d/")) {
+         gId = gdv.split('/')[5];
+       }
+      if (gdv.includes("export")) {
+         gId = gdv.split('id=').pop().split('&ex')[0];
+      }
+      if (gdv.includes("open")) {
+         gId = gdv.split('id=').pop();
+      }
+      if (!gId) {
+      alert("Enter Valid Url")
+      }
+      if (gId !== undefined) {
+      doc.getElementById("func-btns").style.display = 'block'
+      }
+    }
+    
+    function pic() {
+      getFileId();
+      doc.getElementById("thumbnail").src = "https://lh3.googleusercontent.com/d/" +gId+"=s440";
+       newLink.value = "https://lh3.googleusercontent.com/d/" +gId+"=s440";
+       goToOutput();
+      };
+      
+    function download() {
+      getFileId();
+      newLink.value = "https://drive.google.com/uc?id=" +gId+"&export=download";
+      goToOutput();
+      }
+      
+    function fileId() {
+        getFileId();
+        newLink.value = gId;
+        goToOutput();
+      }
+      
+    function view() {
+        getFileId();
+        newLink.value = "https://drive.google.com/open?id=" +gId;
+        goToOutput();
+      }
+      
+    function preview() {
+      getFileId();
+        newLink.value = "https://drive.google.com/file/d/"+gId+"/preview";
+        goToOutput();
+      
+    }
+    
+var cpb = doc.getElementById("copy");
+cpb.addEventListener('click', function(event) {
+  var copyTextarea = doc.getElementById("newLink");
+  copyTextarea.focus();
+  copyTextarea.select();
+
+  try {
+    var successful = doc.execCommand('copy');
+    var msg = successful ? 'successful' : 'unsuccessful';
+    console.log('Copying text command was ' + msg);
+  } catch (err) {
+    console.log('Oops, unable to copy');
+  }
+}); 
+      
+function goToOutput() {
+  location.href = "#Generated Link";
+  outText.innerText = "Your Link is Generated, and Ready for use";
+  anotherBtn.style.display = "block"
+}
+
+function clearTexts() {
+  gId='';
+  gLink.value='';
+  newLink.value='';
+  doc.getElementById("thumbnail").src = '';
+  doc.getElementById("func-btns").style.display = 'none';
+  doc.querySelector('.clrbtn').style.display = "none";
+  anotherBtn.style.display = "none";
+  outText.innerText = "";
+}
+function another() {
+  clearTexts();
+  location.href = "#Paste Google Drive Link"
+}
+
+doc.getElementById("gLink").addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+   event.preventDefault();
+   check();
+  }
+});
+    </script>
+   <script src="https://spdfedu.github.io/scripts/useAddedToBlog.js"></script>
+  </body>
+</html>
