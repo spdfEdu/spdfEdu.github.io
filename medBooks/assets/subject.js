@@ -1,7 +1,9 @@
-//Version 4
-//Search + Auto Download Page
+//Version 4.1
+//Search + Auto Download Page + Add Book Link
 
 const spdfEdu= "spdfEdu";
+var addBook = {h2:"Add Books of ",bn:`You can now add any ${Sub} book pdf easily here <br>Submit the book details and download link here`, olk:"/p/medbooks-collection-form.html", ds:"You may also provide updated or latest edition link"};
+all.unshift(addBook);
 all.forEach(createBook);
 
 function createBook(ele, i) {
