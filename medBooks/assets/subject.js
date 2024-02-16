@@ -1,5 +1,7 @@
-//Version 4.1
-//Search + Auto Download Page + Add Book Link
+//Version 4.2
+// 4.0 - Search + Auto Download Page 
+// 4.1 - Add Book Submit Form Link
+// 4.2 - Download Page for Non GDrive link
 
 const spdfEdu= "spdfEdu";
 var addBook = {h2:"Add Books of ",bn:`You can now add any ${Sub} book pdf easily here <br>Submit the book details and download link here`, olk:"/p/medbooks-collection-form.html", ds:"You may also provide updated or latest edition link"};
@@ -24,8 +26,12 @@ function createBook(ele, i) {
     dstxt = ele.ds + "<br>" + dstxt2
     ;
     if (ele.olk) {
-      urlCheck = `href='${ele.olk}'`
-    }
+      a = ele.olk
+      b = "spdfedu.blogspot.com"
+      urlCheck = `href='${a}'`
+      if(a.includes("https://")) {
+        downloadBook(i)}
+   }
     if (!ele.olk) {
       downloadBook(i)
     }
