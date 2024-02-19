@@ -44,7 +44,7 @@ all.sort((a, b) => {
 });
 
 all.forEach(createProfile);
-function createProfile(ele) {
+function createProfile(ele,i) {
  child = document.createElement("div")
  img = `${xii}/${ele.Name.replace(/ /gi,'_')}.jpg`
  
@@ -76,7 +76,10 @@ function createProfile(ele) {
   <div class="insta" style="visibility: ${(!ele.insta)? 'hidden' : 'visible'}" onclick="window.open('https://instagram.com/${ele.insta}','_blank')" href=''><i class="svg svgInsta"></i>
   </div>
   <div class="share" onclick="share('${ele.Name}','${ele.Phone}')"><i class="svg svgShare"></i>
-  </div></div>
+  </div>
+  <div class="share" onclick="downVcardi(${i})"><i class="svg svgContact"></i>
+  </div>
+  </div>
   
 <div class="contact phn fst" style="visibility: ${(!ele.Phone)? 'hidden' : 'visible'}"><div class="phnHead">Phone No. : </div>
  <div class="phnNo">${ele.Phone}</div>
@@ -138,9 +141,9 @@ bgInsert.className = "bgpc"
 bgInsert.innerHTML =`
 <select onchange="find(event)" id="to-find">
    <option disabled selected value="a">Filter</option>
-   <option value="BloodGroup">BloodGroup</option>
+   <option value="BloodGroup">Blood Group</option>
    <option value="House">House</option>
-   <option value="CurrentStatus">CurrentStatus</option>
+   <option value="CurrentStatus">Current Status</option>
 </select>
 <button onclick="erase()">Clear</button>
 <select onchange="ckFind(event)" id="getFind">
@@ -232,3 +235,21 @@ document.getElementById("other").append(batches);
 document.getElementById("down").innerHTML = "<h2>Check Out Other Batches: </h2><p>Current Passout Batch : " +year +
 "<br> Established Year : " + [estb] +
 "<br> Total Batches : " +[year -[estb] -6]+"</p>";
+
+function downVcardi(index) {
+  h = all[index];
+  g = {};
+  g.version = "2.1";
+  g.fn = h.Name +" " +h.Batch.toString().slice(2) + " Jnv";
+  if (h.Phone) {if (h.Phone.toString().length <=10) {h.Phone = "91"+h.Phone}
+    g.tel = [{value : h.Phone,type : "Phone"}]}
+  if (h.Phone2) {if (h.Phone2.toString().length<=10) {h.Phone2 = "91"+h.Phone2};
+    j = {value : h.Phone2,type : "Phone"};g.tel.push(j)}
+  if (h.EmailId) {g.email = [{value : h.EmailId,type : "Personal"}]}
+  vCard.export(g, g.fn, true)
+}
+
+  head = document.head || document.getElementsByTagName('head')[0]
+  script = document.createElement('script')
+  script.src = 'https://spdfedu.github.io/JNV/vcard.js'
+  head.appendChild(script);
