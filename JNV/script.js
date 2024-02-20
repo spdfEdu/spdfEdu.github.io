@@ -17,7 +17,8 @@ var batch = z + nth(z);
 var xii =(x+7);
 
 document.title = `${xii} JNV MSD`;
-window.history.replaceState('','',`/${xii+window.location.hash}`);
+urlChange = xii + window.location.hash
+window.history.replaceState('','',urlChange);
 
 var upper = document.createElement("div");
 upper.innerHTML =
