@@ -18,6 +18,7 @@ var xii =(x+7);
 
 document.title = `${xii} JNV MSD`;
 window.history.replaceState('','',`/${xii}`);
+
 var upper = document.createElement("div");
 upper.innerHTML =
  `<h1 id="head-main">&#60;/Batch-${batch}&#62;</h1>
@@ -47,18 +48,17 @@ all.forEach(createProfile);
 function createProfile(ele,i) {
  child = document.createElement("div")
  img = `${xii}/${ele.Name.replace(/ /gi,'_')}.jpg`
- 
-  child.className = "vessel";
+  child.className = "vessel collapsed";
   child.innerHTML =
- `<a class="nameBox" onclick="doh(this)">
+ `<a class="nameBox">
     <div class="pp">
       <img class="svgP svgPP">
       <img class="coverPP" src="https://spdfedu.github.io/JNV/images/${img}" onerror="this.className='svgP svgPP'" alt="${ele.Name}" />
     </div>
     <div class="naming">${ele.Name}</div>
   </a>
-
-  <div class="contentBox ${ele.House}">
+  
+  <div hidden="until-found" class="contentBox ${ele.House}" id="${ele.Name.replace(/ /g,"_")}">
   <div class="bscrool">
   <a class="nameBox2" onclick="doh2(this)">
     <div class="naming2">${ele.Name}</div>
@@ -75,7 +75,7 @@ function createProfile(ele,i) {
   </div>
   <div class="insta" style="visibility: ${(!ele.insta)? 'hidden' : 'visible'}" onclick="window.open('https://instagram.com/${ele.insta}','_blank')" href=''><i class="svg svgInsta"></i>
   </div>
-  <div class="share" onclick="share('${ele.Name}','${ele.Phone}')"><i class="svg svgShare"></i>
+  <div class="share" onclick="share('${ele.Name}','${ele.Phone}','${ele.Phone2}')"><i class="svg svgShare"></i>
   </div>
   <div class="share" onclick="downVcardi(${i})"><i class="svg svgContact"></i>
   </div>
@@ -188,24 +188,20 @@ function erase() {
   all.forEach(createProfile);
 }
 
-//share function
- function share(a,b) {
+function share(a,b,c) {
+   var ph2 = '';
+   if (c !=='undefined'){ph2='\n   '+c};
+   textToSend = '*JNV Msd Batch '+batch+'*\n'+a+'\n   '+b+ph2+'\n\n'+window.location.href+'\n--> bit.ly/jnvmsd';
  if (navigator.share) {
        navigator.share({
-       title: 'JNV MSD',
-       text: '*Batch '+batch+'*\n'+a+'\n'+b+'\n\n--> bit.ly/jnvmsd',
+       title: 'JNV MSD Batch '+batch,
+       text: textToSend,
        })}
    else {
-     window.open('whatsapp://send?text=*Batch '+batch+'*%0A'+a+'%0A'+b+'%0A%0A--%3E%20bit.ly/jnvmsd');
+     window.open('whatsapp://send?text='+textToSend)
    }
  }
  
- function doh(e) {
-   e.nextElementSibling.classList.add("active")
-   document.body.style.overflow = "hidden"
-   window.history.pushState('', e.children[1].textContent, window.location.href+"/user/"+e.children[1].textContent.replace(/ /gi,'_'));
-  }
-  
  function doh2(e) {
    e.parentNode.classList.remove("active")
    document.body.style.overflow = "scroll"
@@ -213,10 +209,12 @@ function erase() {
 }
 
 window.addEventListener('popstate', function (event) {
-  if (! document.getElementsByClassName("active")[0]) { }
-  else {
-  document.getElementsByClassName("active")[0].classList.remove("active");
-   document.body.style.overflow = "scroll";}
+  var act = document.getElementsByClassName("active")[0];
+  if (act) {
+   act.hidden = "until-found";
+   act.classList.remove("active");
+   document.body.style.overflow = "scroll";
+  }
 });
 
 for (i=y+7;i<=year;i++) {
@@ -226,7 +224,7 @@ batches.innerHTML = `
 <a class="batch" href="/${i}">
       <img class="coverb" src="https://spdfedu.github.io/JNV/images/cover/${i}.jpg" alt="Batch ${i}" onerror="this.src='https://spdfedu.github.io/JNV/images/cover/Jnv_Murshidabad.jpg'">
       <div class="form-link">Batch 
-      ${i-y-6}${nth(i-y-6)} (${i-7} - ${i}) 
+      ${i-y-6}${nth(i-y-6)} (${i-7} - ${i})
       </div>
     </a>`;
 document.getElementById("other").append(batches);
@@ -253,3 +251,27 @@ function downVcardi(index) {
   script = document.createElement('script')
   script.src = 'https://spdfedu.github.io/JNV/vcard.js'
   head.appendChild(script);
+  
+  document.querySelectorAll(".vessel").forEach((vessel) => {
+  var details = vessel.querySelector(".contentBox");
+  vessel.onbeforematch = () => {
+    vessel.classList.remove("collapsed");
+    location.href = "#"+details.id
+    details.classList.add("active")
+    document.body.style.overflow = "hidden"
+  };
+  vessel.querySelector(".nameBox").onclick = () => {
+    vessel.classList.toggle("collapsed");
+    details.classList.add("active")
+    if (vessel.classList.contains("collapsed")) {
+      details.hidden = "until-found";
+      details.classList.remove("active")
+      document.body.style.overflow = "scroll";
+    } else {
+      details.removeAttribute("hidden");
+      details.classList.add("active")
+      document.body.style.overflow = "hidden"
+      location.href = "#"+details.id
+    }
+  };
+});
