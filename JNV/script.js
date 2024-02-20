@@ -206,7 +206,12 @@ function share(a,b,c) {
  function doh2(e) {
    e.parentNode.classList.remove("active")
    document.body.style.overflow = "scroll"
-   window.history.back();
+   if (window.history.length>=1) {
+     location.href = window.location.pathname
+   }
+   if (window.history.length>2) {
+     window.history.back()
+   }
 }
 
 window.addEventListener('popstate', function (event) {
