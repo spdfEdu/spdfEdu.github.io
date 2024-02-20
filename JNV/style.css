@@ -52,7 +52,7 @@ align-items:center;
 font-size:19px;
 font-family:sans-serif
 }
-#getFind,.contentBox{display:none}
+#getFind{display:none}
 .active{
 position: fixed;
 top: 0;
