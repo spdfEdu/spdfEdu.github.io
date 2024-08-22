@@ -1,7 +1,6 @@
-//Version 4.2
-// 4.0 - Search + Auto Download Page 
-// 4.1 - Add Book Submit Form Link
-// 4.2 - Download Page for Non GDrive link
+// Version 5.0
+// 5.0 - Removed Extra Items
+//     - Book Available List Fixed
 
 const spdfEdu= "spdfEdu";
 var addBook = {h2:"Add Books of ",bn:`You can now add any ${Sub} book pdf easily here <br>Submit the book details and download link here`, olk:"/p/medbooks-collection-form.html", ds:"You may also provide updated or latest edition link"};
@@ -92,44 +91,14 @@ function searchBook() {
     let obj = all[i],
     h2 = encodeURIComponent(obj.h2).toLowerCase(),
     bn = encodeURIComponent(obj.bn).toLowerCase(),
-    at = encodeURIComponent(obj.at).toLowerCase()
-    ;
+    at = encodeURIComponent(obj.at).toLowerCase();
+    list = document.getElementById("helpBrowser")
+    listLength= list.childElementCount
     if (h2.includes(input) || bn.includes(input) || at.includes(input)) {
       createBook(obj, i)
     }
+    while (list.children.length > listLength) {
+    list.removeChild(list.lastChild);
+    }
   }
 }
-
-yrChild  =`
-<h2>You may also See :</h2><div class="yB"><a class="yLink" href="https://spdfedu.blogspot.com/2021/10/1st-Year.html">1st Year MBBS Study Materials</a></div><div class="yB"><a class="yLink" href="https://spdfedu.blogspot.com/2021/10/2nd-Year.html">2nd Year MBBS Study Materials</a></div><div class="yB"><a class="yLink" href="https://spdfedu.blogspot.com/2021/10/3rd-Year.html">3rd Year MBBS Study Materials</a></div><div class="yB"><a class="yLink" href="https://spdfedu.blogspot.com/2021/10/Final-Year.html">Final Year MBBS Study Materials</a></div>`;
-document.getElementById('moreBooks').insertAdjacentHTML('afterend',yrChild)
-
-var xurl =window.location.href.split("?m=1")[0]
-var url ='Main Website --> bit.ly/spdfEdu'
-document.getElementById('box').insertAdjacentHTML('afterend',
-`<br><div id="share-box"><div id="head-share">Do Share with your friends</div><div id="box"><div class="item"><div class="button wp" onclick="location.href='whatsapp://send?text=*'+document.title+'*%0A_'+xurl+'_%0A%0A'+url;" href=''><i class="wpsvg ssvg"></i></div></div><div class="item"><div class="button sms" onclick="location.href='sms:?body='+document.title+'%0A'+xurl+'%0A%0A'+url" href=''><i class="smssvg ssvg"></i></div></div><div class="item"><div class="button cpy" id="copyButton"><i class="copysvg ssvg"></i></div></div><div class="item"><div class="button mail" onclick="location.href='mailto:?subject='+document.title+'&body=Content%20Url:%20'+xurl+'%0A%0A'+url;" href=''><i class="mailsvg ssvg"></i></div></div><div class="item"><div class="button shr" onclick="share()"><i class="shrsvg ssvg"></i></div></div></div></div>`);
-
-function share() {
-   if (navigator.share) {
-       navigator.share({
-       text: document.title+"\n"
-             +xurl+"\n\n"+url})}
-   else {
-     window.open('whatsapp://send?text=*'+document.title+'*%0A_'+xurl+'_%0A%0A'+url)}
-}
-        
-  var Text = document.createElement('div');
-  Text.id = 'copyTry';
-  Text.innerHTML = document.title +'<br>' +xurl+'<br><br>'+url;
-  document.getElementById('share-box').append(Text);
-  var copyBtn = document.getElementById('copyButton');
-copyBtn.addEventListener('click', function(event) {  
-  var text = document.getElementById('copyTry');
-  var range = document.createRange();  
-  range.selectNode(text);  
-  window.getSelection().addRange(range);
-  try {  
-    var successful = document.execCommand('copy');}
-    catch(err){console.log('Oops, unable to copy')}  
-  window.getSelection().removeAllRanges();
-})
