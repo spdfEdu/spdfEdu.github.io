@@ -41,7 +41,7 @@ var kwlist = document.createElement("li");
   };
   
 function downloadBook(index) {
-  a ="href='/p/download-ncert-bengali-book-pdf-1.html?m=1"
+  a ="href='/p/download-ncert-bengali-book-pdf.html?m=1"
   b = all[index]
   c = new URLSearchParams(b);
   d = c.toString();
