@@ -98,7 +98,7 @@ function createProfile(ele,i) {
   </div>
  <div class="w100" ${styDisplay(ele.EmailId)}>
     <p><span class="qes">Mail&nbsp;:</span><span class="emailid ans">${ele.EmailId}</span></p>
-    <div class="mail" onclick="location.href='mailto:${ele.EmailId}'" href=''><i class="svg svgMail"></i></div>
+    <div class="mail" onclick="location.href='mailto:${ele.EmailId}'"><i class="svg svgMail"></i></div>
   </div>
 </div>
    
@@ -133,8 +133,8 @@ Pin Code - ${ele.PinCode} <br>District - ${ele.District}</p>
   <div class="card" ${styDisplay(ele.fb,ele.insta)}>
     <h3>Social Media</h3>
   <div class="w100 flex">
-  <div class="w50" ${styVisblity(ele.fb)} onclick="window.open('https://facebook.com/${ele.fb}','_blank')" href=''><i class="svg svgFb"></i>Facebook</div>
-  <div class="w50" ${styVisblity(ele.insta)} onclick="window.open('https://instagram.com/${ele.insta}','_blank')" href=''><i class="svg svgInsta"></i>Instagram</div>
+  <div class="w50" ${styVisblity(ele.fb)} onclick="window.open('https://facebook.com/${ele.fb}','_blank')"><i class="svg svgFb"></i>Facebook</div>
+  <div class="w50" ${styVisblity(ele.insta)} onclick="window.open('https://instagram.com/${ele.insta}','_blank')"><i class="svg svgInsta"></i>Instagram</div>
   </div>
   </div>
   
