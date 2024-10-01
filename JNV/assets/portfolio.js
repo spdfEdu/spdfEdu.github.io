@@ -67,10 +67,10 @@ function createProfile(ele,i) {
   
   <div hidden="until-found" class="contentBox" id="${ele.Name.replace(/ /g,"_")}">
   <div class="bscrool">
-  <a class="nameBox2" onclick="doh2(this)">
+  <div class="nameBox2" onclick="doh2(this)">
     <h2 class="naming2">${ele.Name}</h2>
     <div class="back"><i class="svgBack"></i></div>
-  </a>
+  </div>
   <div class="head-cover">
   <img class="svgP">
   <a href="https://lh3.googleusercontent.com/d/${ele.ppl}" target="_blank"><img class="coverP" loading="lazy" src="${giti+img}" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
@@ -92,7 +92,7 @@ function createProfile(ele,i) {
 <div class="w100" ${styDisplay(ele.Phone2)}>
    <p><span class="qes">Alternative No. :</span><span class="ans">${ele.Phone2}</span></p>
     <div class="w100 flex">
-    <div class="w50" onclick = "location.href='tel:${ele.Phone2}'" href=''><i class="svg svgCall"></i></div>
+    <div class="w50" onclick="location.href='tel:${ele.Phone2}'"><i class="svg svgCall"></i></div>
     <div class="w50" onclick="location.href='whatsapp://send?phone=${(Number(ele.Phone2).toString().length<=10)? '91':''}${ele.Phone2}'"><i class="svg svgWp"></i></div>
     </div>
   </div>
