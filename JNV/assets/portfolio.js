@@ -40,6 +40,8 @@ vesselBox = document.createElement("div")
 vesselBox.id = "vessel_box"
 main.append(vesselBox)
 insertProfiles = document.getElementById("vessel_box");
+git = "https://spdfedu.github.io/JNV/"
+giti = git+"images/"
 
 all.sort((a, b) => {
   const nameA = a.Name.toUpperCase(); 
@@ -58,7 +60,7 @@ function createProfile(ele,i) {
  `<a class="nameBox" href="#${ele.Name.replace(/ /g,"_")}" onclick="doh()">
     <div class="pp">
       <img class="svgP svgPP">
-      <img class="coverPP" src="https://spdfedu.github.io/JNV/images/${img}" onerror="this.className='svgP svgPP'" alt="${ele.Name}" />
+      <img class="coverPP" src="${giti+img}" onerror="this.className='svgP svgPP'" alt="${ele.Name}" />
     </div>
     <div class="naming">${ele.Name}</div>
   </a>
@@ -71,7 +73,7 @@ function createProfile(ele,i) {
   </a>
   <div class="head-cover">
   <img class="svgP">
-  <a href="https://lh3.googleusercontent.com/d/${ele.ppl}" target="_blank"><img class="coverP" loading="lazy" src="https://spdfedu.github.io/JNV/images/${img}" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
+  <a href="https://lh3.googleusercontent.com/d/${ele.ppl}" target="_blank"><img class="coverP" loading="lazy" src="${giti+img}" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
   
   <div class="details">
   <div class="fst">
@@ -102,12 +104,12 @@ function createProfile(ele,i) {
    
 <div class="card" ${styDisplay(ele.House)}>
      <h3>House</h3>
-     <img loading="lazy" class="" width="100%" src="image/tshirt/${ele.House}.png" alt="${ele.House} House Tshirt" />
+     <img loading="lazy" class="" width="100%" src="${giti}tshirt/webp/${ele.House}.webp" alt="${ele.House} House Tshirt" />
      <p style="text-align:center">${ele.House}</p>
    </div>
    
 <div class="card bgcard" ${styDisplay(ele.BloodGroup)}>
-    <img loading="lazy" width="25%" class="blood-drop" src="image/blood_drop.png"/>
+    <img loading="lazy" width="25%" class="blood-drop" src="${giti}icons/blood_drop.webp"/>
     <h3>Blood Group</h3>
     <p><b>${ele.BloodGroup}</b></p>
   </div>
@@ -291,7 +293,7 @@ function downVcardi(index) {
 
   head = document.head || document.getElementsByTagName('head')[0]
   script = document.createElement('script')
-  script.src = 'https://spdfedu.github.io/JNV/vcard.js'
+  script.src = git+'vcard.js'
   head.appendChild(script);
   
   for (i=y+7;i<=year;i++) {
@@ -299,7 +301,7 @@ var batches = document.createElement("div");
 batches.className="boxBatch";
 batches.innerHTML = `
 <a class="batch" href="/${i}">
-      <img class="coverb" src="https://spdfedu.github.io/JNV/images/cover/${i}.jpg" alt="Batch ${i}" onerror="this.src='https://spdfedu.github.io/JNV/images/cover/Jnv_Murshidabad.jpg'">
+      <img class="coverb" src="${giti}cover/${i}.jpg" alt="Batch ${i}" onerror="this.src='${giti}cover/Jnv_Murshidabad.jpg'">
       <div class="form-link">Batch 
       ${i-y-6}${nth(i-y-6)} (${i-7} - ${i})
       </div>
