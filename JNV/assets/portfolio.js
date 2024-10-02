@@ -80,7 +80,7 @@ function createProfile(ele,i) {
   <p>This is ${ele.Name} of Batch ${batch} (${x} to ${xii}) of JNV Murshidabad.</p>
   </div>
   
-<div class="card">
+<div class="card" ${styDisplay(ele.Phone, ele.Phone2, ele.EmailId)}>
     <h3>Contact Details</h3>
 <div class="w100" ${styDisplay(ele.Phone)}>
  <p><span class="qes">Phone No. :</span><span class="ans">${ele.Phone}</span></p>
@@ -104,14 +104,14 @@ function createProfile(ele,i) {
    
 <div class="card" ${styDisplay(ele.House)}>
      <h3>House</h3>
-     <img loading="lazy" class="" width="100%" src="${giti}tshirt/webp/${ele.House}.webp" alt="${ele.House} House Tshirt" />
+     <img loading="lazy" class="hsimg" width="100%" src="${giti}tshirt/webp/${ele.House}.webp" alt="${ele.House} House Tshirt" />
      <p style="text-align:center">${ele.House}</p>
    </div>
    
 <div class="card bgcard" ${styDisplay(ele.BloodGroup)}>
     <img loading="lazy" width="25%" class="blood-drop" src="${giti}icons/blood_drop.webp"/>
     <h3>Blood Group</h3>
-    <p><b>${ele.BloodGroup}</b></p>
+    <p>${ele.BloodGroup}</p>
   </div>
   
 <div class="card" ${styDisplay(ele.Address)}>
