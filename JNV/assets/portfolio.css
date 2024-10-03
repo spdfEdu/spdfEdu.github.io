@@ -38,7 +38,6 @@ border-bottom:.1px dotted #a1a1a1;
 background-color:#fff
 }
 .nameBox2{
-font-weight:bold;
 background-color:#0a1628;
 box-shadow:0 5px 4px -4px #c9c9a6;
 position:fixed;
@@ -72,7 +71,7 @@ max-height:98%;
 }
 .naming2{
 color:#c9c9a6;
-margin-left:110px;
+padding-left:110px;
 }
 .details{
 z-index:3;
@@ -162,7 +161,7 @@ color:#b4cbfd;
 border-bottom:.5px solid rgb(180,233,253);
 }
 .card>p,.card>div>p{
-padding-left:15px;
+padding:0 15px;
 }
 .card a{
 color:rgb(180,233,253);
@@ -185,15 +184,11 @@ margin-bottom:5px;
 margin:100px auto 50px auto;
 padding-left:100px;
 }
-.mailHead{
-flex:1;
-margin-left:15px;
-}
 .emailid{
-flex:5;
-width:40%;
-text-overflow:ellipsis;
+width:100%;
+overflow:hidden;
 overflow-x:scroll !important;
+text-overflow:ellipsis;
 white-space:nowrap
 }
 .emailid:hover{text-overflow:clip}
@@ -270,7 +265,7 @@ height:100%;
 width:100%;
 z-index:2000
 }
-.bgcard{
+.bgcard,.hsimg{
   position:relative;
   z-index:-1;
 }
@@ -306,4 +301,4 @@ content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBo
 } 
 .svgContact{
 content:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cg transform='scale(10.66667,10.66667)'%3E%3Cpath fill='%23c9c9a6' d='M6,2c-1.103,0 -2,0.897 -2,2v16c0,1.103 0.897,2 2,2h12c1.103,0 2,-0.897 2,-2v-16c0,-1.103 -0.897,-2 -2,-2zM6,4h12v16l-12,0.00195zM12,6c-1.682,0 -3,1.317 -3,3c0,1.683 1.318,3 3,3c1.682,0 3,-1.317 3,-3c0,-1.683 -1.318,-3 -3,-3zM12,8c0.58,0 1,0.421 1,1c0,0.579 -0.42,1 -1,1c-0.58,0 -1,-0.421 -1,-1c0,-0.579 0.42,-1 1,-1zM12,13c-2.851,0 -5,1.45577 -5,3.38477v1.61523h10v-1.61523c0,-1.929 -2.149,-3.38477 -5,-3.38477zM12,15c1.47,0 2.48952,0.504 2.85352,1h-5.70703c0.363,-0.496 1.38352,-1 2.85352,-1z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
-} 
+}
