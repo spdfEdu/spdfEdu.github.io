@@ -82,23 +82,11 @@ function createProfile(ele,i) {
   
 <div class="card" ${styDisplay(ele.Phone, ele.Phone2, ele.EmailId)}>
     <h3>Contact Details</h3>
-<div class="w100" ${styDisplay(ele.Phone)}>
- <p><span class="qes">Phone No. :</span><span class="ans">${ele.Phone}</span></p>
-<div class="w100 flex">
- <div class="w50" onclick="location.href='tel:${ele.Phone}'"><i class="svg svgCall"></i></div>
- <div class="w50" onclick="location.href='whatsapp://send?phone=${(Number(ele.Phone).toString().length<=10)? '91':''}${ele.Phone}'"><i class="svg svgWp"></i></div></div>
- </div>
- 
-<div class="w100" ${styDisplay(ele.Phone2)}>
-   <p><span class="qes">Alternative No. :</span><span class="ans">${ele.Phone2}</span></p>
-    <div class="w100 flex">
-    <div class="w50" onclick="location.href='tel:${ele.Phone2}'"><i class="svg svgCall"></i></div>
-    <div class="w50" onclick="location.href='whatsapp://send?phone=${(Number(ele.Phone2).toString().length<=10)? '91':''}${ele.Phone2}'"><i class="svg svgWp"></i></div>
-    </div>
-  </div>
+    ${phnDiv(ele.Phone)}
+    ${phnDiv(ele.Phone2)}
  <div class="w100" ${styDisplay(ele.EmailId)}>
-    <p><span class="qes">Mail&nbsp;:</span><span class="emailid ans">${ele.EmailId}</span></p>
-    <div class="mail" onclick="location.href='mailto:${ele.EmailId}'"><i class="svg svgMail"></i></div>
+    <p class="emailid"><span class="mail-head qes">Mail&nbsp;:</span><span class="ans">${ele.EmailId}</span></p>
+    <div class="w100"><div class="mail" onclick="location.href='mailto:${ele.EmailId}'"><i class="svg svgMail"></i></div></div>
   </div>
 </div>
    
@@ -116,11 +104,10 @@ function createProfile(ele,i) {
   
 <div class="card" ${styDisplay(ele.Address)}>
     <h3>Address</h3>
-    <p class="ans">${ele.Address}<br>
-Pin Code - ${ele.PinCode} <br>District - ${ele.District}</p>
+    <p>${ele.Address}<br><span class="qes">Pin Code :</span>${ele.PinCode}<br><span class="qes">District :</span> ${ele.District}</p>
   </div>
   
-<div class="card" ${styDisplay(ele.CurrentStatus, ele.HQD, ele.Institute)}> 
+<div class="card" ${styDisplay(ele.CurrentStatus, ele.HQD, ele.Institute)}>
     <h3>Current Status</h3>
 <p class="info" ${styDisplay(ele.CurrentStatus)}>
 <span class="qes">Current Status :</span><span class="ans">${ele.CurrentStatus}</span></p>
@@ -133,8 +120,8 @@ Pin Code - ${ele.PinCode} <br>District - ${ele.District}</p>
   <div class="card" ${styDisplay(ele.fb,ele.insta)}>
     <h3>Social Media</h3>
   <div class="w100 flex">
-  <div class="w50" ${styVisblity(ele.fb)} onclick="window.open('https://facebook.com/${ele.fb}','_blank')"><i class="svg svgFb"></i>Facebook</div>
-  <div class="w50" ${styVisblity(ele.insta)} onclick="window.open('https://instagram.com/${ele.insta}','_blank')"><i class="svg svgInsta"></i>Instagram</div>
+  <div class="w50" ${styDisplay(ele.fb)} onclick="window.open('https://facebook.com/${ele.fb}','_blank')"><i class="svg svgFb"></i>Facebook</div>
+  <div class="w50" ${styDisplay(ele.insta)} onclick="window.open('https://instagram.com/${ele.insta}','_blank')"><i class="svg svgInsta"></i>Instagram</div>
   </div>
   </div>
   
@@ -150,6 +137,20 @@ Pin Code - ${ele.PinCode} <br>District - ${ele.District}</p>
     </div>
   </div>`;
   insertProfiles.append(child);
+}
+
+function phnDiv(a) {
+ if(a) return `<div class="w100">
+   <p><span class="qes">Phone No. :</span><span class="ans">${a}</span></p>
+   <div class="w100 flex">
+    <div class="w50" onclick="location.href='tel:${a}'"><i class="svg svgCall"></i></div>
+    <div class="w50" onclick="location.href='whatsapp://send?phone=${(Number(a).toString().length<=10)? '91':''}${a}'"><i class="svg svgWp"></i></div>
+  </div></div>`
+else return "";
+}
+
+function styDisplay(a,b,c) {
+  return `style = "display: ${(!a && !b && !c)? 'none' : 'block'}"`;
 }
 
 //creating the Filter
@@ -270,13 +271,6 @@ function doh(){
 });
 }
 doh();
-
-function styDisplay(a,b,c) {
-  return `style = "display: ${(!a && !b && !c)? 'none' : 'block'}"`;
-}
-function styVisblity(a) {
-  return `style="visibility: ${(!a)? 'hidden' : 'visible'}"`;
-}
 
 function downVcardi(index) {
   h = all[index];
