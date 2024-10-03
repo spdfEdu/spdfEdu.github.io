@@ -70,8 +70,9 @@ overflow:auto;
 max-height:98%;
 }
 .naming2{
-color:#c9c9a6;
+color:#c9c9a6 !important;
 padding-left:110px;
+margin-bottom:0 !important;
 }
 .details{
 z-index:3;
@@ -146,7 +147,7 @@ box-shadow:0 5px 4px -4px #c9c9a6;
 }
 .card {
 margin:50px auto;
-padding:7px 5px 40px 5px;
+padding:30px 5px 40px 5px;
 border:1px solid rgb(43,45,121);
 border-top:none;
 border-left:none;
