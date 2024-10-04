@@ -54,20 +54,21 @@ all.sort((a, b) => {
 all.forEach(createProfile);
 function createProfile(ele,i) {
  child = document.createElement("div")
- img = `${xii}/${ele.Name.replace(/ /gi,'_')}.jpg`
+ nameDash = ele.Name.replace(/ /g,'_')
+ img = xii+'/'+nameDash+'.jpg'
   child.className = "vessels collapsed";
   child.innerHTML =
- `<a class="nameBox" href="#${ele.Name.replace(/ /g,"_")}" onclick="doh()">
+ `<a class="nameBox" href="#${nameDash}" onclick="doh()">
     <div class="pp">
       <img class="svgP svgPP">
       <img class="coverPP" src="${giti+img}" onerror="this.className='svgP svgPP'" alt="${ele.Name}" />
     </div>
-    <div class="naming">${ele.Name}</div>
+    <h2 class="naming">${ele.Name}</h2>
   </a>
   
-  <div hidden="until-found" class="contentBox" id="${ele.Name.replace(/ /g,"_")}">
+  <div hidden="until-found" class="contentBox" id="${nameDash}">
   <div class="bscrool">
-  <div class="nameBox2" onclick="doh2(this)">
+  <div class="nameBox2 flex" onclick="doh2(this)">
     <h2 class="naming2">${ele.Name}</h2>
     <div class="back"><i class="svgBack"></i></div>
   </div>
@@ -79,6 +80,8 @@ function createProfile(ele,i) {
   <div class="fst">
   <p>This is ${ele.Name} of Batch ${batch} (${x} to ${xii}) of JNV Murshidabad.</p>
   </div>
+  
+  ${ripDiv(ele.rip)}
   
 <div class="card" ${styDisplay(ele.Phone, ele.Phone2, ele.EmailId)}>
     <h3>Contact Details</h3>
@@ -132,7 +135,7 @@ function createProfile(ele,i) {
   <div class="w50" style="display:block" onclick="downVcardi(${i})"><i class="svg svgContact"></i>Save as Contact</div>
   </div>
 </div>
-  
+<p class="w100 flex" id="pv_${nameDash}">Total Visits: &nbsp; <img /></p>
     </div>
     </div>
   </div>`;
@@ -147,6 +150,20 @@ function phnDiv(a) {
     <div class="w50" onclick="location.href='whatsapp://send?phone=${(Number(a).toString().length<=10)? '91':''}${a}'"><i class="svg svgWp"></i></div>
   </div></div>`
 else return "";
+}
+
+function ripDiv(a) {
+  if(a) return `<div class="card">
+      <h3>Remembering...</h3>
+      <img width="100%" src="/image/icons/grave_stone.webp">
+   </div>`
+   return "";
+}
+
+function ppVisit(a) {
+ id= document.querySelector(`#pv_${a}>img`)
+ img= "https://profile-counter.glitch.me/JNV_"+a+"_"+xii+"/count.svg"
+ id.src= img;
 }
 
 function styDisplay(a,b,c) {
@@ -253,6 +270,7 @@ function doh(){
     location.href = "#"+details.id
     details.classList.add("active")
     document.body.style.overflow = "hidden"
+    ppVisit(details.id)
   };
   vessel.querySelector(".nameBox").onclick = () => {
     vessel.classList.toggle("collapsed");
