@@ -155,7 +155,7 @@ else return "";
 function ripDiv(a) {
   if(a) return `<div class="card">
       <h3>Remembering...</h3>
-      <img width="100%" src="/image/icons/grave_stone.webp">
+      <img width="100%" src="${giti}/icons/grave_stone.webp">
    </div>`
    return "";
 }
