@@ -52,8 +52,9 @@ align-items:center;
 font-size:19px;
 font-family:sans-serif
 }
-.naming {
-  font-weight: normal;
+h2.naming {
+font-weight:normal;
+margin-bottom:0;
 }
 #getFind{display:none}
 .active{
