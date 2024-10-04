@@ -17,7 +17,9 @@ var batch = z + nth(z);
 var xii =(x+7);
 
 document.title = `${xii} JNV MSD`;
-window.history.replaceState('','',`/${xii}`);
+urlChange = '/' +xii +window.location.hash;
+window.history.replaceState('','',urlChange);
+
 var upper = document.createElement("div");
 upper.innerHTML =
  `<h1 id="head-main">&#60;/Batch-${batch}&#62;</h1>
@@ -129,7 +131,7 @@ function createProfile(ele,i) {
 <div class="card">
     <h3>Share</h3>
     <div class="w100">
-     <div class="w50" style="display:block" onclick="share('${ele.Name}')"><i class="svg svgShare"></i>Share with others</div>
+     <div class="w50" style="display:block" onclick="share('${ele.Name}','${ele.EmailId}')"><i class="svg svgShare"></i>Share with others</div>
   </div>
 </div>
 <p class="w100 flex" id="pv_${nameDash}">Total Visits: &nbsp; <img /></p>
