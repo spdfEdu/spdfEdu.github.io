@@ -72,7 +72,7 @@ function createProfile(ele,i) {
     <h2 class="naming2">${ele.Name}</h2>
     <div class="back"><i class="svgBack"></i></div>
   </div>
-  <div class="head-cover">
+  <div class="head-cover separator">
   <img class="svgP">
   <a href="https://lh3.googleusercontent.com/d/${ele.ppl}" target="_blank"><img class="coverP" loading="lazy" src="${giti+img}" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
   
