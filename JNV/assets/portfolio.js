@@ -162,7 +162,8 @@ function ripDiv(a) {
 
 function ppVisit(a) {
  id= document.querySelector(`#pv_${a}>img`)
- img= "https://profile-counter.glitch.me/JNV_"+a+"_"+xii+"/count.svg"
+ vurl = "https://profile-counter.deno.dev/"
+ img= vurl+"JNV_"+a+"_"+xii+"/count.svg"
  id.src= img;
 }
 
