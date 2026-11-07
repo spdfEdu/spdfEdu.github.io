@@ -20,19 +20,33 @@ document.title = `${xii} JNV MSD`;
 urlChange = '/' +xii +window.location.hash;
 window.history.replaceState('','',urlChange);
 
-var upper = document.createElement("div");
+document.body.classList.add("batch-page");
+var upper = document.createElement("section");
+upper.className = "batch-card";
 upper.innerHTML =
- `<h1 id="head-main">&#60;/Batch-${batch}&#62;</h1>
-  <p class="summary">
-  Year of Xii Passout : ${xii} <br><br>
-  Total No of Students is ${all.length}
-  <br><br>
-  </p>`;
+ `<div class="bc-photo"></div>
+  <div class="bc-body">
+    <div class="bc-head">
+      <h1 id="head-main">${xii}</h1>
+      <span class="bc-badge">Batch ${batch}</span>
+    </div>
+    <dl class="bc-stats">
+      <div class="bc-stat"><dt>Studied</dt><dd>${x} to ${xii}</dd></div>
+      <div class="bc-stat"><dt>Alumni</dt><dd>${all.length}</dd></div>
+    </dl>
+  </div>`;
+var coverBox = document.querySelector(".tc");
+if (!coverBox) {
+  coverBox = document.createElement("div");
+  coverBox.className = "tc";
+  coverBox.innerHTML = `<img alt="Batch ${xii}" src="https://spdfedu.github.io/JNV/images/cover/${xii}.jpg">`;
+}
+upper.querySelector(".bc-photo").append(coverBox);
 document.getElementById("upper").append(upper);
 
-document.getElementById("down").innerHTML = "<h2>Check Out Other Batches: </h2><p>Current Passout Batch : " +year +
-"<br> Established Year : " + [estb] +
-"<br> Total Batches : " +[year -[estb] -6]+"</p>";
+document.getElementById("down").innerHTML = "<h2>Other batches</h2><p>Current passout batch: " +year +
+"<br>Established: " + [estb] +
+"<br>Total batches: " +[year -[estb] -6]+"</p>";
 
   //creating the profiles
 main = document.getElementById("mainContainer")
@@ -61,7 +75,7 @@ function createProfile(ele,i) {
  `<a class="nameBox" href="#${nameDash}" onclick="doh()">
     <div class="pp">
       <img class="svgP svgPP">
-      <img class="coverPP" src="${giti+img}" onerror="this.className='svgP svgPP'" alt="${ele.Name}" />
+      <img class="coverPP" loading="lazy" decoding="async" width="60" height="60" src="${giti+img}" onerror="this.className='svgP svgPP'" alt="${ele.Name}" />
     </div>
     <h2 class="naming">${ele.Name}</h2>
   </a>
@@ -177,21 +191,46 @@ sorting = {
 }
 
 bgInsert = document.createElement("div")
-bgplText = `  &nbsp; &nbsp;There are total ${all.length} Registered Alumnis`
+bgplText = `<strong>${all.length}</strong> registered alumni`
 bgInsert.className = "bgpc"
 bgInsert.innerHTML =`
-<select onchange="find(event)" id="to-find">
-   <option disabled selected value="a">Filter</option>
-   <option value="BloodGroup">Blood Group</option>
-   <option value="House">House</option>
-   <option value="CurrentStatus">Current Status</option>
-</select>
-<button onclick="erase()">Clear</button>
-<select onchange="ckFind(event)" id="getFind">
-</select>
- <p id="bgpl">${bgplText}</p>
+<div class="tb-top">
+  <p id="bgpl">${bgplText}</p>
+  <button type="button" class="view-toggle" id="viewToggle" aria-label="Switch to grid view" aria-pressed="false" title="Grid or list view">
+    <svg class="i-grid" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg>
+    <svg class="i-list" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><rect x="3" y="4" width="18" height="4" rx="2"/><rect x="3" y="10" width="18" height="4" rx="2"/><rect x="3" y="16" width="18" height="4" rx="2"/></svg>
+  </button>
+</div>
+<div class="tb-filters">
+  <select onchange="find(event)" id="to-find" aria-label="Filter alumni">
+     <option disabled selected value="a">Filter</option>
+     <option value="BloodGroup">Blood Group</option>
+     <option value="House">House</option>
+     <option value="CurrentStatus">Current Status</option>
+  </select>
+  <button type="button" onclick="erase()">Clear</button>
+  <select onchange="ckFind(event)" id="getFind" aria-label="Filter value"></select>
+</div>
  `;
 main.insertBefore(bgInsert, main.firstChild);
+
+//list or grid view, remembered per device
+(function(){
+  var btn = document.getElementById("viewToggle");
+  function setView(grid) {
+    main.classList.toggle("grid-view", grid);
+    btn.setAttribute("aria-pressed", grid ? "true" : "false");
+    btn.setAttribute("aria-label", grid ? "Switch to list view" : "Switch to grid view");
+  }
+  var saved = null;
+  try { saved = localStorage.getItem("jnv-view"); } catch(e) {}
+  setView(saved === "grid");
+  btn.addEventListener("click", function() {
+    var grid = !main.classList.contains("grid-view");
+    setView(grid);
+    try { localStorage.setItem("jnv-view", grid ? "grid" : "list"); } catch(e) {}
+  });
+})();
 
 getFind= document.querySelector('#getFind')
 bgpl= document.getElementById('bgpl')
@@ -201,10 +240,10 @@ function find(e) {
   getFind.style.display = 'block'
   getFind.innerHTML = `<option selected disabled value="${findvalue}">-- Select ${findvalue} --</option>`
   findSort = sorting[findvalue]
-  for (x in findSort) {
+  for (let k in findSort) {
       var sel = document.createElement('option')
-       sel.innerHTML = findSort[x]
-       sel.value = findSort[x]
+       sel.innerHTML = findSort[k]
+       sel.value = findSort[k]
        getFind.appendChild(sel)
     }
   insertProfiles.innerHTML=''
@@ -214,7 +253,7 @@ function find(e) {
 function ckFind(ev) {
  var toFind = ev.target[0].value;
   filter = all.filter(person => person[toFind] === ev.target.value)
-  bgpl.innerHTML ="  &nbsp; &nbsp;" +filter.length +" '"+ ev.target.value + "' "+ev.target[0].value+" out of " + all.length + " Alumnis"
+  bgpl.innerHTML = "<strong>" + filter.length + "</strong> of " + all.length + " alumni (" + ev.target[0].value + ": " + ev.target.value + ")"
   insertProfiles.innerHTML=''
   filter.forEach(createProfile);
   }
@@ -222,7 +261,7 @@ function ckFind(ev) {
 function erase() {
   bgpl.innerHTML= bgplText
   getFind.style.display= 'none'
-  document.querySelector('.bgpc>select').value = "a"
+  document.getElementById('to-find').value = "a"
   insertProfiles.innerHTML=''
   all.forEach(createProfile);
 }
