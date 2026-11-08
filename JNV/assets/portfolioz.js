@@ -16,6 +16,13 @@ var z = [x-y+1];
 var batch = z + nth(z);
 var xii =(x+7);
 
+//small helpers shared by the public and private blogs
+function nameKey(p) { return p.Name.replace(/ /g,'_'); }
+function findByKey(k) { return all.find(function(p){ return nameKey(p) === k; }); }
+function mailOf(e) { e = String(e || "").trim(); return e ? (e.indexOf("@") > -1 ? e : e + "@gmail.com") : ""; }
+function mailShow(e) { e = String(e || "").trim(); return e.indexOf("@") > -1 ? e : e + "[at]gmail.com"; }
+function ph91(n) { n = String(n).trim(); return n.length <= 10 ? "91" + n : n; }
+
 document.title = `${xii} JNV MSD`;
 urlChange = '/' +xii +window.location.hash;
 window.history.replaceState('','',urlChange);
@@ -33,6 +40,7 @@ upper.innerHTML =
     <dl class="bc-stats">
       <div class="bc-stat"><dt>Studied</dt><dd>${x} to ${xii}</dd></div>
       <div class="bc-stat"><dt>Alumni</dt><dd>${all.length}</dd></div>
+      ${(typeof date !== "undefined") ? `<div class="bc-stat bc-wide"><dt>Data collected</dt><dd>${date}</dd></div>` : ""}
     </dl>
   </div>`;
 var coverBox = document.querySelector(".tc");
@@ -102,9 +110,10 @@ function createProfile(ele,i) {
     ${phnDiv(ele.Phone)}
     ${phnDiv(ele.Phone2)}
  <div class="w100" ${styDisplay(ele.EmailId)}>
-    <p class="emailid"><span class="mail-head qes">Mail&nbsp;:</span><span class="ans">${ele.EmailId}[at]gmail.com</span></p>
-    <div class="w100"><div class="mail" onclick="location.href='mailto:${ele.EmailId}'"><i class="svg svgMail"></i></div></div>
+    <p class="emailid"><span class="mail-head qes">Mail&nbsp;:</span><span class="ans">${mailShow(ele.EmailId)}</span></p>
+    <div class="w100"><div class="mail" onclick="location.href='mailto:${mailOf(ele.EmailId)}'"><i class="svg svgMail"></i></div></div>
   </div>
+  ${saveDiv(ele)}
 </div>
    
 <div class="card" ${styDisplay(ele.House)}>
@@ -119,9 +128,9 @@ function createProfile(ele,i) {
     <p>${ele.BloodGroup}</p>
   </div>
   
-<div class="card" ${styDisplay(ele.District)}>
+<div class="card" ${styDisplay(ele.Address, ele.PinCode, ele.District)}>
     <h3>Address</h3>
-    <p><span class="qes">District :</span> ${ele.District}</p>
+    <p>${addrHtml(ele)}</p>
   </div>
   
 <div class="card" ${styDisplay(ele.CurrentStatus, ele.HQD, ele.Institute)}>
@@ -145,10 +154,10 @@ function createProfile(ele,i) {
 <div class="card">
     <h3>Share</h3>
     <div class="w100">
-     <div class="w50" style="display:block" onclick="share('${ele.Name}','${ele.EmailId}')"><i class="svg svgShare"></i>Share with others</div>
+     <div class="w50" style="display:block" data-key="${nameDash}" onclick="share(this.dataset.key)"><i class="svg svgShare"></i>Share with others</div>
   </div>
 </div>
-<p class="w100 flex" id="pv_${nameDash}">Total Visits: &nbsp; <img /></p>
+<p class="visits" id="pv_${nameDash}" hidden>Total visits: <b></b></p>
     </div>
     </div>
   </div>`;
@@ -173,10 +182,40 @@ function ripDiv(a) {
    return "";
 }
 
+var visitBusy = {};
 function ppVisit(a) {
- id= document.querySelector(`#pv_${a}>img`)
- img= "https://profile-counter.glitch.me/JNV_"+a+"_"+xii+"/count.svg"
- id.src= img;
+  var box = document.getElementById("pv_" + a), cfg = window.JNV_COUNTER;
+  if (!box || !cfg || !cfg.workspace || !cfg.key || visitBusy[a]) return;
+  var name = (xii + "_" + a).toLowerCase().replace(/[^a-z0-9_-]/g, "_");
+  var flag = "jnv-seen-" + name, counted = false;
+  try { counted = sessionStorage.getItem(flag) === "1"; } catch(e) {}
+  visitBusy[a] = true;
+  fetch("https://api.counterapi.dev/v2/" + cfg.workspace + "/" + name + (counted ? "" : "/up"), {
+    headers: { Authorization: "Bearer " + cfg.key }
+  })
+  .then(function(r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(function(j) {
+    var d = j && j.data;
+    if (!d) return;
+    box.querySelector("b").textContent = ((d.up_count || 0) - (d.down_count || 0)).toLocaleString();
+    box.hidden = false;
+    try { sessionStorage.setItem(flag, "1"); } catch(e) {}
+  })
+  .catch(function() {})
+  .then(function() { visitBusy[a] = false; });
+}
+
+function addrHtml(ele) {
+  var out = [];
+  if (ele.Address) out.push(ele.Address);
+  if (ele.PinCode) out.push('<span class="qes">Pin Code :</span>' + ele.PinCode);
+  if (ele.District) out.push('<span class="qes">District :</span>' + ele.District);
+  return out.join("<br>");
+}
+
+function saveDiv(ele) {
+  if (!ele.Phone && !ele.Phone2) return "";
+  return `<div class="w100 flex"><div class="w50" style="display:block" data-key="${nameKey(ele)}" onclick="downVcardi(this.dataset.key)"><i class="svg svgContact"></i>Save as Contact</div></div>`;
 }
 
 function styDisplay(a,b,c) {
@@ -266,20 +305,42 @@ function erase() {
   all.forEach(createProfile);
 }
 
-function share(a,b) {
-   var mail = '';
-   if (b !=='undefined'){mail='\n   '+b};
-   textToSend = '*JNV Msd Batch '+batch+'*\n'+a+mail+'\n\n'+window.location.href+'\n--> jnvmsdalumni.blogspot.com';
- if (navigator.share) {
-       navigator.share({
-       title: 'JNV MSD Batch '+batch,
-       text: textToSend,
-       })}
-   else {
-     window.open('whatsapp://send?text='+textToSend)
-   }
- }
- 
+function share(key) {
+  var h = findByKey(key);
+  if (!h) return;
+  var lines = ["*JNV Msd Batch " + batch + "*", h.Name];
+  var phones = [h.Phone, h.Phone2].filter(Boolean);
+  if (phones.length) { phones.forEach(function(p) { lines.push("   " + p); }); }
+  else if (h.EmailId) { lines.push("   " + mailOf(h.EmailId)); }
+  var text = lines.join("\n") + "\n\n" + location.origin + "/" + xii + "#" + key;
+  if (navigator.share) {
+    navigator.share({ title: "JNV MSD Batch " + batch, text: text }).catch(function() {});
+  } else {
+    window.open("whatsapp://send?text=" + encodeURIComponent(text));
+  }
+}
+
+//save as contact (.vcf), vcard.js is loaded from the repo only when needed
+function withVcard(cb) {
+  if (window.vCard) return cb();
+  var sc = document.createElement("script");
+  sc.src = git + "vcard.js";
+  sc.onload = cb;
+  sc.onerror = function() { alert("Could not load the contact helper. Please try again."); };
+  document.head.appendChild(sc);
+}
+
+function downVcardi(key) {
+  var h = findByKey(key);
+  if (!h) return;
+  var g = { version: "2.1", fn: h.Name + " " + String(h.Batch || xii).slice(2) + " Jnv" };
+  var tel = [];
+  [h.Phone, h.Phone2].forEach(function(p) { if (p) tel.push({ value: ph91(p), type: "Phone" }); });
+  if (tel.length) g.tel = tel;
+  if (h.EmailId) g.email = [{ value: mailOf(h.EmailId), type: "Personal" }];
+  withVcard(function() { vCard.export(g, g.fn, true); });
+}
+
 function doh2(e) {
    e.parentNode.classList.remove("active")
    document.body.style.overflow = "scroll"
