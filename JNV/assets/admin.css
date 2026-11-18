@@ -11,7 +11,7 @@
 .ja-gbtn{display:flex;justify-content:center;margin:14px 0 4px;min-height:44px}
 
 /* summary tiles */
-.ja-sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 12px}
+.ja-sum{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 12px}
 .ja-stat{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px;border:1px solid var(--jb-line,#D5E0EF);border-radius:12px;background:var(--jb-surface,#fff);color:var(--jb-text,#0E1B36);font:inherit;text-align:left;cursor:pointer}
 .ja-stat b{font-size:22px;line-height:1}
 .ja-stat span{font-size:12px;color:var(--jb-muted,#56667F)}
@@ -60,3 +60,13 @@ select.ja-input{padding-right:32px;background-image:url("data:image/svg+xml,%3Cs
 .ja-primary{border-color:var(--jb-accent,#1B6BB8);background:var(--jb-accent,#1B6BB8);color:#fff}
 .ja-danger{color:#d64545;margin-left:auto}
 .ja-btn:focus-visible,.ja-link:focus-visible,.ja-stat:focus-visible,.ja-rowbtn:focus-visible,.ja-pick:focus-visible{outline:2px solid var(--jb-accent,#1B6BB8);outline-offset:-2px}
+
+.ja-roles{margin:10px 0}
+.ja-rolerow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid var(--jb-line,#D5E0EF)}
+.ja-rolerow div{display:flex;flex-direction:column;min-width:0}
+.ja-rolerow b{font-size:14px;overflow-wrap:anywhere}
+.ja-rolerow .ja-danger{margin-left:0}
+.ja-add{display:grid;gap:8px;margin:12px 0 0}
+.ja-add .ja-btn{justify-self:start}
+.ja-top .ja-link{text-decoration:none}
+@media (min-width:600px){.ja-sum{grid-template-columns:repeat(4,minmax(0,1fr))}}
