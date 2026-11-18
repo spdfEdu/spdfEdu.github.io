@@ -172,3 +172,8 @@ h2.naming{font-weight:500;margin:0;padding:0;color:var(--jb-text)}
 .svgX{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M18.2 2.5h3.3l-7.2 8.3 8.5 11.2h-6.7l-5.2-6.8-6 6.8H1.6l7.7-8.8L1.2 2.5H8l4.7 6.2zm-1.2 17.5h1.8L7 4.4H5.1z'/%3E%3C/svg%3E")}
 .svgYt{--ico:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2C.5 9.1.5 12 .5 12s0 2.9.5 4.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-4.8.5-4.8s0-2.9-.5-4.8zM9.8 15.5v-7l6 3.5z'/%3E%3C/svg%3E")}
 @media (max-width:380px){.facts{flex-wrap:wrap}.fact{flex:1 1 40%}}
+
+/* year badge rows + readable hero name */
+.hero .hero-name{position:static;color:var(--jb-text)!important;text-shadow:none;background:none}
+.yr{flex:none;min-width:58px;height:28px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--jb-accent);border-radius:999px;background:var(--jb-surface2);color:var(--jb-accent);font-size:13px;font-weight:600}
+.tl .tl-t{line-height:1.35}
