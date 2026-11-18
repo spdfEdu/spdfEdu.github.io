@@ -207,7 +207,7 @@
         } else if (type === "textarea") {
           input = h("textarea", { id: id, name: key, rows: 3, maxlength: 400, disabled: !editing, placeholder: editing ? "" : "Not added" });
         } else {
-          input = h("input", { id: id, name: key, type: type, disabled: !editing, maxlength: 200, placeholder: editing ? "" : "Not added", autocomplete: "off" });
+          input = h("input", { id: id, name: key, type: (type === "date" && !editing) ? "text" : type, disabled: !editing, maxlength: 200, placeholder: editing ? "" : "Not added", autocomplete: "off" });
           if (type === "tel") input.setAttribute("inputmode", "tel");
           if (key === "PinCode") input.setAttribute("inputmode", "numeric");
           if (opts) { var dl = h("datalist", { id: id + "-list" }); opts.forEach(function (o) { dl.appendChild(h("option", { value: o })); }); input.setAttribute("list", id + "-list"); box.appendChild(dl); }
@@ -254,7 +254,7 @@
       body.push(h("p", { class: "jl-hint", text: "Private fields are shown only to approved members on the private site. Every change needs admin approval before it goes live." }));
       body.push(form);
     }
-    show(h("div", { class: "jl-card" }, body));
+    show(h.apply(null, ["div", { class: "jl-card" }].concat(body)));
   }
 
   function startEditing() { state.editing = true; render(); }
