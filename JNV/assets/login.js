@@ -163,16 +163,25 @@
     var m = state.me.member;
     var v = {};
     if (!m) { var u = state.me.user || {}; return { Name: u.name || "", EmailId: u.email || "" }; }
-    if (m) { var d = m.draft || m.data || {}; for (var k in d) v[k] = d[k]; v.Name = v.Name || m.name; v.Batch = v.Batch || m.batch; }
+    var d = {}, k; // a pending request (new entry, or a new name or batch) is shown on top of the saved details
+    for (k in (m.data || {})) d[k] = m.data[k];
+    for (k in (m.draft || {})) d[k] = m.draft[k];
+    for (k in d) v[k] = d[k];
+    v.Name = v.Name || m.name; v.Batch = v.Batch || m.batch;
     return v;
   }
 
   function statusBox(m) {
     if (!m) return null;
-    if (m.draft && m.status === "approved") return h("p", { class: "jl-msg jl-warn", text: "Your changes are waiting for admin approval. The site still shows your earlier details until then." });
-    if (m.status === "pending") return h("p", { class: "jl-msg jl-warn", text: "Waiting for admin approval. Your details will appear on the site once approved." });
-    if (m.status === "rejected") return h("p", { class: "jl-msg jl-bad", text: "Your last submission was not approved. Please check your details and save again." });
-    return h("p", { class: "jl-msg jl-ok", text: "Approved. Your details are on the alumni site." });
+    var box = h("div", { class: "jl-status" });
+    function line(cls, t) { box.appendChild(h("p", { class: "jl-msg " + cls, text: t })); }
+    if (m.status === "approved") {
+      if (m.draft) line("jl-warn", "Your name or batch change is waiting for admin approval.");
+      if (m.dirty) line("jl-ok", "Saved. Your changes will be updated on the site within 24 hours.");
+      if (!m.draft && !m.dirty) line("jl-ok", "Approved. Your details are on the alumni site.");
+    } else if (m.status === "rejected") line("jl-bad", "Your last submission was not approved. Please check your details and save again.");
+    else line("jl-warn", "Waiting for admin approval. Your details will appear on the site once approved.");
+    return box;
   }
 
   function avatar(v, m) {
@@ -251,7 +260,9 @@
     } else {
       body.push(statusBox(m));
       body.push(h("div", { class: "jl-row" }, toggle));
-      body.push(h("p", { class: "jl-hint", text: "Private fields are shown only to approved members on the private site. Every change needs admin approval before it goes live." }));
+      body.push(h("p", { class: "jl-hint", text: m && m.status === "approved"
+        ? "Changes show on the site within 24 hours. Changing your name or batch needs admin approval. Private fields are shown only to approved members on the private site."
+        : "Your entry needs admin approval before it goes on the site. Private fields are shown only to approved members on the private site." }));
       body.push(form);
     }
     show(h.apply(null, ["div", { class: "jl-card" }].concat(body)));
