@@ -106,37 +106,7 @@ function createProfile(ele,i) {
   ${ripDiv(ele.rip)}
   ${aboutCard(ele.Bio)}
   ${factsHtml(ele)}
-  ${chipCard("Skills", ele.Skills)}
-  ${chipCard("Languages", ele.Languages)}
-  ${listCard("Achievements", ele.Achievements)}
-  ${eduCard(ele.EduList)}
-  ${workCard(ele.WorkList)}
-  ${visitCard(ele.JnvVisits)}
-  ${memoCard(ele.Memories)}
-  
-<div class="card" ${styDisplay(ele.Phone, ele.Phone2, ele.EmailId)}>
-    <h3>Contact Details</h3>
-    ${phnDiv(ele.Phone)}
-    ${phnDiv(ele.Phone2)}
- <div class="w100" ${styDisplay(ele.EmailId)}>
-    <p class="emailid"><span class="mail-head qes">Mail&nbsp;:</span><span class="ans">${mailShow(ele.EmailId)}</span></p>
-    <div class="w100"><div class="mail" onclick="location.href='mailto:${mailOf(ele.EmailId)}'"><i class="svg svgMail"></i></div></div>
-  </div>
-  ${saveDiv(ele)}
-</div>
-   
-<div class="card" ${styDisplay(ele.House)}>
-     <h3>House</h3>
-     <img loading="lazy" class="hsimg" width="100%" src="${giti}tshirt/webp/${ele.House}.webp" alt="${ele.House} House Tshirt" />
-     <p style="text-align:center">${ele.House}</p>
-   </div>
-   
-<div class="card" ${styDisplay(ele.Address, ele.PinCode, ele.District)}>
-    <h3>Address</h3>
-    <p>${addrHtml(ele)}</p>
-  </div>
-  
-<div class="card" ${styDisplay(ele.CurrentStatus, ele.HQD, ele.Institute)}>
+  <div class="card" ${styDisplay(ele.CurrentStatus, ele.HQD, ele.Institute)}>
     <h3>Current Status</h3>
 <p class="info" ${styDisplay(ele.CurrentStatus)}>
 <span class="qes">Current Status :</span><span class="ans">${ele.CurrentStatus}</span></p>
@@ -145,8 +115,29 @@ function createProfile(ele,i) {
 
 <p class="info" ${styDisplay(ele.Institute)}><span class="qes">Institution :</span><span class="ans">${ele.Institute}</span></p>
 </div>
-
+  ${workCard(ele.WorkList)}
+  ${eduCard(ele.EduList)}
+  ${listCard("Achievements", ele.Achievements)}
+  ${visitCard(ele.JnvVisits)}
+  ${memoCard(ele.Memories)}
+  ${chipCard("Skills", ele.Skills)}
+  ${chipCard("Languages", ele.Languages)}
+  <div class="card" ${styDisplay(ele.Phone, ele.Phone2)}>
+    <h3>Contact Details</h3>
+    ${phnDiv(ele.Phone)}
+    ${phnDiv(ele.Phone2)}
+  ${saveDiv(ele)}
+</div>
   ${socialCard(ele)}
+  <div class="card" ${styDisplay(ele.House)}>
+     <h3>House</h3>
+     <img loading="lazy" class="hsimg" width="100%" src="${giti}tshirt/webp/${ele.House}.webp" alt="${ele.House} House Tshirt" />
+     <p style="text-align:center">${ele.House}</p>
+   </div>
+  <div class="card" ${styDisplay(ele.Address, ele.PinCode, ele.District)}>
+    <h3>Address</h3>
+    <p>${addrHtml(ele)}</p>
+  </div>
   
 <div class="card">
     <h3>Share</h3>
@@ -180,7 +171,6 @@ function act(href, label, ico, primary) {
 function heroHtml(ele, photoSrc) {
   var p = ele.Phone || ele.Phone2, acts = "";
   if (p) acts += act("tel:" + p, "Call", "svgCall", true) + act("whatsapp://send?phone=" + ph91(p), "WhatsApp", "svgWp");
-  if (ele.EmailId) acts += act("mailto:" + mailOf(ele.EmailId), "Email", "svgMail", !p);
   var pic = `<img class="coverP" loading="lazy" src="${esc(photoSrc)}" onerror="this.style.display='none'" alt="">`;
   var big = ele.photo || (ele.ppl ? "https://lh3.googleusercontent.com/d/" + ele.ppl : "");
   if (big) pic = `<a href="${esc(big)}" target="_blank" rel="noopener">${pic}</a>`;
@@ -211,16 +201,20 @@ function listCard(title, t) {
   return card(title, l.map(function(c) { return `<div class="tl"><i class="dot"></i><div><p class="tl-t">${esc(c)}</p></div></div>`; }).join(""));
 }
 function timeline(title, rows, mk) {
-  return card(title, rows.map(function(r, i) {
+  return card(title, rows.map(function(r) {
     var o = mk(r);
-    return `<div class="tl"><i class="dot${i ? " dim" : ""}"></i><div><p class="tl-t">${esc(o.t)}</p>${o.s ? `<p class="tl-s">${esc(o.s)}</p>` : ""}${o.y ? `<p class="tl-y">${esc(o.y)}</p>` : ""}</div></div>`;
+    return `<div class="tl"><span class="yr">${esc(o.y || "-")}</span><div><p class="tl-t">${esc(o.t)}</p>${o.s ? `<p class="tl-s">${esc(o.s)}</p>` : ""}</div></div>`;
   }).join(""));
 }
+function place(a, b, c) { // bold line "A \u2022 B", second line c; falls back to c alone
+  var t = [a, b].filter(Boolean).join(" \u2022 ");
+  return t ? { t: t, s: c } : { t: c || "", s: "" };
+}
 function eduCard(t) { // year | course | institute | city
-  return timeline("Education", rowsOf(t).sort(newest), function(r) { return { t: r[1] || r[2] || "", s: [r[1] ? r[2] : "", r[3]].filter(Boolean).join(" · "), y: r[0] }; });
+  return timeline("Education history", rowsOf(t).sort(newest), function(r) { var o = place(r[2], r[3], r[1]); o.y = r[0]; return o; });
 }
 function workCard(t) { // year | company | position | city
-  return timeline("Employment", rowsOf(t).sort(newest), function(r) { return { t: r[2] || r[1] || "", s: [r[2] ? r[1] : "", r[3]].filter(Boolean).join(" · "), y: r[0] }; });
+  return timeline("Employment history", rowsOf(t).sort(newest), function(r) { var o = place(r[1], r[3], r[2]); o.y = r[0]; return o; });
 }
 function visitCard(t) { // year | JNV (district) | activity
   var rows = rowsOf(t).sort(newest);
@@ -238,10 +232,11 @@ function socialUrl(base, v) {
 }
 function socialCard(ele) {
   var nets = [["fb","Facebook","svgFb","https://facebook.com/"],["insta","Instagram","svgInsta","https://instagram.com/"],["linkedin","LinkedIn","svgIn","https://linkedin.com/in/"],["twitter","X","svgX","https://x.com/"],["youtube","YouTube","svgYt","https://youtube.com/@"]];
-  var out = nets.filter(function(n) { return ele[n[0]]; }).map(function(n) {
+  var mail = ele.EmailId ? `<a class="soc" href="mailto:${esc(mailOf(ele.EmailId))}"><i class="ico svgMail"></i>Email</a>` : "";
+  var out = mail + nets.filter(function(n) { return ele[n[0]]; }).map(function(n) {
     return `<a class="soc" href="${esc(socialUrl(n[3], ele[n[0]]))}" target="_blank" rel="noopener"><i class="ico ${n[2]}"></i>${n[1]}</a>`;
   }).join("");
-  return out ? `<div class="card"><h3>Social Media</h3><div class="cb socs">${out}</div></div>` : "";
+  return out ? `<div class="card"><h3>Connect</h3><div class="cb socs">${out}</div></div>` : "";
 }
 
 function phnDiv(a) {
