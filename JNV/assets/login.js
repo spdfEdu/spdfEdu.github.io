@@ -35,13 +35,9 @@
       ["District", "District", "text"],
     ]],
     ["Current status", [
-      ["CurrentStatus", "Current status", "text", STATUS],
-      ["Institute", "Institute or college", "text"],
+      ["CurrentStatus", "Current status", "select", STATUS],
+      ["Institute", "Name of college, company or preparation course", "text"],
       ["HQD", "Highest qualification", "text"],
-      ["Employment", "Employment", "text"],
-      ["Occupation", "Occupation", "text"],
-      ["Company", "Company", "text"],
-      ["WorkCity", "Work city", "text"],
     ]],
     ["Social", [
       ["fb", "Facebook (username or link)", "text"],
@@ -68,6 +64,7 @@
   ];
   var AFTER = { "Current status": [0, 1], "About you": [2] }; // where each list sits
   var MAX_ROWS = 10, uid = 0;
+  var KEEP_OLD = ["Employment", "Occupation", "Company", "WorkCity"]; // no longer on the form; saved as they are
 
   function clean(t) { return String(t || "").replace(/[|~]/g, " ").replace(/\s+/g, " ").trim(); }
   function parseRows(t) { return t ? String(t).split("~").map(function (r) { return r.split("|"); }) : []; }
@@ -390,6 +387,7 @@
       if (f[5] === "lines") v = v.split(/\n+/).map(clean).filter(Boolean).join("~");
       if (v) data[f[0]] = v;
     }); });
+    var old = values(); KEEP_OLD.forEach(function (k) { if (old[k] && data[k] === undefined) data[k] = old[k]; });
     LISTS.forEach(function (def) { var b = form.querySelector('[data-list="' + def[0] + '"]'), s = b ? readList(b) : ""; if (s) data[def[0]] = s; });
     if (!data.Name || data.Name.length < 2) return say("Please enter your full name", true);
     if (!data.Batch) return say("Please choose your pass-out year", true);
