@@ -119,9 +119,19 @@ h2.naming{font-weight:500;margin:0;padding:0;color:var(--jb-text)}
 .form-link{display:block;margin:0;padding:10px 8px;text-align:center;text-decoration:none;font-size:13px;font-weight:600;color:var(--jb-text);background:var(--jb-surface)}
 .imgBox{height:100%;width:100%;z-index:2000}
 
-/* ---------- sign-in hint for core members ---------- */
-.jn-signin{max-width:680px;margin:-6px auto 14px;font-size:13px;text-align:center;color:var(--jb-muted,#56667F)}
-.jn-signin a{color:var(--jb-accent,#1B6BB8);font-weight:600}
+/* ---------- sign in / register bar ---------- */
+.jn-bar{max-width:680px;margin:0 auto 14px;display:flex;flex-direction:column;border:1px solid var(--jb-line);border-radius:14px;background:var(--jb-surface);overflow:hidden}
+.jn-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;text-decoration:none;color:var(--jb-text)!important}
+.jn-row+.jn-row{border-top:1px solid var(--jb-line)}
+.jn-row:hover{background:var(--jb-surface2)}
+.jn-tx{display:flex;flex-direction:column;min-width:0}
+.jn-tx b{font-size:15px;font-weight:600;color:var(--jb-text)}
+.jn-tx small{font-size:13px;color:var(--jb-muted)}
+.jn-go{flex:none;padding:8px 16px;border-radius:999px;background:var(--jb-accent);color:#fff;font-size:13px;font-weight:600}
+.jn-row+.jn-row .jn-go{background:var(--jb-surface2);color:var(--jb-accent);border:1px solid var(--jb-accent)}
+/* one border only around the batch card */
+.batch-page #upper{border:0;box-shadow:none;background:none;padding:0}
+.batch-card .tc{border:0;box-shadow:none;background:none;padding:0}
 
 /* ---------- profile redesign: hero, facts, timelines, chips ---------- */
 .naming2{padding-left:16px}
