@@ -51,12 +51,14 @@ if (!coverBox) {
 }
 upper.querySelector(".bc-photo").append(coverBox);
 document.getElementById("upper").append(upper);
-if (window.JNV_LIVE && !window.JNV_SIGNED) {
-  var signHint = document.createElement("p");
-  signHint.className = "jn-signin";
-  signHint.innerHTML = 'Core members: <a href="/p/login.html">sign in</a> to see contact details.';
-  document.getElementById("upper").append(signHint);
-}
+// sign in / register bar (replaces the old "Core members: sign in" hint)
+var accBar = document.createElement("div");
+accBar.className = "jn-bar";
+accBar.innerHTML = window.JNV_SIGNED
+  ? `<a class="jn-row" href="/p/login.html"><span class="jn-tx"><b>Update your details</b><small>You are signed in</small></span><span class="jn-go">Edit</span></a>`
+  : `<a class="jn-row" href="/p/login.html"><span class="jn-tx"><b>Update your details</b><small>Sign in with your registered Gmail</small></span><span class="jn-go">Sign in</span></a>
+     <a class="jn-row" href="/p/login.html"><span class="jn-tx"><b>Name not listed?</b><small>Create your alumni profile</small></span><span class="jn-go">Register</span></a>`;
+document.getElementById("upper").append(accBar);
 
 document.getElementById("down").innerHTML = "<h2>Other batches</h2><p>Current passout batch: " +year +
 "<br>Established: " + [estb] +
@@ -106,14 +108,14 @@ function createProfile(ele,i) {
   ${ripDiv(ele.rip)}
   ${aboutCard(ele.Bio)}
   ${factsHtml(ele)}
-  <div class="card" ${styDisplay(ele.CurrentStatus, ele.HQD, ele.Institute)}>
+  <div class="card" ${styDisplay(ele.CurrentStatus, ele.HQD, ele.Institute || ele.Company)}>
     <h3>Current Status</h3>
 <p class="info" ${styDisplay(ele.CurrentStatus)}>
 <span class="qes">Current Status :</span><span class="ans">${ele.CurrentStatus}</span></p>
 
  <p class="info" ${styDisplay(ele.HQD)}><span class="qes">Highest Qualification Degree :</span><br><span class="ans">${ele.HQD}</span></p>
 
-<p class="info" ${styDisplay(ele.Institute)}><span class="qes">Institution :</span><span class="ans">${ele.Institute}</span></p>
+<p class="info" ${styDisplay(ele.Institute || ele.Company)}><span class="qes">Institution :</span><span class="ans">${ele.Institute || ele.Company}</span></p>
 </div>
   ${workCard(ele.WorkList)}
   ${eduCard(ele.EduList)}
