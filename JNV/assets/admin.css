@@ -1,0 +1,62 @@
+/* JNV MSD alumni admin page. Colors come from the theme tokens (--jb-*), with light fallbacks. */
+#jnv-admin{max-width:760px;margin:0 auto;font-family:inherit;color:var(--jb-text,#0E1B36)}
+#jnv-admin *,#jnv-admin *::before,#jnv-admin *::after{box-sizing:border-box}
+.ja-wrap h2{margin:6px 0 12px;font-size:22px;color:var(--jb-text,#0E1B36)}
+.ja-card{margin:0 0 12px;padding:14px;border:1px solid var(--jb-line,#D5E0EF);border-radius:14px;background:var(--jb-surface,#fff)}
+.ja-card h2,.ja-card h3{margin:0 0 2px;font-size:17px;color:var(--jb-text,#0E1B36);overflow-wrap:anywhere}
+.ja-center{text-align:center}
+.ja-muted{margin:0;font-size:13px;color:var(--jb-muted,#56667F);overflow-wrap:anywhere}
+.ja-top{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:var(--jb-muted,#56667F)}
+.ja-link{padding:6px 2px;border:0;background:none;color:var(--jb-accent,#1B6BB8);font:inherit;font-weight:600;cursor:pointer}
+.ja-gbtn{display:flex;justify-content:center;margin:14px 0 4px;min-height:44px}
+
+/* summary tiles */
+.ja-sum{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0 0 12px}
+.ja-stat{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px;border:1px solid var(--jb-line,#D5E0EF);border-radius:12px;background:var(--jb-surface,#fff);color:var(--jb-text,#0E1B36);font:inherit;text-align:left;cursor:pointer}
+.ja-stat b{font-size:22px;line-height:1}
+.ja-stat span{font-size:12px;color:var(--jb-muted,#56667F)}
+.ja-stat.ja-on{border-color:var(--jb-accent,#1B6BB8);box-shadow:inset 0 0 0 1px var(--jb-accent,#1B6BB8)}
+.ja-pub{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin:0 0 12px}
+.ja-pub .ja-muted{flex:1 1 200px}
+
+/* toast */
+.ja-toast{margin:0 0 12px;padding:10px 12px;border-radius:10px;font-size:14px;background:var(--jb-surface2,#EAF1FB);color:var(--jb-text,#0E1B36)}
+.ja-toast[hidden]{display:none}
+.ja-ok{border-left:4px solid #2e9e5b}.ja-bad{border-left:4px solid #d64545}.ja-warn{border-left:4px solid var(--jb-gold,#E6B84A)}
+.ja-msg{margin:10px 0;padding:10px 12px;border-radius:10px;font-size:14px;background:var(--jb-surface2,#EAF1FB);color:var(--jb-text,#0E1B36)}
+.ja-empty{margin:18px 0;text-align:center;color:var(--jb-muted,#56667F);font-size:14px}
+
+/* cards */
+.ja-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin:0 0 8px}
+.ja-chip{flex:none;padding:3px 10px;border-radius:999px;background:var(--jb-gold,#E6B84A);color:var(--jb-gold-ink,#3A2A05);font-size:12px;font-weight:700;white-space:nowrap}
+.ja-alt{background:var(--jb-surface2,#EAF1FB);color:var(--jb-text,#0E1B36);border:1px solid var(--jb-line,#D5E0EF)}
+.ja-thumb{display:block;flex:none;width:72px;height:72px;margin:0 0 8px;border-radius:50%;object-fit:cover;border:2px solid var(--jb-gold,#E6B84A);background:var(--jb-surface2,#EAF1FB)}
+.ja-thumb[hidden]{display:none}
+.ja-kvs{margin:6px 0 0}
+.ja-kv{display:flex;gap:10px;padding:5px 0;border-bottom:1px solid var(--jb-line,#D5E0EF);font-size:14px}
+.ja-k{flex:0 0 38%;color:var(--jb-muted,#56667F)}.ja-v{flex:1;overflow-wrap:anywhere}
+.ja-changes{margin:4px 0 0;font-size:14px}
+
+/* lists */
+.ja-filters{display:grid;grid-template-columns:1fr 150px;gap:8px;margin:0 0 10px}
+.ja-rows{border:1px solid var(--jb-line,#D5E0EF);border-radius:12px;overflow:hidden;background:var(--jb-surface,#fff)}
+.ja-rowbtn,.ja-pick{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline;width:100%;padding:10px 12px;border:0;border-bottom:1px solid var(--jb-line,#D5E0EF);background:none;color:var(--jb-text,#0E1B36);font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.ja-rowbtn span,.ja-pick span{font-size:12px;color:var(--jb-muted,#56667F)}
+.ja-rowbtn:hover,.ja-pick:hover{background:var(--jb-surface2,#EAF1FB)}
+.ja-merge{margin:10px 0 0;padding:10px;border:1px dashed var(--jb-line,#D5E0EF);border-radius:10px}
+.ja-mlist{margin:8px 0 0;border:1px solid var(--jb-line,#D5E0EF);border-radius:10px;overflow:hidden}
+
+/* form and buttons */
+.ja-field{margin:0 0 10px}
+.ja-field label{display:block;margin:0 0 3px;font-size:13px;color:var(--jb-muted,#56667F)}
+.ja-input{display:block;width:100%;min-height:42px;margin:0;padding:9px 12px;border:1px solid var(--jb-line,#D5E0EF);border-radius:10px;background-color:var(--jb-surface,#fff);color:var(--jb-text,#0E1B36);font:inherit;font-size:16px;-webkit-appearance:none;appearance:none}
+textarea.ja-input{resize:vertical;min-height:80px}
+select.ja-input{padding-right:32px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%238D9BB5' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;background-size:20px}
+.ja-input:focus{outline:2px solid var(--jb-accent,#1B6BB8);outline-offset:-2px}
+.ja-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.ja-btn{min-height:40px;padding:8px 14px;border:1px solid var(--jb-line,#D5E0EF);border-radius:10px;background:var(--jb-surface,#fff);color:var(--jb-accent,#1B6BB8);font:inherit;font-size:14px;font-weight:600;cursor:pointer;-webkit-appearance:none;appearance:none}
+.ja-btn:hover{border-color:var(--jb-accent,#1B6BB8)}
+.ja-btn:disabled{opacity:.5;cursor:default}
+.ja-primary{border-color:var(--jb-accent,#1B6BB8);background:var(--jb-accent,#1B6BB8);color:#fff}
+.ja-danger{color:#d64545;margin-left:auto}
+.ja-btn:focus-visible,.ja-link:focus-visible,.ja-stat:focus-visible,.ja-rowbtn:focus-visible,.ja-pick:focus-visible{outline:2px solid var(--jb-accent,#1B6BB8);outline-offset:-2px}
