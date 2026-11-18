@@ -67,3 +67,6 @@
 .jl-primary{border-color:var(--jb-accent,#1B6BB8);background:var(--jb-accent,#1B6BB8);color:#fff}
 .jl-small{min-height:34px;padding:5px 12px;font-size:13px}
 .jl-btn:focus-visible,.jl-link:focus-visible{outline:2px solid var(--jb-accent,#1B6BB8);outline-offset:2px}
+
+.jl-adminlink{display:block;margin:0 0 12px;text-decoration:none}
+.jl-chip + .jl-chip{margin-left:6px}
