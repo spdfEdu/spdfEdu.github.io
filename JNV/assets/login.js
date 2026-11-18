@@ -54,7 +54,7 @@
     ]],
   ];
 
-  var state = { token: null, claims: null, me: null, photoBlob: null, photoUrl: null, ownPhotoUrl: null, editing: false, busy: false };
+  var state = { flash: "", token: null, claims: null, me: null, photoBlob: null, photoUrl: null, ownPhotoUrl: null, editing: false, busy: false };
 
   /* ---------- tiny helpers ---------- */
   function h(tag, attrs) {
@@ -175,10 +175,10 @@
     if (!m) return null;
     var box = h("div", { class: "jl-status" });
     function line(cls, t) { box.appendChild(h("p", { class: "jl-msg " + cls, text: t })); }
+    if (state.flash) { line("jl-ok", state.flash); state.flash = ""; }
     if (m.status === "approved") {
       if (m.draft) line("jl-warn", "Your name or batch change is waiting for admin approval.");
-      if (m.dirty) line("jl-ok", "Saved. Your changes will be updated on the site within 24 hours.");
-      if (!m.draft && !m.dirty) line("jl-ok", "Approved. Your details are on the alumni site.");
+      else if (!box.firstChild) line("jl-ok", "Approved. Your details are on the alumni site.");
     } else if (m.status === "rejected") line("jl-bad", "Your last submission was not approved. Please check your details and save again.");
     else line("jl-warn", "Waiting for admin approval. Your details will appear on the site once approved.");
     return box;
@@ -241,7 +241,8 @@
       h("div", { class: "jl-who" },
         h("h2", { text: v.Name || user.name || "Welcome" }),
         h("p", { class: "jl-muted", text: v.Batch ? "Batch " + v.Batch : "No entry yet" }),
-        me.isAdmin ? h("span", { class: "jl-chip", text: "Admin" }) : null));
+        me.isAdmin ? h("span", { class: "jl-chip", text: "Admin" }) : null,
+        me.isCore ? h("span", { class: "jl-chip", text: "Core member" }) : null));
 
     var toggle = h("label", { class: "jl-switch" },
       h("input", { type: "checkbox", role: "switch", id: "jl-edit", checked: editing, onchange: function (e) { e.target.checked ? startEditing() : stopEditing(); } }),
@@ -254,6 +255,7 @@
       h("button", { type: "button", class: "jl-link", text: "Sign out", onclick: function () { signOut(""); } }));
 
     var body = [top, head];
+    if (me.isAdmin) body.push(h("a", { class: "jl-btn jl-primary jl-adminlink", href: root.dataset.admin || "/p/admin.html", text: "Open admin page" }));
     if (isNew && !editing) {
       body.push(h("p", { class: "jl-msg jl-warn", text: "We could not find an alumni entry for " + (user.email || "this account") + ". If you are already listed under another email, tell the admin so it can be linked. Otherwise create your profile." }));
       body.push(h("button", { type: "button", class: "jl-btn jl-primary", text: "Create my profile", onclick: startEditing }));
@@ -261,8 +263,8 @@
       body.push(statusBox(m));
       body.push(h("div", { class: "jl-row" }, toggle));
       body.push(h("p", { class: "jl-hint", text: m && m.status === "approved"
-        ? "Changes show on the site within 24 hours. Changing your name or batch needs admin approval. Private fields are shown only to approved members on the private site."
-        : "Your entry needs admin approval before it goes on the site. Private fields are shown only to approved members on the private site." }));
+        ? "Your changes go live on the site right away. Changing your name or batch needs admin approval. Phone, address and pin code are shown on the site only to admins and core members."
+        : "Your entry needs admin approval before it goes on the site. Phone, address and pin code are shown on the site only to admins and core members." }));
       body.push(form);
     }
     show(h.apply(null, ["div", { class: "jl-card" }].concat(body)));
@@ -336,10 +338,12 @@
     if (!data.Batch) return say("Please choose your pass-out year", true);
     function say(t, bad) { note.textContent = t; note.className = "jl-msg " + (bad ? "jl-bad" : "jl-ok"); }
     state.busy = true; btn.disabled = true; say("Saving...");
-    api("/api/me", { method: "PUT", json: { data: data } }).then(function () {
+    var said = "";
+    api("/api/me", { method: "PUT", json: { data: data } }).then(function (r) {
+      said = r.message || "";
       if (state.photoBlob) return api("/api/me/photo", { method: "POST", blob: state.photoBlob });
     }).then(function () {
-      state.busy = false;
+      state.busy = false; state.flash = said;
       if (state.photoUrl) { URL.revokeObjectURL(state.photoUrl); state.photoUrl = null; }
       load();
     }).catch(function (err) {
