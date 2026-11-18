@@ -22,6 +22,7 @@
       ["House", "House", "select", HOUSES],
       ["BloodGroup", "Blood group", "select", BLOOD],
       ["DOB", "Date of birth", "date", null, true],
+      ["City", "Current city", "text"],
     ]],
     ["Contact", [
       ["Phone", "Phone", "tel", null, true],
@@ -51,8 +52,57 @@
     ]],
     ["About you", [
       ["Bio", "A few lines about you", "textarea"],
+      ["Skills", "Skills (comma separated)", "text", null, false, null, 300],
+      ["Languages", "Languages known (comma separated)", "text", null, false, null, 200],
+      ["Achievements", "Achievements (one per line)", "textarea", null, false, "lines", 600],
+      ["Memories", "Favourite memories of Navodaya", "textarea", null, false, null, 1200],
     ]],
   ];
+
+  // Repeatable lists. Saved as one text value: rows joined by "~", columns by "|".
+  // [key, title, add label, [[column, label, placeholder, wide]]]
+  var LISTS = [
+    ["EduList", "Education history", "Add education", [["Year", "Year", "2025"], ["Course", "Course", "MBBS"], ["Institute", "Institute name", "", true], ["City", "City", "", true]]],
+    ["WorkList", "Employment history", "Add employment", [["Year", "Year", "2026"], ["Company", "Company name", ""], ["Position", "Position", "", true], ["City", "City", "", true]]],
+    ["JnvVisits", "Extracurricular: JNV visits", "Add visit", [["Year", "Year", "2016"], ["Activity", "Activity", "Badminton"], ["JNV", "JNV (District)", "JNV Nadia", true]]]
+  ];
+  var AFTER = { "Education and work": [0, 1], "About you": [2] }; // where each list sits
+  var MAX_ROWS = 10, uid = 0;
+
+  function clean(t) { return String(t || "").replace(/[|~]/g, " ").replace(/\s+/g, " ").trim(); }
+  function parseRows(t) { return t ? String(t).split("~").map(function (r) { return r.split("|"); }) : []; }
+  function readList(box) {
+    var rows = [];
+    [].forEach.call(box.querySelectorAll(".jl-item"), function (it) {
+      var parts = [].map.call(it.querySelectorAll("input"), function (i) { return clean(i.value); });
+      if (parts.some(Boolean)) rows.push(parts.join("|"));
+    });
+    return rows.join("~");
+  }
+  function listBox(def, val, editing) {
+    var box = h("fieldset", { class: "jl-sec jl-list", "data-list": def[0] }, h("legend", { text: def[1] }));
+    var wrap = h("div", { class: "jl-items" });
+    box.appendChild(wrap);
+    function addRow(vals) {
+      if (wrap.children.length >= MAX_ROWS) return;
+      var it = h("div", { class: "jl-item" });
+      def[3].forEach(function (c, i) {
+        var id = "jl-l" + (++uid);
+        var inp = h("input", { id: id, type: "text", maxlength: 80, disabled: !editing, placeholder: editing ? (c[2] || "") : "-", autocomplete: "off" });
+        if (c[0] === "Year") inp.setAttribute("inputmode", "numeric");
+        inp.value = vals[i] || "";
+        it.appendChild(h("div", { class: "jl-field" + (c[3] ? " jl-wide" : "") }, h("label", { for: id, text: c[1] }), inp));
+      });
+      it.appendChild(h("button", { type: "button", class: "jl-btn jl-small jl-rm jl-wide", text: "Remove", onclick: function () { wrap.removeChild(it); } }));
+      wrap.appendChild(it);
+    }
+    parseRows(val).forEach(addRow);
+    if (editing) {
+      if (!wrap.children.length) addRow([]);
+      box.appendChild(h("button", { type: "button", class: "jl-btn jl-small jl-add", text: "+ " + def[2], onclick: function () { addRow([]); } }));
+    } else if (!wrap.children.length) box.appendChild(h("p", { class: "jl-muted", text: "Not added" }));
+    return box;
+  }
 
   var state = { flash: "", token: null, claims: null, me: null, photoBlob: null, photoUrl: null, ownPhotoUrl: null, editing: false, busy: false };
 
@@ -208,15 +258,16 @@
       sec[1].forEach(function (f) {
         var key = f[0], type = f[2], opts = f[3], priv = f[4];
         var val = v[key] === undefined || v[key] === null ? "" : String(v[key]);
+        if (f[5] === "lines") val = val.split("~").join("\n");
         var id = "jl-" + key, input;
         if (type === "select") {
           input = h("select", { id: id, name: key, disabled: !editing }, h("option", { value: "", text: editing ? "Select" : "Not added" }));
           var list = opts.slice(); if (val && list.indexOf(val) < 0) list.push(val);
           list.forEach(function (o) { input.appendChild(h("option", { value: o, text: o })); });
         } else if (type === "textarea") {
-          input = h("textarea", { id: id, name: key, rows: 3, maxlength: 400, disabled: !editing, placeholder: editing ? "" : "Not added" });
+          input = h("textarea", { id: id, name: key, rows: f[5] === "lines" ? 4 : 3, maxlength: f[6] || 400, disabled: !editing, placeholder: editing ? "" : "Not added" });
         } else {
-          input = h("input", { id: id, name: key, type: (type === "date" && !editing) ? "text" : type, disabled: !editing, maxlength: 200, placeholder: editing ? "" : "Not added", autocomplete: "off" });
+          input = h("input", { id: id, name: key, type: (type === "date" && !editing) ? "text" : type, disabled: !editing, maxlength: f[6] || 200, placeholder: editing ? "" : "Not added", autocomplete: "off" });
           if (type === "tel") input.setAttribute("inputmode", "tel");
           if (key === "PinCode") input.setAttribute("inputmode", "numeric");
           if (opts) { var dl = h("datalist", { id: id + "-list" }); opts.forEach(function (o) { dl.appendChild(h("option", { value: o })); }); input.setAttribute("list", id + "-list"); box.appendChild(dl); }
@@ -226,6 +277,7 @@
         box.appendChild(h("div", { class: "jl-field" }, label, input));
       });
       form.appendChild(box);
+      (AFTER[sec[0]] || []).forEach(function (i) { form.appendChild(listBox(LISTS[i], v[LISTS[i][0]], editing)); });
     });
 
     var actions = h("div", { class: "jl-actions" },
@@ -333,7 +385,12 @@
     e.preventDefault();
     if (state.busy) return;
     var form = e.target, data = {}, note = document.getElementById("jl-note"), btn = document.getElementById("jl-save");
-    SECTIONS.forEach(function (sec) { sec[1].forEach(function (f) { var v = String(form.elements[f[0]].value || "").trim(); if (v) data[f[0]] = v; }); });
+    SECTIONS.forEach(function (sec) { sec[1].forEach(function (f) {
+      var v = String(form.elements[f[0]].value || "").trim();
+      if (f[5] === "lines") v = v.split(/\n+/).map(clean).filter(Boolean).join("~");
+      if (v) data[f[0]] = v;
+    }); });
+    LISTS.forEach(function (def) { var b = form.querySelector('[data-list="' + def[0] + '"]'), s = b ? readList(b) : ""; if (s) data[def[0]] = s; });
     if (!data.Name || data.Name.length < 2) return say("Please enter your full name", true);
     if (!data.Batch) return say("Please choose your pass-out year", true);
     function say(t, bad) { note.textContent = t; note.className = "jl-msg " + (bad ? "jl-bad" : "jl-ok"); }
