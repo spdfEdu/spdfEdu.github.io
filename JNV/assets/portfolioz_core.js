@@ -101,16 +101,18 @@ function createProfile(ele,i) {
     <h2 class="naming2">${ele.Name}</h2>
     <div class="back"><i class="svgBack"></i></div>
   </div>
-  <div class="head-cover separator">
-  <img class="svgP">
-  <a href="${ele.photo || ('https://lh3.googleusercontent.com/d/' + ele.ppl)}" target="_blank"><img class="coverP" loading="lazy" src="${photoSrc}" onerror="this.parentNode.parentNode.style.display='none'"></a></div>
-  
   <div class="details">
-  <div class="fst">
-  <p>This is ${ele.Name} of Batch ${batch} (${x} to ${xii}) of JNV Murshidabad.</p>
-  </div>
-  
+  ${heroHtml(ele, photoSrc)}
   ${ripDiv(ele.rip)}
+  ${aboutCard(ele.Bio)}
+  ${factsHtml(ele)}
+  ${chipCard("Skills", ele.Skills)}
+  ${chipCard("Languages", ele.Languages)}
+  ${listCard("Achievements", ele.Achievements)}
+  ${eduCard(ele.EduList)}
+  ${workCard(ele.WorkList)}
+  ${visitCard(ele.JnvVisits)}
+  ${memoCard(ele.Memories)}
   
 <div class="card" ${styDisplay(ele.Phone, ele.Phone2, ele.EmailId)}>
     <h3>Contact Details</h3>
@@ -129,12 +131,6 @@ function createProfile(ele,i) {
      <p style="text-align:center">${ele.House}</p>
    </div>
    
-<div class="card bgcard" ${styDisplay(ele.BloodGroup)}>
-    <img loading="lazy" width="25%" class="blood-drop" src="${giti}icons/blood_drop.webp"/>
-    <h3>Blood Group</h3>
-    <p>${ele.BloodGroup}</p>
-  </div>
-  
 <div class="card" ${styDisplay(ele.Address, ele.PinCode, ele.District)}>
     <h3>Address</h3>
     <p>${addrHtml(ele)}</p>
@@ -150,13 +146,7 @@ function createProfile(ele,i) {
 <p class="info" ${styDisplay(ele.Institute)}><span class="qes">Institution :</span><span class="ans">${ele.Institute}</span></p>
 </div>
 
-  <div class="card" ${styDisplay(ele.fb,ele.insta)}>
-    <h3>Social Media</h3>
-  <div class="w100 flex">
-  <div class="w50" ${styDisplay(ele.fb)} onclick="window.open('https://facebook.com/${ele.fb}','_blank')"><i class="svg svgFb"></i>Facebook</div>
-  <div class="w50" ${styDisplay(ele.insta)} onclick="window.open('https://instagram.com/${ele.insta}','_blank')"><i class="svg svgInsta"></i>Instagram</div>
-  </div>
-  </div>
+  ${socialCard(ele)}
   
 <div class="card">
     <h3>Share</h3>
@@ -169,6 +159,89 @@ function createProfile(ele,i) {
     </div>
   </div>`;
   insertProfiles.append(child);
+}
+
+
+//---------- profile helpers (new fields) ----------
+function esc(t) { return String(t == null ? "" : t).replace(/[&<>"']/g, function(c) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+function rowsOf(t) { return t ? String(t).split("~").map(function(r) { return r.split("|").map(function(c) { return c.trim(); }); }) : []; }
+function yearOf(r) { var m = String(r[0] || "").match(/\d{4}/g); return m ? Number(m[m.length - 1]) : 0; }
+function newest(a, b) { return yearOf(b) - yearOf(a); }
+function dobShow(d) {
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(d || "");
+  if (!m) return esc(d);
+  return Number(m[3]) + " " + ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][Number(m[2]) - 1] + " " + m[1];
+}
+function card(title, inner) { return inner ? `<div class="card"><h3>${title}</h3><div class="cb">${inner}</div></div>` : ""; }
+
+function act(href, label, ico, primary) {
+  return `<a class="act${primary ? " act-p" : ""}" href="${esc(href)}"><i class="ico ${ico}"></i>${label}</a>`;
+}
+function heroHtml(ele, photoSrc) {
+  var p = ele.Phone || ele.Phone2, acts = "";
+  if (p) acts += act("tel:" + p, "Call", "svgCall", true) + act("whatsapp://send?phone=" + ph91(p), "WhatsApp", "svgWp");
+  if (ele.EmailId) acts += act("mailto:" + mailOf(ele.EmailId), "Email", "svgMail", !p);
+  var pic = `<img class="coverP" loading="lazy" src="${esc(photoSrc)}" onerror="this.style.display='none'" alt="">`;
+  var big = ele.photo || (ele.ppl ? "https://lh3.googleusercontent.com/d/" + ele.ppl : "");
+  if (big) pic = `<a href="${esc(big)}" target="_blank" rel="noopener">${pic}</a>`;
+  var sub = [ele.CurrentStatus, ele.Institute].filter(Boolean).map(esc).join(" · ");
+  var chips = [`Batch ${batch}`, ele.House ? ele.House + " House" : "", ele.City].filter(Boolean).map(function(c) { return `<span class="chip">${esc(c)}</span>`; }).join("");
+  return `<div class="hero">
+    <div class="hero-ph"><img class="svgP" alt="">${pic}</div>
+    <h1 class="hero-name">${esc(ele.Name)}</h1>
+    <p class="hero-sub">${sub || "JNV Murshidabad · " + x + " to " + xii}</p>
+    <div class="chips">${chips}</div>
+    ${acts ? `<div class="acts">${acts}</div>` : ""}
+  </div>`;
+}
+function aboutCard(t) { return t ? card("About", `<p class="para">${esc(t).replace(/\n/g, "<br>")}</p>`) : ""; }
+function factsHtml(ele) {
+  var f = [];
+  if (ele.DOB) f.push(`<div class="fact"><span>Born</span><b>${dobShow(ele.DOB)}</b></div>`);
+  if (ele.BloodGroup) f.push(`<div class="fact fact-blood"><span>Blood</span><b>${esc(ele.BloodGroup)}</b></div>`);
+  if (ele.City) f.push(`<div class="fact"><span>City</span><b>${esc(ele.City)}</b></div>`);
+  return f.length ? `<div class="facts">${f.join("")}</div>` : "";
+}
+function chipCard(title, t) {
+  var l = String(t || "").split(",").map(function(c) { return c.trim(); }).filter(Boolean);
+  return card(title, l.length ? `<div class="chips">${l.map(function(c) { return `<span class="chip">${esc(c)}</span>`; }).join("")}</div>` : "");
+}
+function listCard(title, t) {
+  var l = String(t || "").split("~").map(function(c) { return c.trim(); }).filter(Boolean);
+  return card(title, l.map(function(c) { return `<div class="tl"><i class="dot"></i><div><p class="tl-t">${esc(c)}</p></div></div>`; }).join(""));
+}
+function timeline(title, rows, mk) {
+  return card(title, rows.map(function(r, i) {
+    var o = mk(r);
+    return `<div class="tl"><i class="dot${i ? " dim" : ""}"></i><div><p class="tl-t">${esc(o.t)}</p>${o.s ? `<p class="tl-s">${esc(o.s)}</p>` : ""}${o.y ? `<p class="tl-y">${esc(o.y)}</p>` : ""}</div></div>`;
+  }).join(""));
+}
+function eduCard(t) { // year | course | institute | city
+  return timeline("Education", rowsOf(t).sort(newest), function(r) { return { t: r[1] || r[2] || "", s: [r[1] ? r[2] : "", r[3]].filter(Boolean).join(" · "), y: r[0] }; });
+}
+function workCard(t) { // year | company | position | city
+  return timeline("Employment", rowsOf(t).sort(newest), function(r) { return { t: r[2] || r[1] || "", s: [r[2] ? r[1] : "", r[3]].filter(Boolean).join(" · "), y: r[0] }; });
+}
+function visitCard(t) { // year | JNV (district) | activity
+  var rows = rowsOf(t).sort(newest);
+  return card("Extracurricular: JNV visits", rows.length ? `<div class="tiles">${rows.map(function(r) {
+    return `<div class="tile"><b>${esc(r[2] || "Activity")}</b><span>${esc(r[1] || "")}</span><span>${esc(r[0] || "")}</span></div>`;
+  }).join("")}</div>` : "");
+}
+function memoCard(t) { return t ? card("Favourite memories of Navodaya", `<blockquote class="memo">${esc(t).replace(/\n/g, "<br>")}</blockquote>`) : ""; }
+
+function socialUrl(base, v) {
+  v = String(v).trim();
+  if (/^https?:\/\//i.test(v)) return v;
+  if (/^(www\.)?[a-z0-9-]+(\.[a-z0-9-]+)+\//i.test(v)) return "https://" + v;
+  return base + v.replace(/^@/, "");
+}
+function socialCard(ele) {
+  var nets = [["fb","Facebook","svgFb","https://facebook.com/"],["insta","Instagram","svgInsta","https://instagram.com/"],["linkedin","LinkedIn","svgIn","https://linkedin.com/in/"],["twitter","X","svgX","https://x.com/"],["youtube","YouTube","svgYt","https://youtube.com/@"]];
+  var out = nets.filter(function(n) { return ele[n[0]]; }).map(function(n) {
+    return `<a class="soc" href="${esc(socialUrl(n[3], ele[n[0]]))}" target="_blank" rel="noopener"><i class="ico ${n[2]}"></i>${n[1]}</a>`;
+  }).join("");
+  return out ? `<div class="card"><h3>Social Media</h3><div class="cb socs">${out}</div></div>` : "";
 }
 
 function phnDiv(a) {
