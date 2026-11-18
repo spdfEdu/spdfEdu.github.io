@@ -22,7 +22,7 @@
   ];
   var LABEL = {}; FIELDS.forEach(function (f) { LABEL[f[0]] = f[1]; });
 
-  var st = { token: null, list: [], lastPublish: null, tab: "approvals", q: "", year: "", edit: null, merge: null, busy: false, note: "" };
+  var st = { token: null, list: [], roles: [], owners: [], tab: "approvals", q: "", year: "", edit: null, merge: null, busy: false, note: "", noteBad: false };
 
   /* ---------- helpers ---------- */
   function h(tag, attrs) {
@@ -47,11 +47,6 @@
   function show(node) { while (root.firstChild) root.removeChild(root.firstChild); root.appendChild(node); }
   function decode(t) { try { return JSON.parse(decodeURIComponent(escape(atob(t.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"))))); } catch (e) { return null; } }
   function nameKey(n) { return String(n || "").replace(/ /g, "_"); }
-  function ago(ts) {
-    if (!ts) return "never";
-    var d = new Date(ts * 1000);
-    return d.toLocaleString(undefined, { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
-  }
   function toast(t, bad) { st.note = t; st.noteBad = !!bad; var n = document.getElementById("ja-toast"); if (n) { n.textContent = t; n.className = "ja-toast " + (bad ? "ja-bad" : "ja-ok"); n.hidden = !t; } }
 
   /* ---------- token and API ---------- */
@@ -91,8 +86,8 @@
   /* ---------- data ---------- */
   function load(keep) {
     if (!keep) show(h("div", { class: "ja-card ja-center" }, h("p", { class: "ja-muted", text: "Loading..." })));
-    return api("/api/admin/list").then(function (r) {
-      st.list = r.members; st.lastPublish = r.last_publish;
+    return Promise.all([api("/api/admin/list"), api("/api/admin/roles")]).then(function (r) {
+      st.list = r[0].members; st.roles = r[1].roles; st.owners = r[1].owners;
       draw();
     }).catch(function (e) {
       if (e.message === "expired") return;
@@ -101,42 +96,34 @@
     });
   }
   function needsApproval(m) { return !!(m.draft || m.draft_photo); }
-  function changedKeys(m) {
-    if (!m.pub) return null; // new entry, nothing published yet
-    var keys = {}, out = [], k;
-    for (k in m.data) keys[k] = 1; for (k in m.pub) keys[k] = 1;
-    for (k in keys) if (JSON.stringify(m.data[k]) !== JSON.stringify(m.pub[k])) out.push(k);
-    if (m.photo !== m.pub_photo) out.push("photo");
-    return out;
-  }
   function act(label, fn) {
     if (st.busy) return;
     st.busy = true; toast(label + "...");
     return fn().then(function (msg) { st.busy = false; st.merge = null; st.edit = null; return load(true).then(function () { toast(msg || "Done"); }); })
       .catch(function (e) { st.busy = false; if (e.message !== "expired") toast(e.message, true); });
   }
+  function ofRole(role) { return st.roles.filter(function (r) { return r.role === role; }); }
 
   /* ---------- screens ---------- */
   function draw() {
-    var pend = st.list.filter(needsApproval), wait = st.list.filter(function (m) { return m.dirty && m.status === "approved"; });
+    var pend = st.list.filter(needsApproval);
     var user = st.token.claims || {};
-    var top = h("div", { class: "ja-top" }, h("span", { text: user.email || "" }), h("button", { class: "ja-link", type: "button", text: "Sign out", onclick: function () { signOut(); } }));
-    var sum = h("div", { class: "ja-sum" },
-      h("button", { class: "ja-stat" + (st.tab === "approvals" ? " ja-on" : ""), type: "button", onclick: function () { st.tab = "approvals"; draw(); } }, h("b", { text: String(pend.length) }), h("span", { text: "Need approval" })),
-      h("button", { class: "ja-stat" + (st.tab === "waiting" ? " ja-on" : ""), type: "button", onclick: function () { st.tab = "waiting"; draw(); } }, h("b", { text: String(wait.length) }), h("span", { text: "Waiting to publish" })),
-      h("button", { class: "ja-stat" + (st.tab === "all" ? " ja-on" : ""), type: "button", onclick: function () { st.tab = "all"; draw(); } }, h("b", { text: String(st.list.length) }), h("span", { text: "All alumni" })));
-    var pub = h("div", { class: "ja-pub" },
-      h("span", { class: "ja-muted", text: "Last published: " + ago(st.lastPublish) + ". The site also updates itself at 3 AM IST when something changed." }),
-      h("button", { class: "ja-btn ja-primary", type: "button", text: "Publish now", disabled: wait.length === 0, onclick: function () {
-        if (confirm("Publish " + wait.length + " change(s) to the site now?")) act("Publishing", function () { return api("/api/admin/publish", { method: "POST" }).then(function (r) { return "Published " + r.published + " change(s)."; }); });
-      } }));
+    var top = h("div", { class: "ja-top" }, h("span", { text: user.email || "" }),
+      h("span", null, h("a", { class: "ja-link", href: root.dataset.login || "/p/login.html", text: "My profile" }), "  ", h("button", { class: "ja-link", type: "button", text: "Sign out", onclick: function () { signOut(); } })));
+    function tab(id, label, count) {
+      return h("button", { class: "ja-stat" + (st.tab === id && !st.edit ? " ja-on" : ""), type: "button", onclick: function () { st.tab = id; st.edit = null; st.merge = null; draw(); } },
+        h("b", { text: count === null ? "" : String(count) }), h("span", { text: label }));
+    }
+    var tabs = h("div", { class: "ja-sum" },
+      tab("approvals", "Approvals", pend.length), tab("members", "Edit members", st.list.filter(function (m) { return m.status === "approved"; }).length),
+      tab("core", "Core Members", ofRole("core").length), tab("admins", "Admins", st.owners.length + ofRole("admin").length));
     var toastEl = h("p", { id: "ja-toast", class: "ja-toast", role: "status", hidden: !st.note, text: st.note }); if (st.note) toastEl.className = "ja-toast " + (st.noteBad ? "ja-bad" : "ja-ok");
     var body;
     if (st.edit) body = editor(st.edit);
     else if (st.tab === "approvals") body = approvals(pend);
-    else if (st.tab === "waiting") body = waiting(wait);
-    else body = everyone();
-    show(h("div", { class: "ja-wrap" }, top, h("h2", { text: "Alumni admin" }), sum, pub, toastEl, body));
+    else if (st.tab === "members") body = everyone();
+    else body = rolesTab(st.tab === "core" ? "core" : "admin");
+    show(h("div", { class: "ja-wrap" }, top, h("h2", { text: "Alumni admin" }), tabs, toastEl, body));
   }
 
   function field(label, text) { return h("div", { class: "ja-kv" }, h("span", { class: "ja-k", text: label }), h("span", { class: "ja-v", text: text })); }
@@ -145,7 +132,7 @@
     if (!list.length) return h("p", { class: "ja-empty", text: "Nothing is waiting for approval." });
     return h("div", null, list.map(function (m) {
       var isNew = m.status !== "approved";
-      var vals = isNew ? (m.draft || {}) : m.draft || {};
+      var vals = m.draft || {};
       var card = h("div", { class: "ja-card" },
         h("div", { class: "ja-row" }, h("div", null, h("h3", { text: (vals.Name || m.name) }), h("p", { class: "ja-muted", text: m.email })),
           h("span", { class: "ja-chip" + (isNew ? "" : " ja-alt"), text: isNew ? (m.status === "rejected" ? "Rejected earlier" : "New sign-up") : "Name or batch change" })));
@@ -161,7 +148,7 @@
         card.appendChild(field("Batch", m.batch + "  →  " + (vals.Batch || m.batch)));
       }
       card.appendChild(h("div", { class: "ja-actions" },
-        h("button", { class: "ja-btn ja-primary", type: "button", text: "Approve", onclick: function () { act("Approving", function () { return api("/api/admin/" + m.id + "/approve", { method: "POST" }).then(function () { return "Approved. It goes live at the next publish."; }); }); } }),
+        h("button", { class: "ja-btn ja-primary", type: "button", text: "Approve", onclick: function () { act("Approving", function () { return api("/api/admin/" + m.id + "/approve", { method: "POST" }).then(function () { return "Approved. It is live on the site."; }); }); } }),
         h("button", { class: "ja-btn", type: "button", text: "Reject", onclick: function () { if (confirm("Reject this request?")) act("Rejecting", function () { return api("/api/admin/" + m.id + "/reject", { method: "POST" }).then(function () { return "Rejected."; }); }); } }),
         isNew ? h("button", { class: "ja-btn", type: "button", text: "Edit", onclick: function () { st.edit = m.id; draw(); } }) : null,
         isNew ? h("button", { class: "ja-btn", type: "button", text: "Link to existing alumnus", onclick: function () { st.merge = st.merge === m.id ? null : m.id; st.mq = (vals.Name || m.name || ""); draw(); } }) : null));
@@ -177,7 +164,7 @@
     function fill() {
       while (list.firstChild) list.removeChild(list.firstChild);
       var q = (st.mq || "").toLowerCase().trim(), yr = String(vals.Batch || m.batch || "");
-      var c = st.list.filter(function (x) { return x.status === "approved" && x.id !== m.id && /@jnvmsd\.invalid$|./.test(x.email) && (!q || (x.name || "").toLowerCase().indexOf(q) >= 0); });
+      var c = st.list.filter(function (x) { return x.status === "approved" && x.id !== m.id && (!q || (x.name || "").toLowerCase().indexOf(q) >= 0); });
       c.sort(function (a, b) { return (String(b.batch) === yr) - (String(a.batch) === yr) || a.name.localeCompare(b.name); });
       c.slice(0, 12).forEach(function (x) {
         list.appendChild(h("button", { class: "ja-pick", type: "button", onclick: function () {
@@ -191,41 +178,61 @@
     return box;
   }
 
-  function waiting(list) {
-    if (!list.length) return h("p", { class: "ja-empty", text: "Nothing is waiting. The site shows the latest details." });
-    return h("div", null, list.map(function (m) {
-      var keys = changedKeys(m);
-      return h("div", { class: "ja-card" },
-        h("div", { class: "ja-row" }, h("div", null, h("h3", { text: m.name }), h("p", { class: "ja-muted", text: "Batch " + m.batch + "  " + m.email })),
-          h("span", { class: "ja-chip", text: keys === null ? "New entry" : keys.length + " change" + (keys.length === 1 ? "" : "s") })),
-        keys && keys.length ? h("p", { class: "ja-changes", text: keys.map(function (k) { return LABEL[k] || (k === "photo" ? "Photo" : k); }).join(", ") }) : null,
-        h("div", { class: "ja-actions" },
-          h("button", { class: "ja-btn", type: "button", text: "Edit", onclick: function () { st.edit = m.id; draw(); } }),
-          m.has_prev ? h("button", { class: "ja-btn", type: "button", text: "Undo last edit", onclick: function () { if (confirm("Go back to the version before the last edit?")) act("Undoing", function () { return api("/api/admin/" + m.id + "/undo", { method: "POST" }).then(function () { return "Reverted. It reaches the site at the next publish."; }); }); } }) : null));
-    }));
-  }
-
+  // search any registered alumnus by name, then open the full editor
   function everyone() {
-    var q = h("input", { type: "search", class: "ja-input", placeholder: "Search name or email", value: st.q, oninput: function (e) { st.q = e.target.value; fillRows(); } });
-    var yrs = {}; st.list.forEach(function (m) { yrs[m.batch] = 1; });
-    var sel = h("select", { class: "ja-input", onchange: function (e) { st.year = e.target.value; fillRows(); } }, h("option", { value: "", text: "All batches" }),
+    var q = h("input", { type: "search", class: "ja-input", placeholder: "Search by name or email", value: st.q, "aria-label": "Search members", oninput: function (e) { st.q = e.target.value; fillRows(); } });
+    var yrs = {}; st.list.forEach(function (m) { if (m.status === "approved") yrs[m.batch] = 1; });
+    var sel = h("select", { class: "ja-input", "aria-label": "Batch", onchange: function (e) { st.year = e.target.value; fillRows(); } }, h("option", { value: "", text: "All batches" }),
       Object.keys(yrs).sort().map(function (y) { return h("option", { value: y, text: "Batch " + y, selected: String(y) === st.year }); }));
     var rows = h("div", { class: "ja-rows" });
     function fillRows() {
       while (rows.firstChild) rows.removeChild(rows.firstChild);
       var qq = st.q.toLowerCase().trim();
-      var l = st.list.filter(function (m) { return (!st.year || String(m.batch) === st.year) && (!qq || (m.name + " " + m.email).toLowerCase().indexOf(qq) >= 0); });
+      if (!qq && !st.year) { rows.className = ""; rows.appendChild(h("p", { class: "ja-empty", text: "Type a name, or pick a batch, then choose the alumnus to edit." })); return; }
+      rows.className = "ja-rows";
+      var l = st.list.filter(function (m) { return m.status === "approved" && (!st.year || String(m.batch) === st.year) && (!qq || (m.name + " " + m.email).toLowerCase().indexOf(qq) >= 0); });
       l.sort(function (a, b) { return a.batch - b.batch || a.name.localeCompare(b.name); });
-      l.slice(0, 80).forEach(function (m) {
+      l.slice(0, 60).forEach(function (m) {
         rows.appendChild(h("button", { class: "ja-rowbtn", type: "button", onclick: function () { st.edit = m.id; draw(); } },
-          h("b", { text: m.name }), h("span", { text: "Batch " + m.batch + (m.status !== "approved" ? "  " + m.status : "") + (m.dirty ? "  changed" : "") }),
-          h("span", { class: "ja-muted", text: m.email })));
+          h("b", { text: m.name }), h("span", { text: "Batch " + m.batch }),
+          h("span", { class: "ja-muted", text: /@jnvmsd\.invalid$/.test(m.email) ? "no email on file" : m.email })));
       });
-      if (l.length > 80) rows.appendChild(h("p", { class: "ja-empty", text: (l.length - 80) + " more, narrow the search." }));
-      if (!l.length) rows.appendChild(h("p", { class: "ja-empty", text: "No match." }));
+      if (l.length > 60) rows.appendChild(h("p", { class: "ja-empty", text: (l.length - 60) + " more, narrow the search." }));
+      if (!l.length) { rows.className = ""; rows.appendChild(h("p", { class: "ja-empty", text: "No match." })); }
     }
     fillRows();
     return h("div", null, h("div", { class: "ja-filters" }, q, sel), rows);
+  }
+
+  // add or remove core members and admins
+  function rolesTab(role) {
+    var isAdminTab = role === "admin";
+    var title = isAdminTab ? "Admins" : "Core Members";
+    var blurb = isAdminTab
+      ? "Admins can approve people, edit anyone and manage these lists. Owners come from the Cloudflare settings and cannot be removed here."
+      : "Core Members can see phone numbers, addresses and pin codes on the year pages when signed in with their Gmail.";
+    var wrap = h("div", { class: "ja-card" }, h("h3", { text: title }), h("p", { class: "ja-muted", text: blurb }));
+    var rows = h("div", { class: "ja-rows ja-roles" });
+    if (isAdminTab) st.owners.forEach(function (e) { rows.appendChild(h("div", { class: "ja-rolerow" }, h("div", null, h("b", { text: e }), h("span", { class: "ja-muted", text: "Owner" })))); });
+    ofRole(role).forEach(function (r) {
+      rows.appendChild(h("div", { class: "ja-rolerow" },
+        h("div", null, h("b", { text: r.email }), r.note ? h("span", { class: "ja-muted", text: r.note }) : null),
+        h("button", { class: "ja-btn ja-danger", type: "button", text: "Remove", onclick: function () {
+          if (confirm("Remove " + r.email + " from " + title + "?")) act("Removing", function () { return api("/api/admin/roles/" + encodeURIComponent(r.email), { method: "DELETE" }).then(function () { return "Removed."; }); });
+        } })));
+    });
+    if (!rows.firstChild) rows.appendChild(h("p", { class: "ja-empty", text: "No one added yet." }));
+    wrap.appendChild(rows);
+    var email = h("input", { class: "ja-input", type: "email", placeholder: "Gmail address", "aria-label": "Gmail address", autocapitalize: "none" });
+    var note = h("input", { class: "ja-input", type: "text", placeholder: "Note (optional)", "aria-label": "Note", maxlength: "120" });
+    var add = h("form", { class: "ja-add", novalidate: true, onsubmit: function (e) {
+      e.preventDefault();
+      var v = email.value.trim();
+      if (!v) return toast("Enter a Gmail address", true);
+      act("Adding", function () { return api("/api/admin/roles", { method: "POST", json: { email: v, role: role, note: note.value } }).then(function () { return v.toLowerCase() + " added."; }); });
+    } }, h("p", { class: "ja-muted", text: "Add a Gmail" }), email, note, h("button", { class: "ja-btn ja-primary", type: "submit", text: "Add" }));
+    wrap.appendChild(add);
+    return wrap;
   }
 
   function editor(id) {
@@ -237,7 +244,7 @@
       var data = {};
       FIELDS.forEach(function (f) { var v = String(form.elements[f[0]].value || "").trim(); if (v) data[f[0]] = v; });
       var email = String(form.elements.__email.value || "").trim();
-      act("Saving", function () { return api("/api/admin/" + m.id, { method: "PUT", json: { email: email, data: data } }).then(function () { return m.status === "approved" ? "Saved. It reaches the site at the next publish." : "Saved."; }); });
+      act("Saving", function () { return api("/api/admin/" + m.id, { method: "PUT", json: { email: email, data: data } }).then(function () { return m.status === "approved" ? "Saved. It is live on the site." : "Saved."; }); });
     } });
     form.appendChild(h("div", { class: "ja-field" }, h("label", { for: "ja-__email", text: "Google email (used to sign in)" }), h("input", { id: "ja-__email", name: "__email", type: "email", value: m.email, class: "ja-input" })));
     FIELDS.forEach(function (f) {
@@ -254,6 +261,7 @@
     form.appendChild(h("div", { class: "ja-actions" },
       h("button", { class: "ja-btn ja-primary", type: "submit", text: "Save" }),
       h("button", { class: "ja-btn", type: "button", text: "Cancel", onclick: function () { st.edit = null; draw(); } }),
+      m.has_prev ? h("button", { class: "ja-btn", type: "button", text: "Undo last edit", onclick: function () { if (confirm("Go back to the version before the last edit?")) act("Undoing", function () { return api("/api/admin/" + m.id + "/undo", { method: "POST" }).then(function () { return "Reverted."; }); }); } }) : null,
       h("button", { class: "ja-btn ja-danger", type: "button", text: "Delete", onclick: function () { if (confirm("Delete " + m.name + " permanently?")) act("Deleting", function () { return api("/api/admin/" + m.id, { method: "DELETE" }).then(function () { return "Deleted."; }); }); } })));
     var img = h("img", { class: "ja-thumb", alt: "", width: "72", height: "72", src: m.photo ? API + "/api/photo/" + m.photo : IMAGES + m.batch + "/" + nameKey(m.name) + ".jpg" });
     img.addEventListener("error", function () { img.hidden = true; });
