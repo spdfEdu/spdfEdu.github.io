@@ -74,7 +74,7 @@
 /* ---------- form redesign: section cards, repeatable rows ---------- */
 .jl-sec{margin:0 0 14px;padding:14px 14px 4px;border:1px solid var(--jb-line,#D5E0EF);border-radius:16px;background:var(--jb-surface2,#F4F8FE)}
 .jl-sec legend{float:left;width:100%;margin:0 0 10px;padding:0;border:0;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--jb-muted,#56667F)}
-.jl-sec legend+*{clear:both}
+.jl-sec legend~*{clear:both}
 .jl-items{display:flex;flex-direction:column;gap:10px;margin:0 0 10px}
 .jl-item{display:grid;grid-template-columns:1fr 1fr;gap:0 10px;padding:12px 12px 2px;border:1px solid var(--jb-line,#D5E0EF);border-radius:12px;background:var(--jb-surface,#fff)}
 .jl-item .jl-field{min-width:0}
