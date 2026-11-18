@@ -34,7 +34,7 @@
       ["PinCode", "Pin code", "text", null, true],
       ["District", "District", "text"],
     ]],
-    ["Education and work", [
+    ["Current status", [
       ["CurrentStatus", "Current status", "text", STATUS],
       ["Institute", "Institute or college", "text"],
       ["HQD", "Highest qualification", "text"],
@@ -66,7 +66,7 @@
     ["WorkList", "Employment history", "Add employment", [["Year", "Year", "2026"], ["Company", "Company name", ""], ["Position", "Position", "", true], ["City", "City", "", true]]],
     ["JnvVisits", "Extracurricular: JNV visits", "Add visit", [["Year", "Year", "2016"], ["Activity", "Activity", "Badminton"], ["JNV", "JNV (District)", "JNV Nadia", true]]]
   ];
-  var AFTER = { "Education and work": [0, 1], "About you": [2] }; // where each list sits
+  var AFTER = { "Current status": [0, 1], "About you": [2] }; // where each list sits
   var MAX_ROWS = 10, uid = 0;
 
   function clean(t) { return String(t || "").replace(/[|~]/g, " ").replace(/\s+/g, " ").trim(); }
