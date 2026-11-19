@@ -9,7 +9,7 @@ const nth = function(d) {
   }
 };
 var year = new Date().getFullYear();
-const addYear = [all[0].Batch-7];
+const addYear = [((typeof BATCH !== "undefined" && BATCH) ? Number(BATCH) : all[0].Batch) - 7];
 let x = Number([addYear]);
 let y = Number([estb]);
 var z = [x-y+1];
