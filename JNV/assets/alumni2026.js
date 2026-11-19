@@ -16,7 +16,7 @@
   var FIRST_BATCH = 2010; // batch 1 passed Class XII in 2010, so 2018 is the 9th batch
   var thisYear = new Date().getFullYear();
 
-  var st = { token: null, batches: null, names: {}, batch: "", pick: null, err: "", me: null, note: "", f: { year: "", att: "", q: "" }, rows: [] };
+  var st = { token: null, batches: null, names: {}, batch: "", q: "", pick: null, err: "", me: null, note: "", f: { year: "", att: "", q: "" }, rows: [] };
 
   /* ---------- helpers ---------- */
   function h(tag, attrs) {
@@ -115,14 +115,15 @@
       h("p", { class: "am-small", text: "(We are also trying to collect the data of the Alumni Members to preserve them in Alumni Association's Database for any future use, so please fill the given Details) Thanks for your Support. \ud83d\ude0a" }));
   }
 
-  // step 1 and 2: batch, then the names of that batch
+  // step 1 and 2: type a name and/or pick a batch, then tap the name
   function picker(note) {
     var card = h("div", { class: "am-card" }, h("h2", { text: "Find your name" }),
-      h("p", { class: "am-muted", text: "1. Select your batch.  2. Tap your name.  3. Sign in with that Gmail." }));
+      h("p", { class: "am-muted", text: "Type your name or pick your batch, tap your name, then sign in with that Gmail." }));
     if (note) card.appendChild(msg(note, "warn"));
-    var sel = h("select", { class: "am-input", "aria-label": "Batch", onchange: function (e) { st.batch = e.target.value; fill(); } }, h("option", { value: "", text: "Select your batch" }));
+    var search = h("input", { class: "am-input", type: "search", placeholder: "Search by name or Gmail", "aria-label": "Search by name or Gmail", autocomplete: "off", value: st.q || "", oninput: function (e) { st.q = e.target.value; fill(); } });
+    var sel = h("select", { class: "am-input", "aria-label": "Batch", onchange: function (e) { st.batch = e.target.value; fill(); } }, h("option", { value: "", text: "All batches" }));
     var list = h("div", { class: "am-list" });
-    card.appendChild(sel); card.appendChild(list);
+    card.appendChild(h("div", { class: "am-filters2" }, search, sel)); card.appendChild(list);
     function years() { var a = []; for (var y = FIRST_BATCH; y <= thisYear + 1; y++) a.push({ batch: y }); return a; }
     function options(b) { b.forEach(function (x) { sel.appendChild(h("option", { value: String(x.batch), text: "Batch " + batchLabel(x.batch), selected: String(x.batch) === st.batch })); }); }
     if (st.batches) options(st.batches);
@@ -133,20 +134,23 @@
     }
     function draw(names) {
       list.textContent = "";
-      names.forEach(function (n) {
-        list.appendChild(h("button", { class: "am-name", type: "button", onclick: function () { st.pick = { name: n.name, email: n.email, batch: st.batch }; signIn(); } },
-          h("b", { text: n.name }), h("span", { class: n.email ? "" : "am-dim", text: n.email || "Gmail not linked yet" })));
+      var q = (st.q || "").toLowerCase().trim();
+      var l = names.filter(function (n) { return !q || (n.name + " " + n.email).toLowerCase().indexOf(q) >= 0; });
+      l.slice(0, 60).forEach(function (n) {
+        list.appendChild(h("button", { class: "am-name", type: "button", onclick: function () { st.pick = { name: n.name, email: n.email, batch: String(n.batch) }; signIn(); } },
+          h("b", { text: n.name }), st.batch ? null : h("span", { text: "Batch " + batchLabel(n.batch) }), h("span", { class: n.email ? "" : "am-dim", text: n.email || "Gmail not linked yet" })));
       });
-      if (!names.length) list.appendChild(h("p", { class: "am-empty", text: "No names listed for this batch yet." }));
+      if (l.length > 60) list.appendChild(h("p", { class: "am-empty", text: (l.length - 60) + " more. Type more of the name or pick a batch." }));
+      if (!l.length) list.appendChild(h("p", { class: "am-empty", text: "No match." }));
       list.appendChild(regBar());
     }
     function fill() {
       list.textContent = "";
-      if (!st.batch) return;
-      if (st.names[st.batch]) return draw(st.names[st.batch]);
+      if (!st.batch && !(st.q || "").trim()) { list.appendChild(h("p", { class: "am-empty", text: "Type a name, or pick a batch, to see the names." })); list.appendChild(regBar()); return; }
+      var key = st.batch || "all";
+      if (st.names[key]) return draw(st.names[key]);
       list.appendChild(h("p", { class: "am-empty", text: "Loading names..." }));
-      var asked = st.batch;
-      api("/api/meet/names/" + asked).then(function (r) { st.names[asked] = r.names; if (st.batch === asked) draw(r.names); },
+      api(st.batch ? "/api/meet/names/" + st.batch : "/api/meet/names").then(function (r) { st.names[key] = r.names; if ((st.batch || "all") === key) draw(r.names); },
         function (e) { list.textContent = ""; list.appendChild(msg(e.message, "bad")); list.appendChild(regBar()); });
     }
     fill();
