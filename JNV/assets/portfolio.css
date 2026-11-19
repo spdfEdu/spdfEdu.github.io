@@ -195,6 +195,6 @@ h2.naming{font-weight:500;margin:0;padding:0;color:var(--jb-text)}
 .chip-role{border-color:var(--jb-gold);background:var(--jb-gold);color:var(--jb-gold-ink,#3A2A05);font-weight:700}
 
 /* year badge: rounded box, "Present" on its own line; highest qualification chip */
-.yr{min-width:80px;height:auto;min-height:30px;padding:5px 10px;border-radius:14px;line-height:1.25;text-align:center;white-space:nowrap}
-.yr2{flex-direction:column}
+.tl .yr{align-self:flex-start;box-sizing:border-box;width:84px;min-width:84px;height:auto;min-height:28px;margin-top:1px;padding:4px 10px;border-radius:999px;line-height:1.25;text-align:center;white-space:nowrap}
+.tl .yr2{flex-direction:column;gap:0;padding:3px 10px;border-radius:14px}
 .hq{display:inline-block;margin-top:6px;padding:3px 10px;border-radius:999px;background:var(--jb-gold);color:var(--jb-gold-ink,#3A2A05);font-size:12px;font-weight:700}
