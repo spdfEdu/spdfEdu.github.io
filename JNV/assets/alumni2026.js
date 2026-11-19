@@ -193,7 +193,7 @@
   function formScreen() {
     var me = st.me, r = me.response || {}, m = me.member || {}, p = st.pick || {};
     function pre(k, alt) { var v = r[k] !== undefined && r[k] !== "" ? r[k] : (m[k] !== undefined && m[k] !== "" ? m[k] : alt); return v === undefined || v === null ? "" : String(v); }
-    var v = { Name: pre("Name", p.name || me.user.name), Batch: pre("Batch", p.batch), Phone: pre("Phone", ""), CurrentStatus: pre("CurrentStatus", ""), Institute: pre("Institute", "") };
+    var v = { Name: pre("Name", p.name || me.user.name), Batch: pre("Batch", p.batch), Phone: pre("Phone", ""), CurrentStatus: pre("CurrentStatus", "") };
     var tshirtOther = r.Tshirt && SIZES.indexOf(r.Tshirt) < 0, mentorOther = r.Mentor && r.Mentor !== "Yes" && r.Mentor !== "No";
 
     var batchSel = h("select", { id: "am-Batch", name: "Batch", class: "am-input" }, h("option", { value: "", text: "Select your batch" }));
@@ -205,8 +205,8 @@
     statusSel.value = v.CurrentStatus;
 
     var more = h("div", { class: "am-more" }), countBox = h("div", { class: "am-field" });
-    var tshirtText = h("input", { class: "am-input", name: "TshirtOther", type: "text", maxlength: "20", placeholder: "Your size", "aria-label": "Other T-shirt size", value: tshirtOther ? r.Tshirt : "" });
-    var mentorText = h("input", { class: "am-input", name: "MentorOther", type: "text", maxlength: "80", placeholder: "Tell us more", "aria-label": "Other answer", value: mentorOther ? r.Mentor : "" });
+    var tshirtText = h("input", { class: "am-input", name: "TshirtOther", type: "text", maxlength: "20", placeholder: "eg. 3XL", "aria-label": "Other T-shirt size", value: tshirtOther ? r.Tshirt : "" });
+    var mentorText = h("input", { class: "am-input", name: "MentorOther", type: "text", maxlength: "80", placeholder: "eg. I can guide students on career choices", "aria-label": "Other answer", value: mentorOther ? r.Mentor : "" });
     var count = h("input", { id: "am-CompanionCount", name: "CompanionCount", class: "am-input", type: "number", min: "1", max: "10", inputmode: "numeric", value: r.CompanionCount ? String(r.CompanionCount) : "" });
     countBox.appendChild(h("label", { for: "am-CompanionCount", text: "How many people will accompany you?" })); countBox.appendChild(count);
 
@@ -232,7 +232,7 @@
     var form = h("form", { class: "am-form", novalidate: true, onsubmit: function (e) {
       e.preventDefault();
       var f = form.elements, d = {
-        Name: f.Name.value, Batch: f.Batch.value, Phone: f.Phone.value, CurrentStatus: f.CurrentStatus.value, Institute: f.Institute.value, Attend: f.Attend.value,
+        Name: f.Name.value, Batch: f.Batch.value, Phone: f.Phone.value, CurrentStatus: f.CurrentStatus.value, Attend: f.Attend.value,
         Companions: f.Companions.value, CompanionCount: f.CompanionCount.value, Breakfast: f.Breakfast.value, Lunch: f.Lunch.value,
         Tshirt: f.Tshirt.value === "Other" ? f.TshirtOther.value : f.Tshirt.value, Mentor: f.Mentor.value === "Other" ? f.MentorOther.value : f.Mentor.value
       };
@@ -241,12 +241,11 @@
         .catch(function (err) { button.disabled = false; button.textContent = "Save and Next"; if (err.message !== "expired") { note.textContent = ""; note.appendChild(msg(err.message, "bad")); note.scrollIntoView({ block: "center" }); } });
     } },
       h("div", { class: "am-card" }, h("h2", { text: "Your details" }),
-        field("am-Name", "Name", h("input", { id: "am-Name", name: "Name", class: "am-input", type: "text", maxlength: "80", autocomplete: "name", readonly: !!m.locked, value: v.Name }), m.locked ? "Your name and batch come from your alumni profile." : null),
+        field("am-Name", "Name", h("input", { id: "am-Name", name: "Name", class: "am-input", type: "text", maxlength: "80", autocomplete: "name", placeholder: "eg. Mobayea Biswas", readonly: !!m.locked, value: v.Name }), m.locked ? "Your name and batch come from your alumni profile." : null),
         field("am-Batch", "Batch", batchSel),
         field("am-Gmail", "Gmail (from your sign-in)", h("input", { id: "am-Gmail", class: "am-input", type: "email", readonly: true, value: me.user.email })),
-        field("am-Phone", "Phone number", h("input", { id: "am-Phone", name: "Phone", class: "am-input", type: "tel", inputmode: "tel", autocomplete: "tel", placeholder: "10 digit mobile number", value: v.Phone })),
-        field("am-CurrentStatus", "Current status", statusSel),
-        field("am-Institute", "Name of college, company or preparation course", h("input", { id: "am-Institute", name: "Institute", class: "am-input", type: "text", maxlength: "160", value: v.Institute }))),
+        field("am-Phone", "Phone number", h("input", { id: "am-Phone", name: "Phone", class: "am-input", type: "tel", inputmode: "tel", autocomplete: "tel", placeholder: "eg. 9876543210", value: v.Phone })),
+        field("am-CurrentStatus", "Current status", statusSel)),
       h("div", { class: "am-card" }, h("h2", { text: "Alumni Meet 2026" }),
         group("Attend", "Will you attend the Alumni Meet? (on 26th December 2026)", ["Yes", "No"], r.Attend || "", sync), more),
       note, button);
