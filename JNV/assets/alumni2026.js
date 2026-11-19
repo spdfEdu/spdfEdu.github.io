@@ -228,7 +228,7 @@
     more.appendChild(mentorText);
 
     var note = h("div", { id: "am-note" }, st.note ? msg(st.note, "ok") : null); st.note = "";
-    var button = h("button", { class: "am-btn am-primary", type: "submit", text: me.response ? "Update my response" : "Submit" });
+    var button = h("button", { class: "am-btn am-primary", type: "submit", text: "Save and Next" });
     var form = h("form", { class: "am-form", novalidate: true, onsubmit: function (e) {
       e.preventDefault();
       var f = form.elements, d = {
@@ -237,8 +237,8 @@
         Tshirt: f.Tshirt.value === "Other" ? f.TshirtOther.value : f.Tshirt.value, Mentor: f.Mentor.value === "Other" ? f.MentorOther.value : f.Mentor.value
       };
       note.textContent = ""; button.disabled = true; button.textContent = "Saving...";
-      api("/api/meet/me", { method: "PUT", auth: true, json: { data: d } }).then(function (res) { st.note = res.message; return api("/api/meet/me", { auth: true }).then(function (me2) { st.me = me2; formScreen(); }); })
-        .catch(function (err) { button.disabled = false; button.textContent = me.response ? "Update my response" : "Submit"; if (err.message !== "expired") { note.textContent = ""; note.appendChild(msg(err.message, "bad")); note.scrollIntoView({ block: "center" }); } });
+      api("/api/meet/me", { method: "PUT", auth: true, json: { data: d } }).then(function (res) { button.textContent = "Saved. Opening your profile..."; note.textContent = ""; note.appendChild(msg(res.message, "ok")); setTimeout(function () { location.href = LOGIN; }, 900); })
+        .catch(function (err) { button.disabled = false; button.textContent = "Save and Next"; if (err.message !== "expired") { note.textContent = ""; note.appendChild(msg(err.message, "bad")); note.scrollIntoView({ block: "center" }); } });
     } },
       h("div", { class: "am-card" }, h("h2", { text: "Your details" }),
         field("am-Name", "Name", h("input", { id: "am-Name", name: "Name", class: "am-input", type: "text", maxlength: "80", autocomplete: "name", readonly: !!m.locked, value: v.Name }), m.locked ? "Your name and batch come from your alumni profile." : null),
@@ -252,8 +252,7 @@
       note, button);
     var extra = me.canView ? h("a", { class: "am-viewbtn", href: RESPONSES, text: "View Responses" }) : null;
     var wrap = h("div", null, topBar(me.user.email, extra),
-      me.response ? msg("You have already responded. You can change your answers below.", "ok") : null, form,
-      h("p", { class: "am-foot" }, "Want your full alumni profile on the website too? ", h("a", { href: LOGIN, text: "Update your profile" }), "."));
+      me.response ? msg("You have already responded. You can change your answers below.", "ok") : null, form);
     show(wrap); sync(); toMain();
   }
 
