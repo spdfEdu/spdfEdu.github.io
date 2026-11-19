@@ -198,3 +198,9 @@ h2.naming{font-weight:500;margin:0;padding:0;color:var(--jb-text)}
 .tl .yr{align-self:flex-start;box-sizing:border-box;width:84px;min-width:84px;height:auto;min-height:28px;margin-top:1px;padding:4px 10px;border-radius:999px;line-height:1.25;text-align:center;white-space:nowrap}
 .tl .yr2{flex-direction:column;gap:0;padding:3px 10px;border-radius:14px}
 .hq{display:inline-block;margin-top:6px;padding:3px 10px;border-radius:999px;background:var(--jb-gold);color:var(--jb-gold-ink,#3A2A05);font-size:12px;font-weight:700}
+
+/* big "Sign in with Google" button on the profile card */
+.gsign{display:flex;align-items:center;gap:12px;margin:8px auto 0;padding:4px 24px 4px 4px;border:0;border-radius:999px;background:#1a73e8;color:#fff;font:600 16px Roboto,Arial,sans-serif;cursor:pointer;box-shadow:0 2px 8px rgba(26,115,232,.35)}
+.gsign:hover{background:#1765cc}
+.gsign:focus-visible{outline:3px solid var(--jb-gold);outline-offset:2px}
+.gsign-ic{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#fff}
