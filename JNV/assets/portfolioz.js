@@ -53,5 +53,12 @@
     }
   }).catch(function () {
     try { var c = JSON.parse(localStorage.getItem(cacheKey)); if (c && c.length) use(c, "public"); } catch (e) {}
+  }).then(function () {
+    // who is signed in (used to mark their own profile and show Edit)
+    if (!tok) return;
+    return fetch(API + "/api/me", { headers: { Authorization: "Bearer " + tok } })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { if (j) window.JNV_ME = j; })
+      .catch(function () {});
   }).then(startPage);
 })();
