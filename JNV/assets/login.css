@@ -83,3 +83,49 @@
 .jl-add{margin:0 0 12px}
 .jl-form:not(.jl-editing) .jl-add,.jl-form:not(.jl-editing) .jl-rm{display:none}
 .jl-list .jl-muted{margin:0 0 12px}
+
+/* ---------- livelier form: colourful section cards, bigger headings ---------- */
+#jnv-login [hidden]{display:none!important}
+.jl-card{border-radius:22px;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+.jl-form{--c1:#4FA3F5;--c2:#E6B84A;--c3:#4cc38a;--c4:#f472b6;--c5:#a78bfa;--c6:#fb923c}
+.jl-form>.jl-sec{--sec:var(--c1);position:relative;margin:0 0 18px;padding:18px 14px 8px 18px;border:1px solid var(--jb-line,#D5E0EF);border-radius:20px;background:linear-gradient(180deg,color-mix(in srgb,var(--sec) 12%,var(--jb-surface2,#EAF1FB)) 0,var(--jb-surface2,#EAF1FB) 90px);overflow:hidden}
+.jl-form>.jl-sec::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--sec)}
+.jl-form>.jl-sec:nth-of-type(6n+2){--sec:var(--c2)}
+.jl-form>.jl-sec:nth-of-type(6n+3){--sec:var(--c3)}
+.jl-form>.jl-sec:nth-of-type(6n+4){--sec:var(--c4)}
+.jl-form>.jl-sec:nth-of-type(6n+5){--sec:var(--c5)}
+.jl-form>.jl-sec:nth-of-type(6n+6){--sec:var(--c6)}
+.jl-form>.jl-sec legend{float:left;width:100%;margin:0 0 14px;padding:0;border:0;font-size:21px;font-weight:800;line-height:1.25;letter-spacing:.01em;text-transform:none;color:var(--sec)}
+.jl-form>.jl-sec legend::before{content:attr(data-ico);margin-right:8px;font-size:20px}
+.jl-form>.jl-sec legend~*{clear:both}
+.jl-field label{font-size:13px;font-weight:600;color:var(--jb-text,#0E1B36);opacity:.85}
+.jl-editing .jl-field input,.jl-editing .jl-field select,.jl-editing .jl-field textarea{border-radius:12px;background-color:var(--jb-surface,#fff);transition:border-color .15s,box-shadow .15s}
+.jl-editing .jl-field input:focus,.jl-editing .jl-field select:focus,.jl-editing .jl-field textarea:focus{outline:0;border-color:var(--sec,var(--jb-accent,#1B6BB8));box-shadow:0 0 0 3px color-mix(in srgb,var(--sec,#1B6BB8) 30%,transparent)}
+.jl-field input::placeholder,.jl-field textarea::placeholder{color:var(--jb-muted,#56667F);opacity:.7;font-style:italic}
+.jl-btn.jl-primary{background:linear-gradient(135deg,var(--jb-accent,#4FA3F5),#3b82f6);border-color:transparent;color:#fff}
+
+/* list rows */
+.jl-form .jl-item{border-radius:14px;border-color:color-mix(in srgb,var(--sec,#4FA3F5) 35%,var(--jb-line,#D5E0EF))}
+.jl-item select{width:100%}
+.jl-fixedhead{display:flex;flex-direction:column;gap:2px;margin:0 0 10px}
+.jl-fixedhead b{font-size:17px;color:var(--jb-text,#0E1B36)}
+.jl-fixedhead span{font-size:13px;color:var(--jb-muted,#56667F)}
+.jl-fixed{border-width:2px}
+.jl-hq{display:flex;align-items:center;gap:10px;margin:2px 0 12px;padding:10px 12px;border:1px dashed var(--jb-line,#D5E0EF);border-radius:12px;font-size:14px;font-weight:600;cursor:pointer}
+.jl-hq input{width:20px;height:20px;margin:0;accent-color:var(--jb-gold,#E6B84A)}
+.jl-hq:has(input:checked){border:1px solid var(--jb-gold,#E6B84A);background:color-mix(in srgb,var(--jb-gold,#E6B84A) 18%,transparent)}
+.jl-hqbadge{display:inline-block;justify-self:start;margin:0 0 10px;padding:4px 12px;border-radius:999px;background:var(--jb-gold,#E6B84A);color:var(--jb-gold-ink,#3A2A05);font-size:12px;font-weight:700}
+.jl-addmore{margin:0 0 12px}
+.jl-more{margin:0}
+
+/* go to profile, top of the page */
+.jl-profilebtn{display:flex;align-items:center;justify-content:center;width:100%;margin:0 0 14px;background:linear-gradient(135deg,var(--jb-gold,#E6B84A),#f59e0b);border-color:transparent;color:var(--jb-gold-ink,#3A2A05)!important;font-weight:800;text-decoration:none}
+
+/* save-before-leaving dialog */
+.jl-modal{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(5,9,20,.65)}
+.jl-dialog{width:100%;max-width:360px;padding:22px 18px 18px;border:1px solid var(--jb-line,#D5E0EF);border-radius:20px;background:var(--jb-surface,#fff);color:var(--jb-text,#0E1B36);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.jl-dialog h3{margin:0 0 6px;font-size:20px;color:var(--jb-text,#0E1B36)}
+.jl-dialog p{margin:0 0 16px;font-size:14px;color:var(--jb-muted,#56667F)}
+.jl-dactions{display:flex;flex-direction:column;gap:8px}
+.jl-dactions .jl-btn{width:100%}
+.jl-ghost{background:none}
