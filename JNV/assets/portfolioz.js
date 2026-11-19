@@ -7,7 +7,7 @@
   var me = document.currentScript;
   var base = me && me.src ? me.src.replace(/[^\/]*$/, "") : "";
 
-  var year = (typeof all !== "undefined" && all[0] && all[0].Batch) || ((location.pathname.match(/(\d{4})/) || [])[1]);
+  var year = (typeof BATCH !== "undefined" && BATCH) || (typeof all !== "undefined" && all[0] && all[0].Batch) || ((location.pathname.match(/(\d{4})/) || [])[1]);
   var cacheKey = "jnv-cache-" + year;
 
   function token() {
@@ -35,6 +35,11 @@
   function startPage() {
     var s = document.createElement("script");
     s.src = base + "portfolioz_core.js";
+    // the profiles are built after the page has loaded, so open a linked profile (#Name) ourselves
+    s.onload = function () {
+      var h = location.hash;
+      if (h && h.length > 1) { history.replaceState(null, "", location.pathname + location.search); location.hash = h; }
+    };
     document.body.appendChild(s);
   }
 
