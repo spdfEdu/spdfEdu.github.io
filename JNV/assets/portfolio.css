@@ -119,16 +119,6 @@ h2.naming{font-weight:500;margin:0;padding:0;color:var(--jb-text)}
 .form-link{display:block;margin:0;padding:10px 8px;text-align:center;text-decoration:none;font-size:13px;font-weight:600;color:var(--jb-text);background:var(--jb-surface)}
 .imgBox{height:100%;width:100%;z-index:2000}
 
-/* ---------- sign in / register bar ---------- */
-.jn-bar{max-width:680px;margin:0 auto 14px;display:flex;flex-direction:column;border:1px solid var(--jb-line);border-radius:14px;background:var(--jb-surface);overflow:hidden}
-.jn-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;text-decoration:none;color:var(--jb-text)!important}
-.jn-row+.jn-row{border-top:1px solid var(--jb-line)}
-.jn-row:hover{background:var(--jb-surface2)}
-.jn-tx{display:flex;flex-direction:column;min-width:0}
-.jn-tx b{font-size:15px;font-weight:600;color:var(--jb-text)}
-.jn-tx small{font-size:13px;color:var(--jb-muted)}
-.jn-go{flex:none;padding:8px 16px;border-radius:999px;background:var(--jb-accent);color:#fff;font-size:13px;font-weight:600}
-.jn-row+.jn-row .jn-go{background:var(--jb-surface2);color:var(--jb-accent);border:1px solid var(--jb-accent)}
 /* one border only around the batch card */
 .batch-page #upper{border:0;box-shadow:none;background:none;padding:0}
 .batch-card .tc{border:0;box-shadow:none;background:none;padding:0}
@@ -187,3 +177,19 @@ h2.naming{font-weight:500;margin:0;padding:0;color:var(--jb-text)}
 .hero .hero-name{position:static;color:var(--jb-text)!important;text-shadow:none;background:none}
 .yr{flex:none;min-width:58px;height:28px;padding:0 10px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--jb-accent);border-radius:999px;background:var(--jb-surface2);color:var(--jb-accent);font-size:13px;font-weight:600}
 .tl .tl-t{line-height:1.35}
+
+/* Google sign-in, signed-in state, role tag */
+.hero{position:relative}
+.gbtn{position:absolute;top:12px;right:12px;display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid var(--jb-line);border-radius:50%;background:#fff;cursor:pointer}
+.gbtn:hover{box-shadow:0 0 0 3px var(--jb-accent)}
+.gs-box{width:100%;margin-top:10px;padding:14px;border:1px solid var(--jb-line);border-radius:14px;background:var(--jb-surface2)}
+.gs-box[hidden]{display:none}
+.gs-t{margin:0 0 10px;font-size:14px;color:var(--jb-muted);overflow-wrap:anywhere}
+.gs-t b{color:var(--jb-text)}
+.gs-btn{display:flex;justify-content:center;min-height:44px}
+.gs-err{margin:10px 0 0;padding:8px 10px;border-left:4px solid #d64545;border-radius:8px;background:var(--jb-surface);font-size:13px;color:var(--jb-text)}
+.hero-me{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+.me-on{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#4cc38a}
+.me-on::before{content:"";width:8px;height:8px;border-radius:50%;background:#4cc38a}
+.me-edit{display:inline-block;padding:8px 16px;border-radius:999px;background:var(--jb-accent);color:#fff!important;font-size:13px;font-weight:700;text-decoration:none}
+.chip-role{border-color:var(--jb-gold);background:var(--jb-gold);color:var(--jb-gold-ink,#3A2A05);font-weight:700}
