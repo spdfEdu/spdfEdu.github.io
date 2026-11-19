@@ -100,15 +100,7 @@ function createProfile(ele,i) {
   ${ripDiv(ele.rip)}
   ${aboutCard(ele.Bio)}
   ${factsHtml(ele)}
-  <div class="card" ${styDisplay(ele.CurrentStatus, ele.HQD, ele.Institute || ele.Company)}>
-    <h3>Current Status</h3>
-<p class="info" ${styDisplay(ele.CurrentStatus)}>
-<span class="qes">Current Status :</span><span class="ans">${ele.CurrentStatus}</span></p>
-
- <p class="info" ${styDisplay(ele.HQD)}><span class="qes">Highest Qualification Degree :</span><br><span class="ans">${ele.HQD}</span></p>
-
-<p class="info" ${styDisplay(ele.Institute || ele.Company)}><span class="qes">Institution :</span><span class="ans">${ele.Institute || ele.Company}</span></p>
-</div>
+  ${card("Current Status", ele.CurrentStatus ? `<p class="para">${esc(ele.CurrentStatus)}</p>` : "")}
   ${workCard(ele.WorkList)}
   ${eduCard(ele.EduList)}
   ${listCard("Achievements", ele.Achievements)}
@@ -168,7 +160,7 @@ function heroHtml(ele, photoSrc) {
   var pic = `<img class="coverP" loading="lazy" src="${esc(photoSrc)}" onerror="this.style.display='none'" alt="">`;
   var big = ele.photo || (ele.ppl ? "https://lh3.googleusercontent.com/d/" + ele.ppl : "");
   if (big) pic = `<a href="${esc(big)}" target="_blank" rel="noopener">${pic}</a>`;
-  var sub = [ele.CurrentStatus, ele.Institute].filter(Boolean).map(esc).join(" · ");
+  var sub = [ele.CurrentStatus, hqOf(ele)].filter(Boolean).map(esc).join(" · ");
   var own = isOwn(ele), tag = ele.tag || (own && window.JNV_ME.role ? ({ owner: "Admin", admin: "Admin", core: "Core Member" })[window.JNV_ME.role] : "");
   var chips = (tag ? `<span class="chip chip-role">${esc(tag)}</span>` : "") +
     [`Batch ${batch}`, ele.House ? ele.House + " House" : "", ele.City].filter(Boolean).map(function(c) { return `<span class="chip">${esc(c)}</span>`; }).join("");
@@ -202,26 +194,53 @@ function listCard(title, t) {
   var l = String(t || "").split("~").map(function(c) { return c.trim(); }).filter(Boolean);
   return card(title, l.map(function(c) { return `<div class="tl"><i class="dot"></i><div><p class="tl-t">${esc(c)}</p></div></div>`; }).join(""));
 }
+// older saves had one "year" column: education year|course|institute|city, work year|company|position|city
+function normEdu(r) { return r.length >= 6 ? r : ["", r[0] || "", r[1] || "", r[2] || "", r[3] || "", ""]; }
+function normWork(r) { return r.length >= 5 ? r : ["", r[0] || "", r[1] || "", r[2] || "", r[3] || ""]; }
+function hqOf(ele) { // the course marked as the highest qualification
+  var rows = rowsOf(ele.EduList).map(normEdu);
+  for (var i = 0; i < rows.length; i++) if (rows[i][5] === "1") return rows[i][2] || rows[i][3] || "";
+  return "";
+}
+function endOf(r) { return r[1] === "Present" ? 9999 : (parseInt(r[1], 10) || parseInt(r[0], 10) || 0); }
+function newestFirst(a, b) { return endOf(b) - endOf(a) || (parseInt(b[0], 10) || 0) - (parseInt(a[0], 10) || 0); }
+function yrBadge(from, to) {
+  from = String(from || "").trim(); to = String(to || "").trim();
+  if (to === "Present") return `<span class="yr yr2">${from ? `<span>${esc(from)} -</span>` : ""}<span>Present</span></span>`; // "Present" on its own line keeps it narrow on phones
+  var t;
+  if (from && to && from !== to) t = from + " - " + to.slice(-2);
+  else if (from && !to) t = from + " -";
+  else t = from || to;
+  return `<span class="yr">${esc(t || "-")}</span>`;
+}
 function timeline(title, rows, mk) {
   return card(title, rows.map(function(r) {
     var o = mk(r);
-    return `<div class="tl"><span class="yr">${esc(o.y || "-")}</span><div><p class="tl-t">${esc(o.t)}</p>${o.s ? `<p class="tl-s">${esc(o.s)}</p>` : ""}</div></div>`;
+    return `<div class="tl">${o.badge}<div><p class="tl-t">${esc(o.t)}</p>${o.s ? `<p class="tl-s">${esc(o.s)}</p>` : ""}${o.extra || ""}</div></div>`;
   }).join(""));
 }
 function place(a, b, c) { // bold line "A \u2022 B", second line c; falls back to c alone
   var t = [a, b].filter(Boolean).join(" \u2022 ");
   return t ? { t: t, s: c } : { t: c || "", s: "" };
 }
-function eduCard(t) { // year | course | institute | city
-  return timeline("Education history", rowsOf(t).sort(newest), function(r) { var o = place(r[2], r[3], r[1]); o.y = r[0]; return o; });
+function oneLine(x) { return String(x || "").replace(/\s+/g, " ").trim(); }
+function eduCard(t) { // from | to | course | institute | city | highest
+  var rows = rowsOf(t).map(normEdu).sort(newestFirst);
+  return timeline("Education history", rows, function(r) {
+    var o = place(r[3], r[4], r[2]);
+    o.badge = yrBadge(r[0], r[1]);
+    if (r[5] === "1") o.extra = `<span class="hq">Highest qualification</span>`;
+    return o;
+  });
 }
-function workCard(t) { // year | company | position | city
-  return timeline("Employment history", rowsOf(t).sort(newest), function(r) { var o = place(r[1], r[3], r[2]); o.y = r[0]; return o; });
+function workCard(t) { // from | to | place of work | position | city
+  var rows = rowsOf(t).map(normWork).sort(newestFirst);
+  return timeline("Employment history", rows, function(r) { var o = place(oneLine(r[2]), r[4], r[3]); o.badge = yrBadge(r[0], r[1]); return o; });
 }
-function visitCard(t) { // year | JNV (district) | activity
+function visitCard(t) { // year | activity | JNV (district)
   var rows = rowsOf(t).sort(newest);
   return card("Extracurricular: JNV visits", rows.length ? `<div class="tiles">${rows.map(function(r) {
-    return `<div class="tile"><b>${esc(r[2] || "Activity")}</b><span>${esc(r[1] || "")}</span><span>${esc(r[0] || "")}</span></div>`;
+    return `<div class="tile"><b>${esc(r[1] || "Activity")}</b><span>${esc(r[2] || "")}</span><span>${esc(r[0] || "")}</span></div>`;
   }).join("")}</div>` : "");
 }
 function memoCard(t) { return t ? card("Favourite memories of Navodaya", `<blockquote class="memo">${esc(t).replace(/\n/g, "<br>")}</blockquote>`) : ""; }
