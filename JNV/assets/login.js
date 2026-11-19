@@ -14,7 +14,21 @@
   var thisYear = new Date().getFullYear();
   var YEARS = []; for (var yr = 2010; yr <= thisYear + 1; yr++) YEARS.push(String(yr));
 
-  // [key, label, type, options, private]
+  // placeholders always start with "eg." so nobody mistakes them for saved values
+  var PH = {
+    Name: "eg. Mobayea Biswas", City: "eg. Kolkata", Phone: "eg. 9876543210", Phone2: "eg. 9876543210", EmailId: "eg. name@gmail.com",
+    Address: "eg. House no., street, village or town", PinCode: "eg. 742202", District: "eg. Murshidabad",
+    fb: "eg. username or https://facebook.com/username", insta: "eg. username",
+    linkedin: "eg. https://linkedin.com/in/username", twitter: "eg. username", youtube: "eg. https://youtube.com/@channel",
+    Bio: "eg. A few lines about you, your work and your interests...", Skills: "eg. Teaching, Python, Photography", Languages: "eg. Bengali, English, Hindi",
+    Achievements: "eg. Gold medal in Class XII\nState level badminton player", Memories: "eg. Evening prayers, midnight tiffin with friends, the day we won the inter-house cup..."
+  };
+  var ICON = {
+    "Personal": "\ud83d\udc64", "Contact": "\ud83d\udcde", "Address": "\ud83d\udccd", "Current status": "\ud83c\udfaf", "Education history": "\ud83c\udf93",
+    "Employment history": "\ud83d\udcbc", "Extracurricular: JNV visits": "\ud83c\udfc5", "Social": "\ud83d\udd17", "About you": "\u2728"
+  };
+
+  // [key, label, type, options, private, mode, max length]   mode: "lines" (one per line, saved with ~) or "more" (hidden behind Add more)
   var SECTIONS = [
     ["Personal", [
       ["Name", "Full name", "text"],
@@ -36,15 +50,13 @@
     ]],
     ["Current status", [
       ["CurrentStatus", "Current status", "select", STATUS],
-      ["Institute", "Name of college, company or preparation course", "text"],
-      ["HQD", "Highest qualification", "text"],
     ]],
     ["Social", [
       ["fb", "Facebook (username or link)", "text"],
       ["insta", "Instagram (username or link)", "text"],
-      ["linkedin", "LinkedIn (link)", "text"],
-      ["twitter", "X (username)", "text"],
-      ["youtube", "YouTube (link)", "text"],
+      ["linkedin", "LinkedIn (link)", "text", null, false, "more"],
+      ["twitter", "X (username)", "text", null, false, "more"],
+      ["youtube", "YouTube (link)", "text", null, false, "more"],
     ]],
     ["About you", [
       ["Bio", "A few lines about you", "textarea"],
@@ -56,52 +68,112 @@
   ];
 
   // Repeatable lists. Saved as one text value: rows joined by "~", columns by "|".
-  // [key, title, add label, [[column, label, placeholder, wide]]]
+  // education: from|to|course|institute|city|highest   work: from|to|place|position|city   visits: year|activity|jnv
+  // cols: [key, label, placeholder, kind, options, wide]
+  var JNV = "JNV Murshidabad", JNV_CITY = "Berhampore", FIRST_YEAR = 1990;
+  function span(top, low) { var o = []; for (var y = top; y >= low; y--) o.push(String(y)); return o; }
   var LISTS = [
-    ["EduList", "Education history", "Add education", [["Year", "Year", "2025"], ["Course", "Course", "MBBS"], ["Institute", "Institute name", "", true], ["City", "City", "", true]]],
-    ["WorkList", "Employment history", "Add employment", [["Year", "Year", "2026"], ["Company", "Company name", ""], ["Position", "Position", "", true], ["City", "City", "", true]]],
-    ["JnvVisits", "Extracurricular: JNV visits", "Add visit", [["Year", "Year", "2016"], ["Activity", "Activity", "Badminton"], ["JNV", "JNV (District)", "JNV Nadia", true]]]
+    { key: "EduList", title: "Education history", add: "Add education", hq: true, jnv: true, cols: [
+      ["From", "From", "", "year", span(thisYear, FIRST_YEAR)], ["To", "To", "", "year", span(thisYear + 8, FIRST_YEAR)],
+      ["Course", "Course", "eg. MBBS, B.Tech in Electrical Engineering", "text", null, true],
+      ["Institute", "Institute name", "eg. RG Kar Medical College", "text", null, true],
+      ["City", "City", "eg. Kolkata", "text", null, true]] },
+    { key: "WorkList", title: "Employment history", add: "Add employment", cols: [
+      ["From", "From", "", "year", span(thisYear, FIRST_YEAR)], ["To", "To", "", "year", ["Present"].concat(span(thisYear, FIRST_YEAR))],
+      ["Place", "Place of Work", "eg. Company name...", "area", null, true],
+      ["Position", "Position", "eg. Software Engineer", "text", null, true],
+      ["City", "City", "eg. Kolkata", "text", null, true]] },
+    { key: "JnvVisits", title: "Extracurricular: JNV visits", add: "Add visit", cols: [
+      ["Year", "Year", "", "year", span(thisYear, FIRST_YEAR)], ["Activity", "Activity", "eg. Badminton", "text"],
+      ["JNV", "JNV (District)", "eg. JNV Nadia", "text", null, true]] }
   ];
-  var AFTER = { "Current status": [0, 1], "About you": [2] }; // where each list sits
+  var AFTER = { "Current status": [0, 1, 2] }; // where each list sits: education, employment, then the JNV visits
   var MAX_ROWS = 10, uid = 0;
-  var KEEP_OLD = ["Employment", "Occupation", "Company", "WorkCity"]; // no longer on the form; saved as they are
+  var KEEP_OLD = ["Employment", "Occupation", "Company", "WorkCity", "Institute", "HQD"]; // no longer on the form; saved as they are
 
   function clean(t) { return String(t || "").replace(/[|~]/g, " ").replace(/\s+/g, " ").trim(); }
   function parseRows(t) { return t ? String(t).split("~").map(function (r) { return r.split("|"); }) : []; }
-  function readList(box) {
-    var rows = [];
+  // older saves had one "year" column: education year|course|institute|city, work year|company|position|city
+  function normEdu(r) { return r.length >= 6 ? r : ["", r[0] || "", r[1] || "", r[2] || "", r[3] || "", ""]; }
+  function normWork(r) { return r.length >= 5 ? r : ["", r[0] || "", r[1] || "", r[2] || "", r[3] || ""]; }
+  function rowsOf(def, val) {
+    var rows = parseRows(val);
+    if (def.key === "EduList") rows = rows.map(normEdu);
+    if (def.key === "WorkList") rows = rows.map(normWork);
+    return rows;
+  }
+  function readList(box, def) {
+    var rows = [], n = def.cols.length + (def.hq ? 1 : 0);
     [].forEach.call(box.querySelectorAll(".jl-item"), function (it) {
-      var parts = [].map.call(it.querySelectorAll("input"), function (i) { return clean(i.value); });
-      if (parts.some(Boolean)) rows.push(parts.join("|"));
+      var arr = []; for (var i = 0; i < n; i++) arr.push("");
+      [].forEach.call(it.querySelectorAll("[data-i]"), function (el) { arr[Number(el.getAttribute("data-i"))] = clean(el.value); });
+      if (it.getAttribute("data-fixed")) { arr[3] = JNV; arr[4] = JNV_CITY; if (!arr[0] && !arr[1]) return; }
+      else if (!arr.slice(0, def.cols.length).some(Boolean)) return;
+      var r = it.querySelector('input[type="radio"]');
+      if (def.hq && r && r.checked) arr[n - 1] = "1";
+      rows.push(arr.join("|"));
     });
     return rows.join("~");
   }
-  function listBox(def, val, editing) {
-    var box = h("fieldset", { class: "jl-sec jl-list", "data-list": def[0] }, h("legend", { text: def[1] }));
-    var wrap = h("div", { class: "jl-items" });
+  function listBox(def, val, editing, batch) {
+    var box = h("fieldset", { class: "jl-sec jl-list", "data-list": def.key }, h("legend", { text: def.title, "data-ico": ICON[def.title] || "" }));
+    var wrap = h("div", { class: "jl-items" }), n = def.cols.length, hqName = "jl-hq-" + def.key;
     box.appendChild(wrap);
-    function addRow(vals) {
+    function pickHq(e) { // only one card can be the highest qualification; tapping it again unmarks it
+      var r = e.target, was = r.getAttribute("data-was") === "1";
+      [].forEach.call(box.querySelectorAll('input[type="radio"]'), function (x) { x.setAttribute("data-was", "0"); });
+      if (was) r.checked = false; else r.setAttribute("data-was", "1");
+      markDirty();
+    }
+    function addRow(vals, fixed) {
       if (wrap.children.length >= MAX_ROWS) return;
-      var it = h("div", { class: "jl-item" });
-      def[3].forEach(function (c, i) {
-        var id = "jl-l" + (++uid);
-        var inp = h("input", { id: id, type: "text", maxlength: 80, disabled: !editing, placeholder: editing ? (c[2] || "") : "-", autocomplete: "off" });
-        if (c[0] === "Year") inp.setAttribute("inputmode", "numeric");
-        inp.value = vals[i] || "";
-        it.appendChild(h("div", { class: "jl-field" + (c[3] ? " jl-wide" : "") }, h("label", { for: id, text: c[1] }), inp));
+      var it = h("div", { class: "jl-item" + (fixed ? " jl-fixed" : "") });
+      if (fixed) {
+        it.setAttribute("data-fixed", "1");
+        it.appendChild(h("div", { class: "jl-fixedhead jl-wide" }, h("b", { text: JNV }), h("span", { text: JNV_CITY })));
+      }
+      def.cols.forEach(function (c, i) {
+        if (fixed && i > 1) return;
+        var id = "jl-l" + (++uid), v = vals[i] || "", inp;
+        if (c[3] === "year") {
+          inp = h("select", { id: id, disabled: !editing });
+          inp.appendChild(h("option", { value: "", text: editing ? "Select" : "-" }));
+          var list = c[4].slice(); if (v && list.indexOf(v) < 0) list.push(v);
+          list.forEach(function (o) { inp.appendChild(h("option", { value: o, text: o })); });
+        } else if (c[3] === "area") {
+          inp = h("textarea", { id: id, rows: 2, maxlength: 120, disabled: !editing, placeholder: editing ? c[2] : "-" });
+        } else {
+          inp = h("input", { id: id, type: "text", maxlength: 120, disabled: !editing, placeholder: editing ? c[2] : "-", autocomplete: "off" });
+        }
+        inp.value = v; inp.setAttribute("data-i", i);
+        it.appendChild(h("div", { class: "jl-field" + (c[5] ? " jl-wide" : "") }, h("label", { for: id, text: c[1] }), inp));
       });
-      it.appendChild(h("button", { type: "button", class: "jl-btn jl-small jl-rm jl-wide", text: "Remove", onclick: function () { wrap.removeChild(it); } }));
+      if (def.hq) {
+        var on = vals[n] === "1";
+        if (editing) {
+          var radio = h("input", { type: "radio", name: hqName, checked: on, "data-was": on ? "1" : "0", onclick: pickHq });
+          it.appendChild(h("label", { class: "jl-hq jl-wide" }, radio, h("span", { text: "Highest qualification" })));
+        } else if (on) it.appendChild(h("span", { class: "jl-hqbadge jl-wide", text: "Highest qualification" }));
+      }
+      if (editing && !fixed) it.appendChild(h("button", { type: "button", class: "jl-btn jl-small jl-rm jl-wide", text: "Remove", onclick: function () { wrap.removeChild(it); markDirty(); } }));
       wrap.appendChild(it);
     }
-    parseRows(val).forEach(addRow);
+    var rows = rowsOf(def, val), at = -1;
+    if (def.jnv) { // JNV Murshidabad is always the first card and cannot be removed
+      rows.forEach(function (r, i) { if (at < 0 && String(r[3]).toLowerCase() === JNV.toLowerCase()) at = i; });
+      var fixedVals = at >= 0 ? rows[at] : (batch ? [String(Number(batch) - 7), String(batch), "", JNV, JNV_CITY, ""] : null);
+      if (fixedVals && !fixedVals[0] && fixedVals[1]) fixedVals = fixedVals.slice(), fixedVals[0] = String(Number(fixedVals[1]) - 7); // older saves only had the end year
+      if (fixedVals) addRow(fixedVals, true);
+    }
+    rows.forEach(function (r, i) { if (i !== at) addRow(r, false); });
     if (editing) {
-      if (!wrap.children.length) addRow([]);
-      box.appendChild(h("button", { type: "button", class: "jl-btn jl-small jl-add", text: "+ " + def[2], onclick: function () { addRow([]); } }));
+      if (!wrap.children.length) addRow([], false);
+      box.appendChild(h("button", { type: "button", class: "jl-btn jl-small jl-add", text: "+ " + def.add, onclick: function () { addRow([], false); markDirty(); } }));
     } else if (!wrap.children.length) box.appendChild(h("p", { class: "jl-muted", text: "Not added" }));
     return box;
   }
 
-  var state = { flash: "", token: null, claims: null, me: null, photoBlob: null, photoUrl: null, ownPhotoUrl: null, editing: false, busy: false };
+  var state = { dirty: false, pushed: false, skipPop: false, afterSave: null, flash: "", token: null, claims: null, me: null, photoBlob: null, photoUrl: null, ownPhotoUrl: null, editing: false, busy: false };
 
   /* ---------- tiny helpers ---------- */
   function h(tag, attrs) {
@@ -195,14 +267,14 @@
   /* ---------- load my entry ---------- */
   function load() {
     show(h("div", { class: "jl-card jl-center" }, h("p", { class: "jl-muted", text: "Loading your details..." })));
-    api("/api/me").then(function (me) {
-      state.me = me; state.editing = false; state.photoBlob = null;
+    return api("/api/me").then(function (me) {
+      state.me = me; state.editing = false; state.dirty = false; state.photoBlob = null;
       if (state.ownPhotoUrl) { URL.revokeObjectURL(state.ownPhotoUrl); state.ownPhotoUrl = null; }
       var m = me.member;
       if (m && m.draft_photo) {
         return api("/api/me/photo", { asBlob: true }).then(function (b) { state.ownPhotoUrl = URL.createObjectURL(b); }, function () {});
       }
-    }).then(render).catch(function (e) { if (e.message !== "expired") fail(e.message); });
+    }).then(function () { dropPushed(); render(); }).catch(function (e) { if (e.message !== "expired") fail(e.message); });
   }
 
   /* ---------- screen ---------- */
@@ -251,9 +323,10 @@
     var form = h("form", { class: "jl-form" + (editing ? " jl-editing" : ""), novalidate: true, onsubmit: onSave });
 
     SECTIONS.forEach(function (sec) {
-      var box = h("fieldset", { class: "jl-sec" }, h("legend", { text: sec[0] }));
+      var box = h("fieldset", { class: "jl-sec" }, h("legend", { text: sec[0], "data-ico": ICON[sec[0]] || "" }));
+      var extras = [];
       sec[1].forEach(function (f) {
-        var key = f[0], type = f[2], opts = f[3], priv = f[4];
+        var key = f[0], type = f[2], opts = f[3], priv = f[4], ph = editing ? (PH[key] || "") : "Not added";
         var val = v[key] === undefined || v[key] === null ? "" : String(v[key]);
         if (f[5] === "lines") val = val.split("~").join("\n");
         var id = "jl-" + key, input;
@@ -262,24 +335,38 @@
           var list = opts.slice(); if (val && list.indexOf(val) < 0) list.push(val);
           list.forEach(function (o) { input.appendChild(h("option", { value: o, text: o })); });
         } else if (type === "textarea") {
-          input = h("textarea", { id: id, name: key, rows: f[5] === "lines" ? 4 : 3, maxlength: f[6] || 400, disabled: !editing, placeholder: editing ? "" : "Not added" });
+          input = h("textarea", { id: id, name: key, rows: f[5] === "lines" ? 4 : 3, maxlength: f[6] || 400, disabled: !editing, placeholder: ph });
         } else {
-          input = h("input", { id: id, name: key, type: (type === "date" && !editing) ? "text" : type, disabled: !editing, maxlength: f[6] || 200, placeholder: editing ? "" : "Not added", autocomplete: "off" });
+          input = h("input", { id: id, name: key, type: (type === "date" && !editing) ? "text" : type, disabled: !editing, maxlength: f[6] || 200, placeholder: ph, autocomplete: "off" });
           if (type === "tel") input.setAttribute("inputmode", "tel");
           if (key === "PinCode") input.setAttribute("inputmode", "numeric");
           if (opts) { var dl = h("datalist", { id: id + "-list" }); opts.forEach(function (o) { dl.appendChild(h("option", { value: o })); }); input.setAttribute("list", id + "-list"); box.appendChild(dl); }
         }
         input.value = val;
         var label = h("label", { for: id }, f[1], priv ? h("span", { class: "jl-tag", text: "Private" }) : null);
-        box.appendChild(h("div", { class: "jl-field" }, label, input));
+        var fieldEl = h("div", { class: "jl-field" }, label, input);
+        if (f[5] === "more") extras.push({ el: fieldEl, has: !!val }); else box.appendChild(fieldEl);
       });
+      if (extras.length) { // the less common links stay hidden until "Add more"
+        var any = extras.some(function (x) { return x.has; }), more = h("div", { class: "jl-more" });
+        extras.forEach(function (x) { if (!editing && !x.has) x.el.hidden = true; more.appendChild(x.el); });
+        if (editing && !any) {
+          more.hidden = true;
+          box.appendChild(h("button", { type: "button", class: "jl-btn jl-small jl-addmore", text: "+ Add more", onclick: function (e) { more.hidden = false; e.target.parentNode.removeChild(e.target); } }));
+        }
+        if (editing || any) box.appendChild(more);
+      }
       form.appendChild(box);
-      (AFTER[sec[0]] || []).forEach(function (i) { form.appendChild(listBox(LISTS[i], v[LISTS[i][0]], editing)); });
+      (AFTER[sec[0]] || []).forEach(function (i) { form.appendChild(listBox(LISTS[i], v[LISTS[i].key], editing, v.Batch)); });
     });
+
+    state.dirty = false;
+    form.addEventListener("input", markDirty);
+    form.addEventListener("change", markDirty);
 
     var actions = h("div", { class: "jl-actions" },
       h("button", { type: "submit", class: "jl-btn jl-primary", id: "jl-save", text: "Save changes" }),
-      h("button", { type: "button", class: "jl-btn", text: "Cancel", onclick: function () { stopEditing(); } }),
+      h("button", { type: "button", class: "jl-btn", text: "Cancel", onclick: function () { guard(stopEditing); } }),
       h("span", { class: "jl-msg", id: "jl-note", role: "status" }));
     form.appendChild(actions);
 
@@ -294,16 +381,18 @@
         me.isCore ? h("span", { class: "jl-chip", text: "Core member" }) : null));
 
     var toggle = h("label", { class: "jl-switch" },
-      h("input", { type: "checkbox", role: "switch", id: "jl-edit", checked: editing, onchange: function (e) { e.target.checked ? startEditing() : stopEditing(); } }),
+      h("input", { type: "checkbox", role: "switch", id: "jl-edit", checked: editing, onchange: function (e) { if (e.target.checked) return startEditing(); if (state.dirty) e.target.checked = true; guard(stopEditing); } }),
       h("span", { class: "jl-track" }), h("span", { text: "Edit details" }));
 
     var top = h("div", { class: "jl-top" },
       h("div", { class: "jl-acct" },
         user.picture ? h("img", { src: user.picture, alt: "", width: "24", height: "24", referrerpolicy: "no-referrer" }) : null,
         h("span", { text: user.email || "" })),
-      h("button", { type: "button", class: "jl-link", text: "Sign out", onclick: function () { signOut(""); } }));
+      h("button", { type: "button", class: "jl-link", text: "Sign out", onclick: function () { guard(function () { signOut(""); }); } }));
 
-    var body = [top, head];
+    var pn = m && m.status === "approved" ? ((m.data && m.data.Name) || m.name) : "";
+    var profileBtn = pn && m.batch ? h("a", { class: "jl-btn jl-profilebtn", href: "/" + m.batch + "#" + nameKey(pn), text: "Go to my profile" }) : null;
+    var body = [profileBtn, top, head];
     if (me.isAdmin) body.push(h("a", { class: "jl-btn jl-primary jl-adminlink", href: root.dataset.admin || "/p/admin.html", text: "Open admin page" }));
     if (isNew && !editing) {
       body.push(h("p", { class: "jl-msg jl-warn", text: "We could not find an alumni entry for " + (user.email || "this account") + ". If you are already listed under another email, tell the admin so it can be linked. Otherwise create your profile." }));
@@ -319,8 +408,73 @@
     show(h.apply(null, ["div", { class: "jl-card" }].concat(body)));
   }
 
-  function startEditing() { state.editing = true; render(); }
-  function stopEditing() { state.editing = false; state.photoBlob = null; if (state.photoUrl) { URL.revokeObjectURL(state.photoUrl); state.photoUrl = null; } render(); }
+  function markDirty() { state.dirty = true; }
+  function startEditing() {
+    state.editing = true; state.dirty = false;
+    try { history.pushState({ jlEdit: 1 }, "", location.href); state.pushed = true; } catch (e) {} // so the Back button asks before leaving
+    render();
+  }
+  function stopEditing() {
+    state.editing = false; state.dirty = false; state.photoBlob = null;
+    if (state.photoUrl) { URL.revokeObjectURL(state.photoUrl); state.photoUrl = null; }
+    dropPushed();
+    render();
+  }
+  function dropPushed() { if (state.pushed) { state.pushed = false; state.skipPop = true; history.back(); } }
+
+  /* ---------- "save before you leave" ---------- */
+  function askSave(done) {
+    var prev = document.activeElement;
+    var overlay = h("div", { class: "jl-modal" });
+    function close(choice) {
+      document.removeEventListener("keydown", onKey);
+      if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      if (prev && prev.focus) { try { prev.focus(); } catch (e) {} }
+      done(choice);
+    }
+    function onKey(e) { if (e.key === "Escape") close("stay"); }
+    var saveBtn = h("button", { type: "button", class: "jl-btn jl-primary", text: "Save", onclick: function () { close("save"); } });
+    overlay.appendChild(h("div", { class: "jl-dialog", role: "dialog", "aria-modal": "true", "aria-labelledby": "jl-mt" },
+      h("h3", { id: "jl-mt", text: "Save your changes?" }),
+      h("p", { text: "You have changes that are not saved yet." }),
+      h("div", { class: "jl-dactions" }, saveBtn,
+        h("button", { type: "button", class: "jl-btn", text: "Don't save", onclick: function () { close("discard"); } }),
+        h("button", { type: "button", class: "jl-btn jl-ghost", text: "Keep editing", onclick: function () { close("stay"); } }))));
+    overlay.addEventListener("click", function (e) { if (e.target === overlay) close("stay"); });
+    document.addEventListener("keydown", onKey);
+    document.body.appendChild(overlay);
+    saveBtn.focus();
+  }
+  // run leave() now, or after the person has chosen Save / Don't save
+  function guard(leave, stay) {
+    if (!(state.editing && state.dirty)) return leave();
+    askSave(function (c) {
+      if (c === "discard") { state.dirty = false; leave(); }
+      else if (c === "save") saveThen(leave);
+      else if (stay) stay();
+    });
+  }
+  window.addEventListener("popstate", function () { // Back pressed while editing
+    if (state.skipPop) { state.skipPop = false; return; }
+    if (!state.editing) return;
+    state.pushed = false;
+    if (!state.dirty) { state.editing = false; history.back(); return; }
+    askSave(function (c) {
+      if (c === "discard") { state.dirty = false; state.editing = false; history.back(); }
+      else if (c === "save") saveThen(function () { state.editing = false; history.back(); });
+      else { try { history.pushState({ jlEdit: 1 }, "", location.href); state.pushed = true; } catch (e) {} }
+    });
+  });
+  window.addEventListener("beforeunload", function (e) { // closing the tab or reloading
+    if (state.editing && state.dirty) { e.preventDefault(); e.returnValue = ""; }
+  });
+  root.addEventListener("click", function (e) { // links on this page (profile, admin)
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a || !state.editing || !state.dirty || a.getAttribute("target") === "_blank" || e.metaKey || e.ctrlKey) return;
+    e.preventDefault();
+    var href = a.href;
+    guard(function () { location.href = href; });
+  });
 
   /* ---------- photo to WebP ---------- */
   function toWebp(file) {
@@ -368,7 +522,7 @@
     toWebp(f).then(function (blob) {
       if (!blob) throw new Error("Could not prepare the photo");
       if (blob.size > 240 * 1024) throw new Error("That photo is too large, please pick another");
-      state.photoBlob = blob;
+      state.photoBlob = blob; markDirty();
       if (state.photoUrl) URL.revokeObjectURL(state.photoUrl);
       state.photoUrl = URL.createObjectURL(blob);
       var img = root.querySelector(".jl-photo");
@@ -378,20 +532,21 @@
   }
 
   /* ---------- save ---------- */
-  function onSave(e) {
-    e.preventDefault();
+  function onSave(e) { e.preventDefault(); doSave(e.target); }
+  function saveThen(fn) { var f = root.querySelector("form.jl-form"); if (!f) return; state.afterSave = fn; doSave(f); }
+  function doSave(form) {
     if (state.busy) return;
-    var form = e.target, data = {}, note = document.getElementById("jl-note"), btn = document.getElementById("jl-save");
+    var data = {}, note = document.getElementById("jl-note"), btn = document.getElementById("jl-save");
     SECTIONS.forEach(function (sec) { sec[1].forEach(function (f) {
       var v = String(form.elements[f[0]].value || "").trim();
       if (f[5] === "lines") v = v.split(/\n+/).map(clean).filter(Boolean).join("~");
       if (v) data[f[0]] = v;
     }); });
     var old = values(); KEEP_OLD.forEach(function (k) { if (old[k] && data[k] === undefined) data[k] = old[k]; });
-    LISTS.forEach(function (def) { var b = form.querySelector('[data-list="' + def[0] + '"]'), s = b ? readList(b) : ""; if (s) data[def[0]] = s; });
+    LISTS.forEach(function (def) { var b = form.querySelector('[data-list="' + def.key + '"]'), s = b ? readList(b, def) : ""; if (s) data[def.key] = s; });
     if (!data.Name || data.Name.length < 2) return say("Please enter your full name", true);
     if (!data.Batch) return say("Please choose your pass-out year", true);
-    function say(t, bad) { note.textContent = t; note.className = "jl-msg " + (bad ? "jl-bad" : "jl-ok"); }
+    function say(t, bad) { note.textContent = t; note.className = "jl-msg " + (bad ? "jl-bad" : "jl-ok"); if (bad) state.afterSave = null; }
     state.busy = true; btn.disabled = true; say("Saving...");
     var said = "";
     api("/api/me", { method: "PUT", json: { data: data } }).then(function (r) {
@@ -400,9 +555,9 @@
     }).then(function () {
       state.busy = false; state.flash = said;
       if (state.photoUrl) { URL.revokeObjectURL(state.photoUrl); state.photoUrl = null; }
-      load();
+      return load().then(function () { var f = state.afterSave; state.afterSave = null; if (f) f(); });
     }).catch(function (err) {
-      state.busy = false; btn.disabled = false;
+      state.busy = false; btn.disabled = false; state.afterSave = null;
       if (err.message !== "expired") say(err.message, true);
     });
   }
