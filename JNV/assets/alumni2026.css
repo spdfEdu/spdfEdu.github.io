@@ -80,3 +80,6 @@ textarea.am-input{padding:10px 12px}
 .am-yes{color:#4cc38a!important;font-weight:700}.am-no{color:#ff8a8a!important}
 @media (min-width:640px){.am-filters{grid-template-columns:2fr 1fr 1fr auto}.am-filters>input[type=search]{grid-column:auto}}
 .am-more>input.am-input{margin:-4px 0 16px}
+
+.am-filters2{display:grid;grid-template-columns:1fr;gap:8px}
+@media (min-width:560px){.am-filters2{grid-template-columns:2fr 1fr}}
