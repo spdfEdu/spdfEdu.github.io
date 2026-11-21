@@ -98,6 +98,7 @@ function createProfile(ele,i) {
   </div>
   <div class="details">
   ${heroHtml(ele, photoSrc)}
+  ${galleryCard(ele)}
   ${ripDiv(ele.rip)}
   ${aboutCard(ele.Bio)}
   ${factsHtml(ele)}
@@ -107,7 +108,6 @@ function createProfile(ele,i) {
   ${listCard("Achievements", ele.Achievements)}
   ${visitCard(ele.JnvVisits)}
   ${memoCard(ele.Memories)}
-  ${galleryCard(ele)}
   ${chipCard("Skills", ele.Skills)}
   ${chipCard("Languages", ele.Languages)}
   <div class="card" ${styDisplay(ele.Phone, ele.Phone2)}>
@@ -138,6 +138,7 @@ function createProfile(ele,i) {
     </div>
   </div>`;
   insertProfiles.append(child);
+  initProfileSliders(child);
 }
 
 
@@ -245,15 +246,19 @@ function visitCard(t) { // year | activity | JNV (district)
     return `<div class="tile"><b>${esc(r[1] || "Activity")}</b><span>${esc(r[2] || "")}</span><span>${esc(r[0] || "")}</span></div>`;
   }).join("")}</div>` : "");
 }
-//---------- photos: profile gallery, lightbox and the batch slider ----------
+//---------- photos: one fixed-size slider for the batch photo and for each profile ----------
 function galleryCard(ele) {
   var g = ele.gallery || [];
   if (!g.length) return "";
-  return card("Photos", `<div class="gal">${g.map(function(u) { return `<button type="button" class="gal-i" data-src="${esc(u)}" onclick="jnvLightbox(this)" aria-label="Open photo"><img loading="lazy" decoding="async" src="${esc(u)}" alt=""></button>`; }).join("")}</div>`);
+  return card("Photos", '<div class="pslider" data-photos="' + esc(JSON.stringify(g)) + '"></div>');
 }
-function jnvLightbox(btn) {
-  var list = [].map.call(btn.closest(".gal").querySelectorAll(".gal-i"), function(b) { return b.getAttribute("data-src"); });
-  var i = list.indexOf(btn.getAttribute("data-src"));
+function initProfileSliders(root) {
+  [].forEach.call(root.querySelectorAll(".pslider[data-photos]"), function (el) {
+    try { buildSlider(el, JSON.parse(el.getAttribute("data-photos"))); } catch (e) {}
+    el.removeAttribute("data-photos");
+  });
+}
+function jnvLightbox(list, i) {
   var lb = document.createElement("div");
   lb.className = "jn-lb"; lb.setAttribute("role", "dialog"); lb.setAttribute("aria-label", "Photo");
   lb.innerHTML = '<img alt=""><button type="button" class="lb-x" aria-label="Close">×</button>' +
@@ -262,51 +267,70 @@ function jnvLightbox(btn) {
   function show(k) { i = (k + list.length) % list.length; img.src = list[i]; }
   function close() { document.removeEventListener("keydown", key); lb.remove(); }
   function key(e) { if (e.key === "Escape") close(); else if (e.key === "ArrowLeft") show(i - 1); else if (e.key === "ArrowRight") show(i + 1); }
-  lb.addEventListener("click", function(e) {
+  lb.addEventListener("click", function (e) {
     if (e.target.classList.contains("lb-p")) show(i - 1); else if (e.target.classList.contains("lb-n")) show(i + 1); else close();
   });
   document.addEventListener("keydown", key);
   show(i); document.body.appendChild(lb);
 }
+// A slider whose box never changes size: photos sit inside a fixed 4:3 stage, never cropped,
+// with a blurred copy of the photo filling any empty space. It slides by itself while visible.
+function buildSlider(host, urls) {
+  urls = urls.filter(Boolean);
+  if (!urls.length) return;
+  host.classList.add("slider");
+  var stage = document.createElement("div"); stage.className = "sl-stage";
+  var bg = document.createElement("div"); bg.className = "sl-bg";
+  var img = document.createElement("img"); img.className = "sl-img"; img.alt = ""; img.decoding = "async";
+  stage.appendChild(bg); stage.appendChild(img); host.appendChild(stage);
+  var cur = 0, timer = null, busy = false, seen = false, many = urls.length > 1;
+  function paint(u) { img.src = u; bg.style.backgroundImage = 'url("' + u + '")'; }
+  paint(urls[0]);
+  stage.addEventListener("click", function (e) { if (!e.target.closest("button")) jnvLightbox(urls, cur); });
+  if (!many) return;
+  var dots = document.createElement("div"); dots.className = "sl-dots";
+  urls.forEach(function (u, n) { var d = document.createElement("button"); d.type = "button"; d.className = "sl-dot"; d.setAttribute("aria-label", "Photo " + (n + 1)); d.addEventListener("click", function () { go(n, true); }); dots.appendChild(d); });
+  var prev = document.createElement("button"), next = document.createElement("button");
+  prev.type = next.type = "button"; prev.className = "sl-btn sl-prev"; next.className = "sl-btn sl-next";
+  prev.setAttribute("aria-label", "Previous photo"); next.setAttribute("aria-label", "Next photo"); prev.textContent = "‹"; next.textContent = "›";
+  stage.appendChild(prev); stage.appendChild(next); stage.appendChild(dots);
+  function mark() { [].forEach.call(dots.children, function (d, n) { d.classList.toggle("on", n === cur); }); }
+  function go(n, byUser) {
+    n = (n + urls.length) % urls.length;
+    if (n === cur || busy) return;
+    busy = true; img.style.opacity = 0;
+    var pre = new Image();
+    var done = false;
+    function show() { if (done) return; done = true; cur = n; paint(urls[n]); img.style.opacity = 1; mark(); busy = false; new Image().src = urls[(n + 1) % urls.length]; }
+    pre.onload = pre.onerror = function () { setTimeout(show, 140); };
+    setTimeout(show, 1500); // never get stuck if a photo is slow
+    pre.src = urls[n];
+    if (byUser) restart();
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  function restart() { stop(); if (seen) timer = setInterval(function () { if (!document.hidden) go(cur + 1); }, 5000); }
+  prev.addEventListener("click", function () { go(cur - 1, true); });
+  next.addEventListener("click", function () { go(cur + 1, true); });
+  var x0 = null;
+  stage.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+  stage.addEventListener("touchend", function (e) { if (x0 !== null) { var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), true); else restart(); } x0 = null; }, { passive: true });
+  stage.addEventListener("touchcancel", function () { x0 = null; restart(); }, { passive: true });
+  if (window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches) { // pause under a mouse pointer, never on touch screens
+    stage.addEventListener("mouseenter", stop); stage.addEventListener("mouseleave", restart);
+  }
+  mark(); new Image().src = urls[1];
+  // slide only while it is on screen
+  if (window.IntersectionObserver) new IntersectionObserver(function (es) { seen = es[0].isIntersecting; if (seen) restart(); else stop(); }, { threshold: 0.3 }).observe(stage);
+  else { seen = true; restart(); }
+}
 // the batch photo becomes a slider when photos have been approved for it: the cover first, then the others in random order
 function makeSlider(box, coverBox) {
   var main = coverBox.querySelector("img");
   if (!main) return;
-  var urls = [main.getAttribute("src")], rest = window.JNV_SLIDES.slice();
+  var rest = window.JNV_SLIDES.slice();
   for (var k = rest.length - 1; k > 0; k--) { var r = Math.floor(Math.random() * (k + 1)), t = rest[k]; rest[k] = rest[r]; rest[r] = t; }
-  urls = urls.concat(rest);
-  if (urls.length < 2) return;
-  coverBox.classList.add("slider");
-  var dots = document.createElement("div"); dots.className = "sl-dots";
-  urls.forEach(function(u, n) { var d = document.createElement("button"); d.type = "button"; d.className = "sl-dot"; d.setAttribute("aria-label", "Photo " + (n + 1)); d.addEventListener("click", function() { go(n, true); }); dots.appendChild(d); });
-  var prev = document.createElement("button"), next = document.createElement("button");
-  prev.type = next.type = "button"; prev.className = "sl-btn sl-prev"; next.className = "sl-btn sl-next";
-  prev.setAttribute("aria-label", "Previous photo"); next.setAttribute("aria-label", "Next photo"); prev.textContent = "‹"; next.textContent = "›";
-  coverBox.appendChild(prev); coverBox.appendChild(next); coverBox.appendChild(dots);
-  var cur = 0, timer = null, busy = false;
-  function mark() { [].forEach.call(dots.children, function(d, n) { d.classList.toggle("on", n === cur); }); }
-  function go(n, user) {
-    n = (n + urls.length) % urls.length;
-    if (n === cur || busy) return;
-    busy = true; main.style.opacity = 0;
-    setTimeout(function() {
-      var pre = new Image();
-      pre.onload = pre.onerror = function() { cur = n; main.src = urls[n]; main.style.opacity = 1; mark(); busy = false; };
-      pre.src = urls[n];
-    }, 180);
-    if (user) restart();
-  }
-  function restart() { stop(); if (!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches) timer = setInterval(function() { if (!document.hidden) go(cur + 1); }, 5000); }
-  function stop() { if (timer) { clearInterval(timer); timer = null; } }
-  prev.addEventListener("click", function() { go(cur - 1, true); });
-  next.addEventListener("click", function() { go(cur + 1, true); });
-  var x0 = null;
-  coverBox.addEventListener("touchstart", function(e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
-  coverBox.addEventListener("touchend", function(e) { if (x0 !== null) { var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), true); else restart(); } x0 = null; }, { passive: true });
-  coverBox.addEventListener("mouseenter", stop); coverBox.addEventListener("mouseleave", restart);
-  mark(); restart();
+  buildSlider(coverBox, [main.getAttribute("src")].concat(rest));
 }
-
 function memoCard(t) { return t ? card("Favourite memories of Navodaya", `<blockquote class="memo">${esc(t).replace(/\n/g, "<br>")}</blockquote>`) : ""; }
 
 function socialUrl(base, v) {
