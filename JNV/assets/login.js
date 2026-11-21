@@ -268,7 +268,7 @@
   function load() {
     show(h("div", { class: "jl-card jl-center" }, h("p", { class: "jl-muted", text: "Loading your details..." })));
     return api("/api/me").then(function (me) {
-      state.me = me; state.editing = false; state.dirty = false; state.photoBlob = null;
+      state.me = me; state.editing = false; state.dirty = false; state.photoBlob = null; state.gallery = null;
       if (state.ownPhotoUrl) { URL.revokeObjectURL(state.ownPhotoUrl); state.ownPhotoUrl = null; }
       var m = me.member;
       if (m && m.draft_photo) {
@@ -406,6 +406,7 @@
       body.push(form);
     }
     show(h.apply(null, ["div", { class: "jl-card" }].concat(body)));
+    mountGallery();
   }
 
   function markDirty() { state.dirty = true; }
@@ -512,6 +513,79 @@
       i.onerror = function () { rej(new Error("That file is not a photo")); };
       i.src = u;
     });
+  }
+
+  /* ---------- photos: up to 5 pictures, shrunk to a WebP under 200 KB ---------- */
+  var GAL_MAX = 5;
+  function resizeForGallery(file) {
+    return loadImage(file).then(function (o) {
+      var sizes = [1600, 1280, 1024, 800, 640], quals = [0.82, 0.72, 0.62, 0.52, 0.42], tries = [];
+      sizes.forEach(function (s) { quals.forEach(function (q) { tries.push([s, q]); }); });
+      function attempt(i) {
+        var s = tries[i][0], q = tries[i][1], k = Math.min(1, s / Math.max(o.w, o.h));
+        var c = document.createElement("canvas"); c.width = Math.max(1, Math.round(o.w * k)); c.height = Math.max(1, Math.round(o.h * k));
+        c.getContext("2d").drawImage(o.d, 0, 0, c.width, c.height);
+        return new Promise(function (res) { c.toBlob(res, "image/webp", q); }).then(function (b) {
+          if (b && b.type !== "image/webp") return new Promise(function (res) { c.toBlob(res, "image/jpeg", q); }); // browser cannot make WebP
+          return b;
+        }).then(function (b) {
+          if (b && (b.size <= 195 * 1024 || i === tries.length - 1)) return b;
+          return attempt(i + 1);
+        });
+      }
+      return attempt(0);
+    });
+  }
+
+  function mountGallery() {
+    var m = state.me && state.me.member;
+    var old = document.getElementById("jl-gallery");
+    if (old) old.remove();
+    if (!m) return;
+    var card = h("div", { class: "jl-card jl-gal", id: "jl-gallery" }, h("h3", { text: "Photos" }));
+    if (m.status !== "approved") {
+      card.appendChild(h("p", { class: "jl-hint", text: "You can add photos once your profile is approved." }));
+      return root.appendChild(card);
+    }
+    card.appendChild(h("p", { class: "jl-hint", text: "Photos will appear in your profile. Some photos may be shown in the Batch gallery. Group photos are selected most." }));
+    var grid = h("div", { class: "jl-gal-grid" });
+    var note = h("p", { class: "jl-msg jl-gnote", role: "status", hidden: true });
+    var file = h("input", { type: "file", accept: "image/*", multiple: true, class: "jl-file", id: "jl-gfile" });
+    card.appendChild(grid); card.appendChild(note); card.appendChild(file);
+    root.appendChild(card);
+
+    function say(t, bad) { note.hidden = !t; note.textContent = t || ""; note.className = "jl-msg jl-gnote " + (bad ? "jl-bad" : "jl-ok"); }
+    function draw(list) {
+      while (grid.firstChild) grid.removeChild(grid.firstChild);
+      list.forEach(function (p) {
+        var del = h("button", { type: "button", class: "jl-gal-x", "aria-label": "Delete this photo", text: "×", onclick: function () {
+          if (!confirm("Delete this photo?")) return;
+          say("Deleting...");
+          api("/api/me/gallery/" + p.id, { method: "DELETE" }).then(function () { return refresh(); }).then(function () { say("Photo deleted."); }).catch(function (e) { if (e.message !== "expired") say(e.message, true); });
+        } });
+        grid.appendChild(h("div", { class: "jl-gal-t" }, h("img", { src: p.url, alt: "", loading: "lazy" }), del, h("span", { class: "jl-gal-lab", text: "Uploaded" })));
+      });
+      if (list.length < GAL_MAX) grid.appendChild(h("label", { class: "jl-gal-add", for: "jl-gfile" }, h("span", { class: "jl-gal-plus", text: "+" }), h("span", { text: "Add photo" })));
+      if (list.length >= GAL_MAX) say("You have added all 5 photos. Delete one to add another.");
+    }
+    function refresh() { return api("/api/me/gallery").then(function (r) { state.gallery = r.photos; draw(r.photos); }); }
+    file.addEventListener("change", function () {
+      var files = [].slice.call(file.files || []); file.value = "";
+      var room = GAL_MAX - (state.gallery || []).length;
+      if (!files.length) return;
+      if (files.length > room) { files = files.slice(0, room); }
+      var i = 0, fails = 0;
+      (function next() {
+        if (i >= files.length) { return refresh().then(function () { say(fails ? "Some photos could not be added." : "Added. Your photos now show in your profile.", !!fails); }); }
+        say("Adding photo " + (i + 1) + " of " + files.length + "...");
+        resizeForGallery(files[i]).then(function (blob) {
+          if (!blob) throw new Error("Could not prepare that photo");
+          return api("/api/me/gallery", { method: "POST", blob: blob });
+        }).catch(function (e) { if (e.message === "expired") throw e; fails++; say(e.message, true); }).then(function () { i++; next(); }, function () {});
+      })();
+    });
+    if (state.gallery) draw(state.gallery);
+    else refresh().catch(function (e) { if (e.message !== "expired") say(e.message, true); });
   }
 
   function onPhoto(e) {
