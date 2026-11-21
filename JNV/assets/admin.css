@@ -70,3 +70,20 @@ select.ja-input{padding-right:32px;background-image:url("data:image/svg+xml,%3Cs
 .ja-add .ja-btn{justify-self:start}
 .ja-top .ja-link{text-decoration:none}
 @media (min-width:600px){.ja-sum{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ---------- photo review ---------- */
+.ja-pnote{margin:0 0 10px}
+.ja-pf{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.ja-chipbtn{padding:6px 12px;border:1px solid var(--jb-line,#D5E0EF);border-radius:999px;background:var(--jb-surface,#fff);color:var(--jb-text,#0E1B36);font:inherit;font-size:13px;cursor:pointer}
+.ja-chipbtn.ja-on{border-color:var(--jb-accent,#1B6BB8);background:var(--jb-accent,#1B6BB8);color:#fff}
+.ja-pbatch{grid-template-columns:1fr}
+.ja-pgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.ja-ph{padding:8px;border:1px solid var(--jb-line,#D5E0EF);border-radius:12px;background:var(--jb-surface,#fff)}
+.ja-phimg{display:block;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:var(--jb-surface2,#EAF1FB)}
+.ja-phimg img{display:block;width:100%;height:100%;object-fit:cover}
+.ja-phmeta{display:flex;flex-direction:column;gap:2px;margin:6px 0 0;font-size:13px}
+.ja-phmeta .ja-chip{align-self:flex-start;margin-top:4px;font-size:11px}
+.ja-st-approved{border-color:#2e9e5b;color:#2e9e5b}
+.ja-ph .ja-actions{margin:8px 0 0}
+.ja-ph .ja-btn{min-height:36px;padding:6px 10px;font-size:13px}
+@media (min-width:600px){.ja-pgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
