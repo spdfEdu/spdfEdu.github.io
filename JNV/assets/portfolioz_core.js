@@ -50,6 +50,7 @@ if (!coverBox) {
   coverBox.innerHTML = `<img alt="Batch ${xii}" src="https://spdfedu.github.io/JNV/images/cover/${xii}.jpg">`;
 }
 upper.querySelector(".bc-photo").append(coverBox);
+if (window.JNV_SLIDES && window.JNV_SLIDES.length) makeSlider(upper.querySelector(".bc-photo"), coverBox);
 document.getElementById("upper").append(upper);
 
 document.getElementById("down").innerHTML = "<h2>Other batches</h2><p>Current passout batch: " +year +
@@ -106,6 +107,7 @@ function createProfile(ele,i) {
   ${listCard("Achievements", ele.Achievements)}
   ${visitCard(ele.JnvVisits)}
   ${memoCard(ele.Memories)}
+  ${galleryCard(ele)}
   ${chipCard("Skills", ele.Skills)}
   ${chipCard("Languages", ele.Languages)}
   <div class="card" ${styDisplay(ele.Phone, ele.Phone2)}>
@@ -162,7 +164,7 @@ function heroHtml(ele, photoSrc) {
   if (big) pic = `<a href="${esc(big)}" target="_blank" rel="noopener">${pic}</a>`;
   var sub = [ele.CurrentStatus, hqOf(ele)].filter(Boolean).map(esc).join(" · ");
   var own = isOwn(ele), tag = ele.tag || (own && window.JNV_ME.role ? ({ owner: "Admin", admin: "Admin", core: "Core Member" })[window.JNV_ME.role] : "");
-  var chips = (tag ? `<span class="chip chip-role">${esc(tag)}</span>` : "") +
+  var chips = (tag ? (own ? `<a class="chip chip-role chip-link" href="${esc(window.JNV_ADMIN || "/p/admin.html")}" title="Open the admin page">${esc(tag)}</a>` : `<span class="chip chip-role">${esc(tag)}</span>`) : "") +
     [`Batch ${batch}`, ele.House ? ele.House + " House" : "", ele.City].filter(Boolean).map(function(c) { return `<span class="chip">${esc(c)}</span>`; }).join("");
   var key = ele.Name.replace(/ /g, "_"), hint = mailOf(ele.EmailId), signed = !!window.JNV_SIGNED;
   var signBtn = !signed && hint ? `<button class="gsign" type="button" data-key="${esc(key)}" onclick="jnvSignIn(this)"><span class="gsign-ic"><svg viewBox="0 0 48 48" width="24" height="24" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><span>Sign in with Google</span></button>` : "";
@@ -243,6 +245,68 @@ function visitCard(t) { // year | activity | JNV (district)
     return `<div class="tile"><b>${esc(r[1] || "Activity")}</b><span>${esc(r[2] || "")}</span><span>${esc(r[0] || "")}</span></div>`;
   }).join("")}</div>` : "");
 }
+//---------- photos: profile gallery, lightbox and the batch slider ----------
+function galleryCard(ele) {
+  var g = ele.gallery || [];
+  if (!g.length) return "";
+  return card("Photos", `<div class="gal">${g.map(function(u) { return `<button type="button" class="gal-i" data-src="${esc(u)}" onclick="jnvLightbox(this)" aria-label="Open photo"><img loading="lazy" decoding="async" src="${esc(u)}" alt=""></button>`; }).join("")}</div>`);
+}
+function jnvLightbox(btn) {
+  var list = [].map.call(btn.closest(".gal").querySelectorAll(".gal-i"), function(b) { return b.getAttribute("data-src"); });
+  var i = list.indexOf(btn.getAttribute("data-src"));
+  var lb = document.createElement("div");
+  lb.className = "jn-lb"; lb.setAttribute("role", "dialog"); lb.setAttribute("aria-label", "Photo");
+  lb.innerHTML = '<img alt=""><button type="button" class="lb-x" aria-label="Close">×</button>' +
+    (list.length > 1 ? '<button type="button" class="lb-p" aria-label="Previous">‹</button><button type="button" class="lb-n" aria-label="Next">›</button>' : "");
+  var img = lb.querySelector("img");
+  function show(k) { i = (k + list.length) % list.length; img.src = list[i]; }
+  function close() { document.removeEventListener("keydown", key); lb.remove(); }
+  function key(e) { if (e.key === "Escape") close(); else if (e.key === "ArrowLeft") show(i - 1); else if (e.key === "ArrowRight") show(i + 1); }
+  lb.addEventListener("click", function(e) {
+    if (e.target.classList.contains("lb-p")) show(i - 1); else if (e.target.classList.contains("lb-n")) show(i + 1); else close();
+  });
+  document.addEventListener("keydown", key);
+  show(i); document.body.appendChild(lb);
+}
+// the batch photo becomes a slider when photos have been approved for it: the cover first, then the others in random order
+function makeSlider(box, coverBox) {
+  var main = coverBox.querySelector("img");
+  if (!main) return;
+  var urls = [main.getAttribute("src")], rest = window.JNV_SLIDES.slice();
+  for (var k = rest.length - 1; k > 0; k--) { var r = Math.floor(Math.random() * (k + 1)), t = rest[k]; rest[k] = rest[r]; rest[r] = t; }
+  urls = urls.concat(rest);
+  if (urls.length < 2) return;
+  coverBox.classList.add("slider");
+  var dots = document.createElement("div"); dots.className = "sl-dots";
+  urls.forEach(function(u, n) { var d = document.createElement("button"); d.type = "button"; d.className = "sl-dot"; d.setAttribute("aria-label", "Photo " + (n + 1)); d.addEventListener("click", function() { go(n, true); }); dots.appendChild(d); });
+  var prev = document.createElement("button"), next = document.createElement("button");
+  prev.type = next.type = "button"; prev.className = "sl-btn sl-prev"; next.className = "sl-btn sl-next";
+  prev.setAttribute("aria-label", "Previous photo"); next.setAttribute("aria-label", "Next photo"); prev.textContent = "‹"; next.textContent = "›";
+  coverBox.appendChild(prev); coverBox.appendChild(next); coverBox.appendChild(dots);
+  var cur = 0, timer = null, busy = false;
+  function mark() { [].forEach.call(dots.children, function(d, n) { d.classList.toggle("on", n === cur); }); }
+  function go(n, user) {
+    n = (n + urls.length) % urls.length;
+    if (n === cur || busy) return;
+    busy = true; main.style.opacity = 0;
+    setTimeout(function() {
+      var pre = new Image();
+      pre.onload = pre.onerror = function() { cur = n; main.src = urls[n]; main.style.opacity = 1; mark(); busy = false; };
+      pre.src = urls[n];
+    }, 180);
+    if (user) restart();
+  }
+  function restart() { stop(); if (!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches) timer = setInterval(function() { if (!document.hidden) go(cur + 1); }, 5000); }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  prev.addEventListener("click", function() { go(cur - 1, true); });
+  next.addEventListener("click", function() { go(cur + 1, true); });
+  var x0 = null;
+  coverBox.addEventListener("touchstart", function(e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+  coverBox.addEventListener("touchend", function(e) { if (x0 !== null) { var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1), true); else restart(); } x0 = null; }, { passive: true });
+  coverBox.addEventListener("mouseenter", stop); coverBox.addEventListener("mouseleave", restart);
+  mark(); restart();
+}
+
 function memoCard(t) { return t ? card("Favourite memories of Navodaya", `<blockquote class="memo">${esc(t).replace(/\n/g, "<br>")}</blockquote>`) : ""; }
 
 function socialUrl(base, v) {
