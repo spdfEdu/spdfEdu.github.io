@@ -22,7 +22,7 @@
   ];
   var LABEL = {}; FIELDS.forEach(function (f) { LABEL[f[0]] = f[1]; });
 
-  var st = { token: null, list: [], roles: [], owners: [], tab: "approvals", q: "", year: "", edit: null, merge: null, busy: false, note: "", noteBad: false };
+  var st = { role: null, isAdmin: false, photos: [], pcounts: { new: 0, approved: 0, rejected: 0 }, pf: "new", pbatch: "", token: null, list: [], roles: [], owners: [], tab: "approvals", q: "", year: "", edit: null, merge: null, busy: false, note: "", noteBad: false };
 
   /* ---------- helpers ---------- */
   function h(tag, attrs) {
@@ -84,14 +84,20 @@
   function signOut(msg) { try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} st.token = null; if (window.google && google.accounts) google.accounts.id.disableAutoSelect(); signedOut(typeof msg === "string" ? msg : ""); }
 
   /* ---------- data ---------- */
+  function loadPhotos() {
+    var q = "?status=" + (st.pf === "all" ? "" : st.pf) + (st.pbatch ? "&batch=" + st.pbatch : "");
+    return api("/api/review/gallery" + q).then(function (r) { st.photos = r.photos; st.pcounts = r.counts; });
+  }
   function load(keep) {
     if (!keep) show(h("div", { class: "ja-card ja-center" }, h("p", { class: "ja-muted", text: "Loading..." })));
-    return Promise.all([api("/api/admin/list"), api("/api/admin/roles")]).then(function (r) {
-      st.list = r[0].members; st.roles = r[1].roles; st.owners = r[1].owners;
-      draw();
-    }).catch(function (e) {
+    return api("/api/me").then(function (me) {
+      st.role = me.role; st.isAdmin = !!me.isAdmin;
+      if (!me.isAdmin && me.role !== "core") throw new Error("Admins only");
+      if (!st.isAdmin) { st.list = []; st.roles = []; st.owners = []; st.tab = "photos"; return; } // core members only review photos
+      return Promise.all([api("/api/admin/list"), api("/api/admin/roles")]).then(function (r) { st.list = r[0].members; st.roles = r[1].roles; st.owners = r[1].owners; });
+    }).then(loadPhotos).then(draw).catch(function (e) {
       if (e.message === "expired") return;
-      if (/Admins only/.test(e.message)) return show(h("div", { class: "ja-card" }, h("h2", { text: "Admins only" }), h("p", { class: "ja-muted", text: "This Gmail is not on the admin list." }), h("button", { class: "ja-btn", type: "button", text: "Sign out", onclick: function () { signOut(); } })));
+      if (/Admins only/.test(e.message)) return show(h("div", { class: "ja-card" }, h("h2", { text: "Admins only" }), h("p", { class: "ja-muted", text: "This Gmail is not on the admin or core member list." }), h("button", { class: "ja-btn", type: "button", text: "Sign out", onclick: function () { signOut(); } })));
       show(h("div", { class: "ja-card" }, h("p", { class: "ja-msg ja-bad", text: e.message })));
     });
   }
@@ -115,15 +121,43 @@
         h("b", { text: count === null ? "" : String(count) }), h("span", { text: label }));
     }
     var tabs = h("div", { class: "ja-sum" },
-      tab("approvals", "Approvals", pend.length), tab("members", "Edit members", st.list.filter(function (m) { return m.status === "approved"; }).length),
-      tab("core", "Core Members", ofRole("core").length), tab("admins", "Admins", st.owners.length + ofRole("admin").length));
+      st.isAdmin ? tab("approvals", "Approvals", pend.length) : null, st.isAdmin ? tab("members", "Edit members", st.list.filter(function (m) { return m.status === "approved"; }).length) : null,
+      tab("photos", "Photos", st.pcounts.new),
+      st.isAdmin ? tab("core", "Core Members", ofRole("core").length) : null, st.isAdmin ? tab("admins", "Admins", st.owners.length + ofRole("admin").length) : null);
     var toastEl = h("p", { id: "ja-toast", class: "ja-toast", role: "status", hidden: !st.note, text: st.note }); if (st.note) toastEl.className = "ja-toast " + (st.noteBad ? "ja-bad" : "ja-ok");
     var body;
     if (st.edit) body = editor(st.edit);
+    else if (st.tab === "photos") body = photosTab();
     else if (st.tab === "approvals") body = approvals(pend);
     else if (st.tab === "members") body = everyone();
     else body = rolesTab(st.tab === "core" ? "core" : "admin");
     show(h("div", { class: "ja-wrap" }, top, h("h2", { text: "Alumni admin" }), tabs, toastEl, body));
+  }
+
+  // choose which uploaded photos join the batch slider
+  function photosTab() {
+    var chips = h("div", { class: "ja-pf" });
+    [["new", "To review", st.pcounts.new], ["approved", "In slider", st.pcounts.approved], ["rejected", "Not selected", st.pcounts.rejected], ["all", "All", st.pcounts.new + st.pcounts.approved + st.pcounts.rejected]].forEach(function (f) {
+      chips.appendChild(h("button", { class: "ja-chipbtn" + (st.pf === f[0] ? " ja-on" : ""), type: "button", onclick: function () { st.pf = f[0]; loadPhotos().then(draw); } }, f[1] + " (" + f[2] + ")"));
+    });
+    var sel = h("select", { class: "ja-input", "aria-label": "Batch", onchange: function (e) { st.pbatch = e.target.value; loadPhotos().then(draw); } }, h("option", { value: "", text: "All batches" }),
+      YEARS.slice().reverse().map(function (y) { return h("option", { value: y, text: "Batch " + y, selected: y === st.pbatch }); }));
+    var wrap = h("div", null, h("p", { class: "ja-muted ja-pnote", text: "Every uploaded photo already shows on its owner's profile. Add the best ones, group photos first, to the batch slider." }), chips, h("div", { class: "ja-filters ja-pbatch" }, sel));
+    if (!st.photos.length) { wrap.appendChild(h("p", { class: "ja-empty", text: "No photos here." })); return wrap; }
+    var grid = h("div", { class: "ja-pgrid" });
+    st.photos.forEach(function (p) {
+      var label = p.status === "approved" ? "In slider" : p.status === "rejected" ? "Not selected" : "New";
+      var tile = h("div", { class: "ja-ph" },
+        h("a", { href: p.url, target: "_blank", rel: "noopener", class: "ja-phimg" }, h("img", { src: p.url, alt: "", loading: "lazy" })),
+        h("div", { class: "ja-phmeta" }, h("b", { text: p.name }), h("span", { class: "ja-muted", text: "Batch " + p.batch }), h("span", { class: "ja-chip ja-alt ja-st-" + p.status, text: label })),
+        h("div", { class: "ja-actions" },
+          p.status !== "approved" ? h("button", { class: "ja-btn ja-primary", type: "button", text: "Add to slider", onclick: function () { act("Adding", function () { return api("/api/review/gallery/" + p.id + "/approve", { method: "POST" }).then(function () { return "Added to the " + p.batch + " slider."; }); }); } }) : null,
+          p.status !== "rejected" ? h("button", { class: "ja-btn", type: "button", text: p.status === "approved" ? "Remove from slider" : "Not selected", onclick: function () { act("Saving", function () { return api("/api/review/gallery/" + p.id + "/reject", { method: "POST" }).then(function () { return "Saved."; }); }); } }) : null,
+          st.isAdmin ? h("button", { class: "ja-btn ja-danger", type: "button", text: "Delete", onclick: function () { if (confirm("Delete this photo for good?")) act("Deleting", function () { return api("/api/review/gallery/" + p.id, { method: "DELETE" }).then(function () { return "Photo deleted."; }); }); } }) : null));
+      grid.appendChild(tile);
+    });
+    wrap.appendChild(grid);
+    return wrap;
   }
 
   function field(label, text) { return h("div", { class: "ja-kv" }, h("span", { class: "ja-k", text: label }), h("span", { class: "ja-v", text: text })); }
