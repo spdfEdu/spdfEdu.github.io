@@ -52,12 +52,15 @@
     : fetchBatch("public").then(function (j) { return { j: j, level: "public" }; });
 
   first.then(function (r) {
+    window.JNV_SLIDES = r.j.slides || []; // photos approved for the batch slider
+    if (r.level === "public") { try { localStorage.setItem("jnv-slides-" + year, JSON.stringify(window.JNV_SLIDES)); } catch (e) {} }
     if (r.j.entries && r.j.entries.length) {
       use(r.j.entries, r.level);
       if (r.level === "public") { try { localStorage.setItem(cacheKey, JSON.stringify(r.j.entries)); } catch (e) {} }
     }
   }).catch(function () {
     try { var c = JSON.parse(localStorage.getItem(cacheKey)); if (c && c.length) use(c, "public"); } catch (e) {}
+    try { window.JNV_SLIDES = JSON.parse(localStorage.getItem("jnv-slides-" + year)) || []; } catch (e) { window.JNV_SLIDES = []; }
   }).then(function () {
     // who is signed in (used to mark their own profile and show Edit)
     if (!tok) return;
